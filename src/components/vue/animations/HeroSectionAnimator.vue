@@ -314,9 +314,7 @@ watch(
   () => animationState.elementsReady,
   (isReady) => {
     if (isReady) {
-      console.log(
-        "[HeroSectionAnimator] Elements populated and ready for animations",
-      );
+      // Elements are ready
     }
   },
 );

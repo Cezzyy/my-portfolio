@@ -33,10 +33,7 @@ const populateElements = () => {
   if (!section) {
     if (animationState.retryCount < animationState.maxRetries) {
       animationState.retryCount++;
-      console.warn(`[AboutSectionAnimator] About section not found, retry ${animationState.retryCount}/${animationState.maxRetries}`);
       setTimeout(populateElements, 100);
-    } else {
-      console.error('[AboutSectionAnimator] About section not found after max retries');
     }
     return;
   }
@@ -55,10 +52,7 @@ const populateElements = () => {
   } else {
     if (animationState.retryCount < animationState.maxRetries) {
       animationState.retryCount++;
-      console.warn(`[AboutSectionAnimator] Elements not ready, retry ${animationState.retryCount}/${animationState.maxRetries}`);
       setTimeout(populateElements, 100);
-    } else {
-      console.error('[AboutSectionAnimator] Elements not ready after max retries');
     }
   }
 };
@@ -66,7 +60,6 @@ const populateElements = () => {
 // Initialize animations using reactive elements
 const initAnimations = () => {
   if (!animationState.elementsReady || !allElementsAvailable.value) {
-    console.warn('[AboutSectionAnimator] Cannot init animations, elements not ready');
     return;
   }
 
@@ -77,21 +70,19 @@ const initAnimations = () => {
   fadeInUp('.about-underline', { start: 'top 75%' });
   fadeInLeft('.about-content');
   fadeInRight('.profile-image');
-
-  console.log('[AboutSectionAnimator] Animations initialized successfully');
 };
 
 // Watch for elements ready state
 watch(() => animationState.elementsReady, (isReady) => {
   if (isReady) {
-    console.log('[AboutSectionAnimator] All elements populated and ready for animations');
+    // Elements are ready
   }
 });
 
 // Watch all elements availability
 watch(allElementsAvailable, (available) => {
   if (available) {
-    console.log('[AboutSectionAnimator] All required elements are now available');
+    // All elements are available
   }
 });
 
