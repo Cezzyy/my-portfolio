@@ -1,8 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
+import Header from '../components/astro/Header.astro';
+import Hero from '../components/astro/Hero.astro';
+// import AboutSection from '../components/astro/AboutSection.astro';
 ---
 
 <Layout title="Portfolio - Home" description="Welcome to my portfolio showcasing my work and projects">
-  <Hero />
+  <Header />
+  <main id="home">
+    <Hero />
+    <!-- <AboutSection /> -->
+  </main>
 </Layout>

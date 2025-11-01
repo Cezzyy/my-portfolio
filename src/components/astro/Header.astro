@@ -1,0 +1,74 @@
+---
+const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Contact", href: "#contact" },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-onyx/80 backdrop-blur-md border-b border-hooker-green/20">
+  <nav class="max-w-7xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-gradient-to-br from-aquamarine to-emerald rounded-lg flex items-center justify-center">
+          <span class="text-onyx font-bold text-xl">JC</span>
+        </div>
+        <span class="text-celadon text-xl font-semibold">Portfolio</span>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-celadon-700 hover:text-aquamarine transition-colors duration-300 font-medium relative group"
+          >
+            {item.name}
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-aquamarine transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        ))}
+      </div>
+
+      <button
+        id="mobile-menu-button"
+        class="md:hidden text-celadon hover:text-aquamarine transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden pt-4 pb-2 space-y-3"
+    >
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block text-celadon-700 hover:text-aquamarine transition-colors duration-300 font-medium py-2"
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  const menuLinks = mobileMenu?.querySelectorAll('a');
+  menuLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>

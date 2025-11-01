@@ -1,0 +1,441 @@
+---
+import abstractEnvelope from "../../assets/abstract-envelope.svg";
+import { getEntry } from 'astro:content';
+
+const personalInfo = await getEntry('info', 'personal');
+if (!personalInfo) {
+    throw new Error('Personal information not found');
+}
+const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
+---
+
+<section
+    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-onyx"
+>
+    <!-- Background SVG -->
+    <div class="absolute inset-0">
+        <img
+            src={abstractEnvelope.src}
+            alt=""
+            class="w-full h-full object-cover"
+        />
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-onyx/50 via-transparent to-hooker-green-900/60"></div>
+
+    <!-- Floating Geometric Shapes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 mt-16">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <!-- Left Column - Text Content -->
+            <div class="text-left space-y-6 hero-content">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight animate-fade-in-delay-1">
+                    <span class="block text-celadon-800 mb-2">Hello, I'm</span>
+                    <span class="block bg-gradient-to-r from-emerald via-aquamarine to-celadon bg-clip-text text-transparent">
+                        {name.split(' ')[0]} {name.split(' ')[1]}
+                    </span>
+                    <span class="block bg-gradient-to-r from-celadon via-emerald to-aquamarine bg-clip-text text-transparent">
+                        {name.split(' ')[2]}
+                    </span>
+                </h1>
+
+                <div class="flex items-center gap-3 text-2xl md:text-3xl text-celadon-700 animate-fade-in-delay-2">
+                    <span>I'm a</span>
+                    <span class="typing-text font-semibold text-aquamarine"></span>
+                </div>
+
+                <div class="flex items-center gap-3 text-lg md:text-xl text-celadon-800 animate-fade-in-delay-3">
+                    <svg class="w-5 h-5 text-aquamarine" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>{location}</span>
+                </div>
+
+                <p class="text-lg md:text-xl text-celadon-800 max-w-xl leading-relaxed animate-fade-in-delay-4">
+                    {goal}. Currently focusing on <span class="text-aquamarine font-semibold">{currentFocus.join(', ')}</span>.
+                </p>
+
+                <div class="flex flex-wrap gap-4 pt-6 animate-fade-in-delay-5">
+                    <a
+                        href="#projects"
+                        class="group px-8 py-4 bg-gradient-to-r from-aquamarine to-emerald text-onyx font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-aquamarine/30 relative overflow-hidden"
+                    >
+                        <span class="relative z-10">View My Work</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-emerald to-aquamarine opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                    <a
+                        href="#contact"
+                        class="px-8 py-4 bg-transparent border-2 border-celadon text-celadon font-semibold rounded-lg hover:bg-celadon hover:text-onyx transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                    >
+                        <span class="relative z-10">Get In Touch</span>
+                    </a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex gap-4 pt-4 animate-fade-in-delay-6">
+                    <a href="#" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column - Code Editor -->
+            <div class="hidden md:flex items-center justify-center hero-visual animate-fade-in-delay-6">
+                <div class="code-editor w-full max-w-lg">
+                    <!-- Editor Header -->
+                    <div class="editor-header flex items-center justify-between px-4 py-3 bg-black/90 rounded-t-xl border-b border-celadon/10">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-emerald animate-pulse-slow"></div>
+                            <div class="w-3 h-3 rounded-full bg-aquamarine animate-pulse-slow" style="animation-delay: 0.2s;"></div>
+                            <div class="w-3 h-3 rounded-full bg-celadon animate-pulse-slow" style="animation-delay: 0.4s;"></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-celadon-700 text-sm font-mono">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>personal.ts</span>
+                        </div>
+                    </div>
+
+                    <!-- Editor Content -->
+                    <div class="editor-content bg-black p-6 rounded-b-xl font-mono text-sm overflow-hidden relative">
+                        <!-- Line Numbers -->
+                        <div class="flex gap-4">
+                            <div class="line-numbers text-celadon-600 select-none">
+                                <div class="typing-line">1</div>
+                                <div class="typing-line">2</div>
+                                <div class="typing-line">3</div>
+                                <div class="typing-line">4</div>
+                                <div class="typing-line">5</div>
+                                <div class="typing-line">6</div>
+                                <div class="typing-line">7</div>
+                                <div class="typing-line">8</div>
+                                <div class="typing-line">9</div>
+                                <div class="typing-line">10</div>
+                                <div class="typing-line">11</div>
+                                <div class="typing-line">12</div>
+                            </div>
+
+                            <!-- Code Content -->
+                            <div class="code-content flex-1 text-celadon-900">
+                                <div class="typing-line"><span class="text-emerald">const</span> <span class="text-aquamarine">developer</span> = &#123;</div>
+                                <div class="typing-line pl-4"><span class="text-celadon-700">name:</span> <span class="text-celadon">"{name}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-celadon-700">status:</span> <span class="text-celadon">"{status}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-celadon-700">location:</span> <span class="text-celadon">"{location}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-celadon-700">goal:</span> <span class="text-celadon">"{goal}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-celadon-700">focus:</span> [</div>
+                                {currentFocus.map((tech, index) => (
+                                    <div class="typing-line pl-8">
+                                        <span class="text-celadon">"{tech}"</span>{index < currentFocus.length - 1 ? ',' : ''}
+                                    </div>
+                                ))}
+                                <div class="typing-line pl-4">],</div>
+                                <div class="typing-line pl-4"><span class="text-celadon-700">motto:</span> <span class="text-celadon">"{motto.slice(0, 40)}..."</span></div>
+                                <div class="typing-line">&#125;;</div>
+                            </div>
+                        </div>
+
+                        <!-- Cursor -->
+                        <div class="cursor"></div>
+                    </div>
+
+                    <!-- Editor Footer -->
+                    <div class="editor-footer flex items-center justify-between px-4 py-2 bg-black/80 rounded-b-lg text-xs font-mono text-celadon-700 border-t border-celadon/10">
+                        <div class="flex items-center gap-4">
+                            <span>TypeScript</span>
+                            <span>UTF-8</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-emerald animate-pulse"></div>
+                            <span>Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div class="flex flex-col items-center gap-2">
+            <span class="text-aquamarine text-sm">Scroll Down</span>
+            <svg
+                class="w-6 h-6 text-aquamarine"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Code editor typing animation
+        const typingLines = document.querySelectorAll('.typing-line');
+        
+        typingLines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.add('typed');
+            }, index * 150);
+        });
+
+        // Typing text animation for roles
+        const typingText = document.querySelector('.typing-text');
+        const roles = [
+            'Computer Science Student',
+            'Aspiring Mobile Developer',
+            'Flutter Enthusiast',
+            'Full Stack Developer',
+            'Problem Solver'
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            if (!typingText) return;
+            
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        setTimeout(type, 1000);
+    });
+</script>
+
+<style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-delay-1 {
+        animation: fade-in 0.8s ease-out 0.2s both;
+    }
+
+    .animate-fade-in-delay-2 {
+        animation: fade-in 0.8s ease-out 0.4s both;
+    }
+
+    .animate-fade-in-delay-3 {
+        animation: fade-in 0.8s ease-out 0.6s both;
+    }
+
+    .animate-fade-in-delay-4 {
+        animation: fade-in 0.8s ease-out 0.8s both;
+    }
+
+    .animate-fade-in-delay-5 {
+        animation: fade-in 0.8s ease-out 1s both;
+    }
+
+    .animate-fade-in-delay-6 {
+        animation: fade-in 0.8s ease-out 1.4s both;
+    }
+
+    /* Code Editor Styles */
+    .code-editor {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(174, 220, 192, 0.1);
+        border-radius: 0.75rem;
+        overflow: hidden;
+    }
+
+    .typing-line {
+        opacity: 0;
+        transform: translateX(-10px);
+        line-height: 1.8;
+    }
+
+    .typing-line.typed {
+        opacity: 1;
+        transform: translateX(0);
+        animation: fadeInSlide 0.3s ease-out forwards;
+    }
+
+    @keyframes fadeInSlide {
+        from {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .cursor {
+        position: absolute;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 8px;
+        height: 16px;
+        background: #38e4ae;
+        animation: blink-cursor 1s infinite;
+    }
+
+    @keyframes blink-cursor {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+
+    @keyframes pulse-slow {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+    }
+
+    .animate-pulse-slow {
+        animation: pulse-slow 3s ease-in-out infinite;
+    }
+
+    /* Floating Shapes */
+    .floating-shape {
+        position: absolute;
+        background: linear-gradient(135deg, rgba(56, 228, 174, 0.1), rgba(123, 211, 137, 0.1));
+        border-radius: 50%;
+        animation: float 20s infinite ease-in-out;
+    }
+
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+        left: 5%;
+        animation-delay: 0s;
+    }
+
+    .shape-2 {
+        width: 200px;
+        height: 200px;
+        top: 60%;
+        right: 10%;
+        animation-delay: 2s;
+    }
+
+    .shape-3 {
+        width: 150px;
+        height: 150px;
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 4s;
+    }
+
+    .shape-4 {
+        width: 250px;
+        height: 250px;
+        top: 30%;
+        right: 20%;
+        animation-delay: 1s;
+    }
+
+    .shape-5 {
+        width: 180px;
+        height: 180px;
+        bottom: 10%;
+        right: 5%;
+        animation-delay: 3s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-30px) rotate(180deg);
+        }
+    }
+
+    /* Typing Cursor for roles */
+    .typing-text::after {
+        content: '|';
+        animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+
+    /* Social Icons */
+    .social-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: rgba(96, 116, 102, 0.2);
+        border: 1px solid rgba(174, 220, 192, 0.2);
+        color: #aedcc0;
+        transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+        background: linear-gradient(135deg, #38e4ae, #7bd389);
+        color: #343e3d;
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(56, 228, 174, 0.3);
+    }
+
+</style>
