@@ -1,0 +1,83 @@
+---
+import abstractEnvelope from "../assets/abstract-envelope.svg";
+---
+
+<section
+    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-onyx"
+>
+    <div class="absolute inset-0">
+        <img
+            src={abstractEnvelope.src}
+            alt=""
+            class="w-full h-full object-cover"
+        />
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">
+        <div class="space-y-8">
+            <h1
+                class="text-6xl md:text-8xl font-bold text-celadon animate-fade-in"
+            >
+                <span class="block mb-4">Hello, I'm</span>
+                <span
+                    class="bg-gradient-to-r from-emerald via-aquamarine to-celadon bg-clip-text text-transparent"
+                >
+                    John Cez Casupanan
+                </span>
+            </h1>
+
+            <p class="text-xl md:text-2xl text-celadon-800 max-w-2xl mx-auto">
+                First draft of the Portfolio Design
+            </p>
+
+            <div class="flex flex-wrap gap-4 justify-center pt-8">
+                <a
+                    href="#projects"
+                    class="px-8 py-3 bg-aquamarine text-onyx-100 font-semibold rounded-lg hover:bg-emerald transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-aquamarine/50"
+                >
+                    View My Work
+                </a>
+                <a
+                    href="#contact"
+                    class="px-8 py-3 bg-transparent border-2 border-celadon text-celadon font-semibold rounded-lg hover:bg-celadon hover:text-onyx transition-all duration-300 transform hover:scale-105"
+                >
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+    >
+        <svg
+            class="w-6 h-6 text-aquamarine"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out;
+    }
+</style>
