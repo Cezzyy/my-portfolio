@@ -1,0 +1,152 @@
+---
+import largeTriangles from "../../assets/large-triangles.svg";
+import profilePic from "../../assets/profilepic.webp";
+import { getEntry } from 'astro:content';
+import AboutSectionAnimator from '../vue/animations/AboutSectionAnimator.vue';
+
+const personalInfo = await getEntry('info', 'personal');
+if (!personalInfo) {
+    throw new Error('Personal information not found');
+}
+const { name, status, location, goal, currentFocus, interests, motto } = personalInfo.data;
+---
+
+<AboutSectionAnimator client:load>
+<section id="about" class="relative min-h-screen py-24 overflow-hidden">
+  <!-- Background SVG -->
+  <div class="absolute inset-0">
+    <img
+      src={largeTriangles.src}
+      alt=""
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <!-- Gradient Overlay for better text readability -->
+  <div class="absolute inset-0 bg-gradient-to-b from-onyx/80 via-onyx/70 to-hooker-green-900/80"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="about-title text-5xl md:text-6xl font-bold text-celadon mb-4">
+        About Me
+      </h2>
+      <div class="about-underline w-24 h-1 bg-gradient-to-r from-aquamarine to-emerald mx-auto"></div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <!-- Left Column - Information -->
+      <div class="about-content">
+        <div class="bg-onyx/90 backdrop-blur-lg rounded-2xl p-8 md:p-10 border border-celadon/20 shadow-2xl space-y-6">
+          <div class="mb-8">
+            <h3 class="text-3xl md:text-4xl font-bold text-celadon mb-2">{name}</h3>
+            <p class="text-xl text-aquamarine font-semibold mb-4">{status}</p>
+            <div class="flex items-center gap-2 text-celadon-700 mb-6">
+              <svg class="w-5 h-5 text-aquamarine" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <span class="text-lg">{location}</span>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-celadon-800">
+            <p class="text-lg md:text-xl leading-relaxed">
+              {goal}. Currently exploring the exciting world of cross-platform 
+              development while building my skills across the full stack.
+            </p>
+            
+            <p class="text-lg leading-relaxed italic text-celadon-700">
+              "{motto}"
+            </p>
+          </div>
+
+          <div class="pt-6">
+            <h4 class="text-xl font-bold text-celadon mb-4">Current Focus</h4>
+            <div class="flex flex-wrap gap-3">
+              {currentFocus.map((tech) => (
+                <span class="px-4 py-2 bg-gradient-to-r from-aquamarine/20 to-emerald/20 border border-aquamarine/30 rounded-lg text-celadon-800 font-medium text-sm">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <h4 class="text-xl font-bold text-celadon mb-4">Interests</h4>
+            <ul class="space-y-3">
+              {interests.map((interest) => (
+                <li class="flex items-center gap-3 text-celadon-800 text-lg">
+                  <div class="w-2 h-2 bg-gradient-to-r from-aquamarine to-emerald rounded-full"></div>
+                  <span>{interest}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Profile Picture -->
+      <div class="profile-image flex items-center justify-center">
+        <div class="relative">
+          <!-- Decorative Ring 1 -->
+          <div class="absolute inset-0 rounded-full border-4 border-aquamarine/30 animate-pulse-ring"></div>
+          
+          <!-- Decorative Ring 2 -->
+          <div class="absolute inset-0 rounded-full border-4 border-emerald/20 animate-pulse-ring-delayed" style="animation-delay: 0.5s;"></div>
+          
+          <!-- Profile Picture Container -->
+          <div class="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-gradient shadow-2xl shadow-aquamarine/30">
+            <!-- Gradient Border Effect -->
+            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-aquamarine via-emerald to-celadon p-2">
+              <div class="w-full h-full rounded-full overflow-hidden">
+                <img src={profilePic.src} alt={name} class="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- Corner Accent -->
+          <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-gradient-to-br from-aquamarine to-emerald rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-10 h-10 text-onyx" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</AboutSectionAnimator>
+
+<style>
+  @keyframes pulse-ring {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes pulse-ring-delayed {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.05;
+    }
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-ring-delayed {
+    animation: pulse-ring-delayed 3s ease-in-out infinite;
+  }
+</style>
