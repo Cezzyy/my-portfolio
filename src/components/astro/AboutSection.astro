@@ -20,6 +20,7 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
       src={largeTriangles.src}
       alt=""
       class="w-full h-full object-cover"
+      loading="lazy"
     />
   </div>
 
@@ -102,9 +103,9 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
             <!-- Gradient Border Effect -->
             <div class="absolute inset-0 rounded-full bg-gradient-to-br from-aquamarine via-emerald to-celadon p-2">
               <div class="w-full h-full rounded-full overflow-hidden">
-                <Image 
-                  src={profilePic} 
-                  alt={name} 
+                <Image
+                  src={profilePic}
+                  alt={name}
                   class="w-full h-full object-cover"
                   loading="lazy"
                   width={384}

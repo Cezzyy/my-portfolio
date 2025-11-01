@@ -206,8 +206,8 @@ const initAnimations = () => {
           gsap.to(line, {
             opacity: 1,
             x: 0,
-            duration: 0.3,
-            delay: index * 0.15,
+            duration: 0.2,
+            delay: index * 0.08,
             ease: "power2.out",
           });
         });
@@ -243,8 +243,8 @@ const initAnimations = () => {
             {
               opacity: 1,
               x: 0,
-              duration: 0.3,
-              delay: index * 0.15,
+              duration: 0.2,
+              delay: index * 0.08,
               ease: "power2.out",
             },
           );
