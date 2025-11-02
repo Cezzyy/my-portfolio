@@ -1,0 +1,182 @@
+---
+import flatMountains from "../../assets/flat-mountains.svg";
+import ProjectsSectionAnimator from '../vue/animations/ProjectsSectionAnimator.vue';
+import { getCollection } from 'astro:content';
+import type { SimpleIcon } from 'simple-icons';
+import { siFlutter, siSupabase, siPython, siSharp, siDotnet, siGithub } from 'simple-icons';
+
+// Get all projects from MDX files and sort by order
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+// Icon mapping
+const iconMap: Record<string, SimpleIcon> = {
+  flutter: siFlutter,
+  supabase: siSupabase,
+  python: siPython,
+  sharp: siSharp,
+  dotnet: siDotnet,
+  github: siGithub,
+};
+
+// Map tech icon names to simple-icons
+const getIconFromName = (iconName: string): SimpleIcon | null => {
+  return iconMap[iconName.toLowerCase()] || null;
+};
+
+// Transform projects data from MDX
+const projects = sortedProjects.map((project) => ({
+  title: project.data.title,
+  description: project.data.description,
+  tags: project.data.tags,
+  status: project.data.status,
+  icons: project.data.techIcons
+    .map(iconName => getIconFromName(iconName))
+    .filter((icon): icon is SimpleIcon => icon !== null),
+  demoUrl: project.data.demoUrl || null,
+  demoLabel: project.data.demoLabel || 'View Demo',
+  demoNote: project.data.demoNote || null,
+  githubUrl: project.data.githubUrl || null
+}));
+---
+
+<ProjectsSectionAnimator client:load>
+<section id="projects" class="relative min-h-screen py-24 overflow-hidden">
+  <!-- Background SVG -->
+  <div class="absolute inset-0">
+    <img
+      src={flatMountains.src}
+      alt=""
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-20">
+      <h2 class="projects-title text-5xl md:text-6xl font-bold text-celadon mb-4">
+        My Projects
+      </h2>
+      <div class="projects-underline w-24 h-1 bg-gradient-to-r from-aquamarine to-emerald mx-auto mb-6"></div>
+      <p class="projects-subtitle text-xl text-celadon-700 max-w-2xl mx-auto">
+        A showcase of my recent work and upcoming ventures
+      </p>
+    </div>
+
+    <!-- Projects Drawer Layout -->
+    <div class="space-y-12">
+      {projects.map((project, index) => (
+        <div
+          class={`project-card project-card-${index}`}
+          data-status={project.status}
+        >
+          <div class={`group relative bg-onyx/90 backdrop-blur-lg rounded-3xl border border-celadon/20 shadow-2xl overflow-hidden transition-all duration-500 hover:border-aquamarine/40 hover:shadow-aquamarine/20 ${index % 2 === 0 ? '' : ''}`}>
+            <div class={`grid md:grid-cols-2 gap-0 min-h-[400px] ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
+
+              {/* Project Image/Visual - Alternates sides */}
+              <div class={`relative overflow-hidden ${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
+                <div class="absolute inset-0 flex items-center justify-center p-8">
+                  <div class="grid grid-cols-2 gap-8 md:gap-12">
+                    {project.icons.map((icon) => (
+                      <div class="flex items-center justify-center">
+                        <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-20 h-20 md:w-24 md:h-24 transition-colors duration-300" style={`color: #${icon.hex}`}>
+                          <path d={icon.path} />
+                        </svg>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Status Badge */}
+                {project.status === 'upcoming' && (
+                  <div class="absolute top-6 right-6 z-20 px-5 py-2 bg-gradient-to-r from-amber-500/95 to-orange-500/95 rounded-full text-sm font-bold text-onyx uppercase tracking-wider shadow-lg">
+                    Coming Soon
+                  </div>
+                )}
+              </div>
+
+              {/* Project Content - Alternates sides */}
+              <div class={`flex flex-col justify-center p-8 md:p-12 ${index % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}`}>
+                <div class="space-y-6">
+                  {/* Project Number */}
+                  <div class="inline-block">
+                    <span class="text-6xl font-bold text-aquamarine/20">0{index + 1}</span>
+                  </div>
+
+                  <h3 class="text-3xl md:text-4xl font-bold text-celadon group-hover:text-aquamarine transition-colors duration-300">
+                    {project.title}
+                  </h3>
+
+                  <p class="text-celadon-700 text-lg leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div class="flex flex-wrap gap-3">
+                    {project.tags.map((tag) => (
+                      <span class="px-4 py-2 bg-gradient-to-r from-aquamarine/10 to-emerald/10 border border-aquamarine/30 rounded-lg text-celadon-800 font-medium">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  {project.status === 'completed' && (
+                    <div class="pt-4">
+                      <div class="flex gap-4">
+                        {project.demoUrl === '#' ? (
+                          <button
+                            disabled
+                            class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-aquamarine/40 to-emerald/40 text-onyx/60 font-bold rounded-lg cursor-not-allowed opacity-60"
+                          >
+                            <span>{project.demoLabel}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                          </button>
+                        ) : (
+                          <a
+                            href={project.demoUrl}
+                            class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-aquamarine to-emerald text-onyx font-bold rounded-lg hover:shadow-lg hover:shadow-aquamarine/30 transition-all duration-300 hover:-translate-y-0.5"
+                          >
+                            <span>{project.demoLabel}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                          </a>
+                        )}
+                        <a
+                          href={project.githubUrl}
+                          class="flex items-center gap-2 px-6 py-3 border-2 border-celadon/30 text-celadon rounded-lg hover:border-aquamarine hover:bg-aquamarine/10 transition-all duration-300 hover:-translate-y-0.5"
+                          aria-label="View source code"
+                        >
+                          <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                            <path d={siGithub.path} />
+                          </svg>
+                          <span class="hidden sm:inline">Code</span>
+                        </a>
+                      </div>
+                      {project.demoNote && (
+                        <p class="text-celadon-700 text-sm mt-3 font-medium">{project.demoNote}</p>
+                      )}
+                    </div>
+                  )}
+
+                  {project.status === 'upcoming' && (
+                    <div class="pt-4">
+                      <div class="px-6 py-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-2 border-amber-500/30 rounded-lg">
+                        <p class="text-celadon-700 font-medium text-lg">Currently in development</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+</ProjectsSectionAnimator>

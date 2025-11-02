@@ -15,6 +15,24 @@ const infoCollection = defineCollection({
   }),
 });
 
+const projectsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    techIcons: z.array(z.string()),
+    status: z.enum(['completed', 'upcoming', 'in-progress']),
+    demoUrl: z.string().nullable().optional(),
+    demoLabel: z.string().optional(),
+    demoNote: z.string().optional(),
+    githubUrl: z.string().nullable().optional(),
+    featured: z.boolean().default(false),
+    order: z.number(),
+  }),
+});
+
 export const collections = {
   'info': infoCollection,
+  'projects': projectsCollection,
 };
