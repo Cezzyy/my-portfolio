@@ -76,14 +76,14 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                 <div class="hero-buttons flex flex-wrap gap-4 pt-6">
                     <a
                         href="#projects"
-                        class="group px-8 py-4 bg-gradient-to-r from-forest-green to-emerald text-deep-forest font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-forest-green/30 relative overflow-hidden"
+                        class="group px-8 py-4 bg-gradient-to-r from-forest-green-700 to-medium-jungle-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-forest-green-700/30 relative overflow-hidden"
                     >
                         <span class="relative z-10">View My Work</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-emerald to-forest-green opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-medium-jungle-700 to-forest-green-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a
                         href="#contact"
-                        class="px-8 py-4 bg-transparent border-2 border-turf-green text-turf-green font-semibold rounded-lg hover:bg-turf-green hover:text-deep-forest transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                        class="px-8 py-4 bg-transparent border-2 border-medium-jungle-300 text-medium-jungle-300 font-semibold rounded-lg hover:bg-medium-jungle-300 hover:text-deep-forest transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                     >
                         <span class="relative z-10">Get In Touch</span>
                     </a>
@@ -332,17 +332,17 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
         align-items: center;
         justify-content: center;
         border-radius: 12px;
-        background: rgba(71, 184, 86, 0.2);
-        border: 1px solid rgba(36, 219, 134, 0.2);
-        color: #24db86;
+        background: rgba(145, 212, 154, 0.15);
+        border: 2px solid #91d49a;
+        color: #91d49a;
         transition: all 0.3s ease;
     }
 
     .social-icon:hover {
-        background: linear-gradient(135deg, #39c647, #4bb462);
-        color: #11ee83;
+        background: #91d49a;
+        color: #0f2414;
         transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(57, 198, 71, 0.3);
+        box-shadow: 0 8px 16px rgba(145, 212, 154, 0.4);
     }
 
     /* Initial states for GSAP animations */
