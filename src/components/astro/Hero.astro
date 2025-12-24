@@ -42,12 +42,12 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
     </div>
 
     <!-- Main Content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 mt-16">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 mt-8 sm:mt-16">
+        <div class="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
             <!-- Left Column - Text Content -->
-            <div class="text-left space-y-6 hero-content">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                    <span class="block text-turf-green-200 mb-2">Hello, I'm</span>
+            <div class="text-left space-y-4 sm:space-y-6 hero-content">
+                <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+                    <span class="block text-turf-green-200 mb-1 sm:mb-2">Hello, I'm</span>
                     <span class="block bg-gradient-to-r from-emerald via-forest-green to-turf-green bg-clip-text text-transparent">
                         {name.split(' ')[0]} {name.split(' ')[1]}
                     </span>
@@ -56,41 +56,41 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                     </span>
                 </h1>
 
-                <div class="hero-subtitle flex items-center gap-3 text-2xl md:text-3xl text-turf-green-300">
+                <div class="hero-subtitle flex items-center gap-2 sm:gap-3 text-lg sm:text-2xl md:text-3xl text-turf-green-300">
                     <span>I'm a</span>
                     <span class="typing-text font-semibold text-forest-green"></span>
                 </div>
 
-                <div class="hero-location flex items-center gap-3 text-lg md:text-xl text-turf-green-200">
-                    <svg class="w-5 h-5 text-forest-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="hero-location flex items-center gap-2 sm:gap-3 text-base sm:text-lg md:text-xl text-turf-green-200">
+                    <svg class="w-4 sm:w-5 h-4 sm:h-5 text-forest-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>{location}</span>
                 </div>
 
-                <p class="hero-description text-lg md:text-xl text-turf-green-200 max-w-xl leading-relaxed">
+                <p class="hero-description text-sm sm:text-base md:text-lg text-turf-green-200 max-w-xl leading-relaxed">
                     {goal}. Currently focusing on <span class="text-forest-green font-semibold">{currentFocus.join(', ')}</span>.
                 </p>
 
-                <div class="hero-buttons flex flex-wrap gap-4 pt-6">
+                <div class="hero-buttons flex flex-wrap gap-3 sm:gap-4 pt-4 sm:pt-6">
                     <a
                         href="#projects"
-                        class="group px-8 py-4 bg-gradient-to-r from-forest-green-700 to-medium-jungle-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-forest-green-700/30 relative overflow-hidden"
+                        class="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-forest-green-700 to-medium-jungle-700 text-white font-semibold text-sm sm:text-base rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-forest-green-700/30 relative overflow-hidden"
                     >
                         <span class="relative z-10">View My Work</span>
                         <div class="absolute inset-0 bg-gradient-to-r from-medium-jungle-700 to-forest-green-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a
                         href="#contact"
-                        class="px-8 py-4 bg-transparent border-2 border-medium-jungle-300 text-medium-jungle-300 font-semibold rounded-lg hover:bg-medium-jungle-300 hover:text-deep-forest transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                        class="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-medium-jungle-300 text-medium-jungle-300 font-semibold text-sm sm:text-base rounded-lg hover:bg-medium-jungle-300 hover:text-deep-forest transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                     >
                         <span class="relative z-10">Get In Touch</span>
                     </a>
                 </div>
 
                 <!-- Social Links -->
-                <div class="hero-social flex gap-4 pt-4">
+                <div class="hero-social flex gap-3 sm:gap-4 pt-4 sm:pt-6">
                     <a href="https://github.com/Cezzyy" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub Profile">
                         <svg class="w-6 h-6" fill="currentColor" role="img" viewBox="0 0 24 24">
                             <path d={siGithub.path} />
@@ -110,7 +110,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
             </div>
 
             <!-- Right Column - Code Editor -->
-            <div class="hidden md:flex items-center justify-center hero-visual animate-fade-in-delay-6">
+            <div class="mt-8 md:mt-0 md:flex items-center justify-center hero-visual animate-fade-in-delay-6 hidden md:flex">
                 <div class="code-editor w-full max-w-lg">
                     <!-- Editor Header -->
                     <div class="editor-header flex items-center justify-between px-4 py-3 bg-black/90 rounded-t-xl border-b border-turf-green/10">

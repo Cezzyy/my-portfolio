@@ -27,60 +27,60 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
   <!-- Gradient Overlay for better text readability -->
   <div class="absolute inset-0 bg-gradient-to-b from-deep-forest/80 via-deep-forest/70 to-medium-jungle-900/80"></div>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-6">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
     <!-- Section Header -->
-    <div class="text-center mb-16">
-      <h2 class="about-title text-5xl md:text-6xl font-bold text-turf-green-50 mb-4">
+    <div class="text-center mb-12 sm:mb-16">
+      <h2 class="about-title text-3xl sm:text-5xl md:text-6xl font-bold text-turf-green-50 mb-3 sm:mb-4">
         About Me
       </h2>
-      <div class="about-underline w-24 h-1 bg-gradient-to-r from-forest-green to-emerald mx-auto"></div>
+      <div class="about-underline w-20 sm:w-24 h-1 bg-gradient-to-r from-forest-green to-emerald mx-auto"></div>
     </div>
 
     <!-- Main Content Grid -->
-    <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
       <!-- Left Column - Information -->
       <div class="about-content">
-        <div class="bg-deep-forest-950/95 backdrop-blur-lg rounded-2xl p-8 md:p-10 border border-turf-green/20 shadow-2xl space-y-6">
-          <div class="mb-8">
-            <h3 class="text-3xl md:text-4xl font-bold text-turf-green-100 mb-2">{name}</h3>
-            <p class="text-xl text-turf-green-200 font-semibold mb-4">{status}</p>
-            <div class="flex items-center gap-2 text-turf-green-100 mb-6">
-              <svg class="w-5 h-5 text-turf-green-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-deep-forest-950/95 backdrop-blur-lg rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 border border-turf-green/20 shadow-2xl space-y-4 sm:space-y-6">
+          <div class="mb-6 sm:mb-8">
+            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-turf-green-100 mb-1 sm:mb-2">{name}</h3>
+            <p class="text-lg sm:text-xl text-turf-green-200 font-semibold mb-3 sm:mb-4">{status}</p>
+            <div class="flex items-center gap-2 text-turf-green-100 mb-4 sm:mb-6 text-sm sm:text-base">
+              <svg class="w-4 sm:w-5 h-4 sm:h-5 text-turf-green-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
-              <span class="text-lg">{location}</span>
+              <span>{location}</span>
             </div>
           </div>
 
-          <div class="space-y-4 text-turf-green-100">
-            <p class="text-lg md:text-xl leading-relaxed">
+          <div class="space-y-3 sm:space-y-4 text-turf-green-100">
+            <p class="text-base sm:text-lg md:text-xl leading-relaxed">
               {goal}. Currently exploring the exciting world of cross-platform
               development while building my skills across the full stack.
             </p>
 
-            <p class="text-lg leading-relaxed italic text-turf-green-200">
+            <p class="text-sm sm:text-base leading-relaxed italic text-turf-green-200">
               "{motto}"
             </p>
           </div>
 
-          <div class="pt-6">
-            <h4 class="text-xl font-bold text-turf-green-100 mb-4">Current Focus</h4>
-            <div class="flex flex-wrap gap-3">
+          <div class="pt-4 sm:pt-6">
+            <h4 class="text-lg sm:text-xl font-bold text-turf-green-100 mb-3 sm:mb-4">Current Focus</h4>
+            <div class="flex flex-wrap gap-2 sm:gap-3">
               {currentFocus.map((tech) => (
-                <span class="px-4 py-2 bg-gradient-to-r from-forest-green/20 to-emerald/20 border border-forest-green/30 rounded-lg text-turf-green-100 font-medium text-sm">
+                <span class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-forest-green/20 to-emerald/20 border border-forest-green/30 rounded-lg text-turf-green-100 font-medium text-xs sm:text-sm">
                   {tech}
                 </span>
               ))}
             </div>
           </div>
 
-          <div class="pt-6">
-            <h4 class="text-xl font-bold text-turf-green-100 mb-4">Interests</h4>
-            <ul class="space-y-3">
+          <div class="pt-4 sm:pt-6">
+            <h4 class="text-lg sm:text-xl font-bold text-turf-green-100 mb-3 sm:mb-4">Interests</h4>
+            <ul class="space-y-2 sm:space-y-3">
               {interests.map((interest) => (
-                <li class="flex items-center gap-3 text-turf-green-100 text-lg">
-                  <div class="w-2 h-2 bg-gradient-to-r from-forest-green to-emerald rounded-full"></div>
+                <li class="flex items-center gap-2 sm:gap-3 text-turf-green-100 text-base sm:text-lg">
+                  <div class="w-2 h-2 bg-gradient-to-r from-forest-green to-emerald rounded-full flex-shrink-0"></div>
                   <span>{interest}</span>
                 </li>
               ))}
@@ -90,7 +90,7 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
       </div>
 
       <!-- Right Column - Profile Picture -->
-      <div class="profile-image flex items-center justify-center">
+      <div class="profile-image flex items-center justify-center mt-8 md:mt-0">
         <div class="relative">
           <!-- Decorative Ring 1 -->
           <div class="absolute inset-0 rounded-full border-4 border-forest-green/30 animate-pulse-ring"></div>
