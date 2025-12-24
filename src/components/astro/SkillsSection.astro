@@ -1,0 +1,349 @@
+---
+import { Image } from 'astro:assets';
+import abstractEnvelope from "../../assets/abstract-envelope.svg";
+import { getEntry } from 'astro:content';
+import SkillsSectionAnimator from '../vue/animations/SkillsSectionAnimator.vue';
+import type { SimpleIcon } from 'simple-icons';
+import { 
+  siFlutter, siDart, siVuedotjs, siNuxt, siTypescript, siJavascript, siAstro, siTailwindcss, 
+  siHtml5, siGo, siSharp, siNodedotjs, siHono, siExpress, siBun,
+  siPostgresql, siSupabase, siFirebase, siDotnet, siKotlin
+} from 'simple-icons';
+
+const personalInfo = await getEntry('info', 'personal');
+if (!personalInfo) {
+    throw new Error('Personal information not found');
+}
+const { currentFocus } = personalInfo.data;
+
+// Icon mapping
+const iconMap: Record<string, SimpleIcon | null> = {
+  "Flutter": siFlutter,
+  "Dart": siDart,
+  "Vue.js": siVuedotjs,
+  "Nuxt.js": siNuxt,
+  "TypeScript": siTypescript,
+  "JavaScript": siJavascript,
+  "Astro": siAstro,
+  "TailwindCSS": siTailwindcss,
+  "HTML5 & CSS3": siHtml5,
+  "Go": siGo,
+  "C# & .NET 8": siSharp,
+  "Node.js": siNodedotjs,
+  "Hono": siHono,
+  "Express.js": siExpress,
+  "Bun": siBun,
+  "PostgreSQL": siPostgresql,
+  "Supabase": siSupabase,
+  "Firebase": siFirebase,
+  "Kotlin": siKotlin
+};
+
+// Badge color mapping
+const badgeColorMap: Record<string, { bg: string; text: string }> = {
+  "Flutter": { bg: "bg-blue-600", text: "text-white" },
+  "Dart": { bg: "bg-blue-500", text: "text-white" },
+  "Vue.js": { bg: "bg-emerald-500", text: "text-white" },
+  "Nuxt.js": { bg: "bg-green-600", text: "text-white" },
+  "TypeScript": { bg: "bg-blue-700", text: "text-white" },
+  "JavaScript": { bg: "bg-yellow-500", text: "text-black" },
+  "Astro": { bg: "bg-orange-600", text: "text-white" },
+  "TailwindCSS": { bg: "bg-cyan-500", text: "text-white" },
+  "HTML5 & CSS3": { bg: "bg-orange-600", text: "text-white" },
+  "Go": { bg: "bg-cyan-600", text: "text-white" },
+  "C# & .NET 8": { bg: "bg-purple-600", text: "text-white" },
+  "Node.js": { bg: "bg-green-700", text: "text-white" },
+  "Hono": { bg: "bg-orange-600", text: "text-white" },
+  "Express.js": { bg: "bg-gray-800", text: "text-white" },
+  "Bun": { bg: "bg-amber-600", text: "text-white" },
+  "PostgreSQL": { bg: "bg-blue-800", text: "text-white" },
+  "Supabase": { bg: "bg-emerald-600", text: "text-white" },
+  "Firebase": { bg: "bg-yellow-500", text: "text-black" },
+  "Kotlin": { bg: "bg-purple-700", text: "text-white" }
+};
+
+const getBadgeColors = (skillName: string) => {
+  return badgeColorMap[skillName] || { bg: "bg-slate-600", text: "text-white" };
+};
+
+const getIcon = (skillName: string): SimpleIcon | null => {
+  const icon = iconMap[skillName];
+  if (icon !== undefined) return icon;
+  return null;
+};
+
+// Define skill categories based on the content
+const skillCategories = [
+  {
+    title: "Frontend Development",
+    skills: [
+      { name: "Flutter", category: "mobile", isLearning: false },
+      { name: "Dart", category: "language", isLearning: false },
+      { name: "Vue.js", category: "web", isLearning: false },
+      { name: "Nuxt.js", category: "web", isLearning: false },
+      { name: "TypeScript", category: "language", isLearning: false },
+      { name: "JavaScript", category: "language", isLearning: false },
+      { name: "Astro", category: "web", isLearning: false },
+      { name: "TailwindCSS", category: "styling", isLearning: false },
+      { name: "HTML5 & CSS3", category: "web", isLearning: false }
+    ]
+  },
+  {
+    title: "Backend Development", 
+    skills: [
+      { name: "Go", category: "language", isLearning: false },
+      { name: "C# & .NET 8", category: "framework", isLearning: false },
+      { name: "Node.js", category: "runtime", isLearning: false },
+      { name: "Hono", category: "framework", isLearning: false },
+      { name: "Express.js", category: "framework", isLearning: false },
+      { name: "Bun", category: "runtime", isLearning: false }
+    ]
+  },
+  {
+    title: "Database & Services",
+    skills: [
+      { name: "PostgreSQL", category: "database", isLearning: false },
+      { name: "Supabase", category: "service", isLearning: false },
+      { name: "Firebase", category: "service", isLearning: false }
+    ]
+  },
+  {
+    title: "Currently Learning",
+    skills: [
+      { name: "Kotlin", category: "language", isLearning: true }
+    ]
+  }
+];
+---
+
+<SkillsSectionAnimator client:load>
+<section id="skills" class="relative min-h-screen py-24 overflow-hidden">
+  <!-- Background SVG (same as Hero) -->
+  <div class="absolute inset-0">
+    <Image
+      src={abstractEnvelope}
+      alt=""
+      class="w-full h-full object-cover"
+      loading="lazy"
+      width={1920}
+      height={1080}
+      quality={90}
+    />
+  </div>
+
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-deep-forest-950/90 via-deep-forest/80 to-medium-jungle-900/90"></div>
+
+  <!-- Floating Geometric Shapes -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="skill-shape shape-1"></div>
+    <div class="skill-shape shape-2"></div>
+    <div class="skill-shape shape-3"></div>
+    <div class="skill-shape shape-4"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-20">
+      <h2 class="skills-title text-5xl md:text-6xl font-bold text-turf-green-50 mb-4">
+        My Skills
+      </h2>
+      <div class="skills-underline w-24 h-1 bg-gradient-to-r from-forest-green to-emerald mx-auto mb-6"></div>
+      <p class="skills-subtitle text-xl text-turf-green-100 max-w-2xl mx-auto">
+        Technologies and tools I work with to bring ideas to life
+      </p>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="skills-grid grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      {skillCategories.map((category, categoryIndex) => (
+        <div 
+          class={`skill-category skill-category-${categoryIndex} bg-deep-forest-950/95 backdrop-blur-lg rounded-3xl p-8 border border-turf-green/20 shadow-2xl space-y-6`}
+        >
+          <!-- Category Header -->
+          <div>
+            <h3 class="text-2xl md:text-3xl font-bold text-turf-green-100">
+              {category.title}
+            </h3>
+            <p class="text-turf-green-200 text-sm mt-1">
+              {category.skills.length} {category.skills.length === 1 ? 'skill' : 'skills'}
+            </p>
+          </div>
+
+          <!-- Skills Badges -->
+          <div class="flex flex-wrap gap-2">
+            {category.skills.map((skill, skillIndex) => {
+              const icon = getIcon(skill.name);
+              const colors = getBadgeColors(skill.name);
+              return (
+                <div 
+                  class={`skill-badge flex items-center gap-1.5 px-3 py-1.5 ${colors.bg} ${colors.text} rounded font-semibold text-xs md:text-sm`}
+                  style="position: relative; overflow: visible;"
+                >
+                  {icon && (
+                    <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 md:w-5 md:h-5">
+                      <path d={icon.path} />
+                    </svg>
+                  )}
+                  <span class="whitespace-nowrap">{skill.name}</span>
+                  {skill.isLearning && (
+                    <span class="ml-1 px-1.5 py-0.5 bg-white/20 rounded text-xs font-medium">
+                      Learning
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Current Focus Section -->
+    <div class="mt-16 text-center">
+      <div class="current-focus bg-deep-forest-950/95 backdrop-blur-lg rounded-3xl p-8 border border-turf-green/20 shadow-2xl max-w-4xl mx-auto">
+        <h3 class="text-2xl md:text-3xl font-bold text-turf-green-100 mb-6">
+          Current Focus
+        </h3>
+        <p class="text-turf-green-200 text-lg mb-6">
+          Technologies I'm actively working with and improving
+        </p>
+        <div class="flex flex-wrap justify-center gap-2">
+          {currentFocus.map((tech) => {
+            const icon = getIcon(tech);
+            const colors = getBadgeColors(tech);
+            return (
+              <div class={`focus-item flex items-center gap-2 px-4 py-2 ${colors.bg} ${colors.text} rounded font-semibold text-sm`}>
+                {icon && (
+                  <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d={icon.path} />
+                  </svg>
+                )}
+                <span>{tech}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</SkillsSectionAnimator>
+
+<style>
+  /* Floating Shapes Animation (similar to Hero) */
+  .skill-shape {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(57, 198, 71, 0.1), rgba(75, 180, 98, 0.1));
+    border-radius: 50%;
+    animation: skillFloat 25s infinite ease-in-out;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .shape-1 {
+    width: 250px;
+    height: 250px;
+    top: 15%;
+    right: 10%;
+    animation-delay: 0s;
+  }
+
+  .shape-2 {
+    width: 180px;
+    height: 180px;
+    bottom: 20%;
+    left: 5%;
+    animation-delay: 3s;
+  }
+
+  .shape-3 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 6s;
+  }
+
+  .shape-4 {
+    width: 150px;
+    height: 150px;
+    bottom: 10%;
+    right: 5%;
+    animation-delay: 9s;
+  }
+
+  @keyframes skillFloat {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg) scale(0.8);
+      opacity: 0.1;
+    }
+    25% {
+      transform: translateY(-20px) rotate(90deg) scale(1);
+      opacity: 0.2;
+    }
+    50% {
+      transform: translateY(-10px) rotate(180deg) scale(0.9);
+      opacity: 0.15;
+    }
+    75% {
+      transform: translateY(-30px) rotate(270deg) scale(1.1);
+      opacity: 0.25;
+    }
+  }
+
+  /* Badge shine animation */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .skill-badge {
+    display: inline-flex;
+  }
+
+  .skill-category:hover .skill-badge {
+    animation: none;
+  }
+
+  .skill-category {
+    transition: all 0.3s ease;
+  }
+
+  .skill-category:hover {
+    border-color: rgba(57, 198, 71, 0.4);
+    box-shadow: 0 20px 40px rgba(57, 198, 71, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .focus-item {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .focus-item:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Initial states for animations */
+  .skills-title,
+  .skills-subtitle,
+  .skill-category,
+  .current-focus {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Stagger animations for badges */
+  .skill-badge {
+    display: inline-flex;
+  }
+
+  .focus-item {
+    position: relative;
+  }
+</style>
