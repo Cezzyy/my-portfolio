@@ -9,17 +9,17 @@ const navItems = [
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-deep-forest-950/95 backdrop-blur-md border-b border-medium-jungle/20">
-  <nav class="max-w-7xl mx-auto px-6 py-4">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="text-turf-green-100 text-xl font-semibold">Portfolio</span>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <span class="text-turf-green-100 text-base sm:text-lg md:text-xl font-semibold">Portfolio</span>
       </div>
 
       <div class="hidden md:flex items-center space-x-8">
         {navItems.map((item) => (
           <a
             href={item.href}
-            class="text-turf-green-100 hover:text-turf-green-50 transition-colors duration-300 font-medium relative group"
+            class="text-turf-green-100 hover:text-turf-green-50 transition-colors duration-300 font-medium relative group text-sm md:text-base"
           >
             {item.name}
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-forest-green transition-all duration-300 group-hover:w-full"></span>
@@ -29,10 +29,10 @@ const navItems = [
 
       <button
         id="mobile-menu-button"
-        class="md:hidden text-turf-green-100 hover:text-turf-green-50 transition-colors"
+        class="md:hidden text-turf-green-100 hover:text-turf-green-50 transition-colors p-2"
         aria-label="Toggle menu"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
@@ -40,12 +40,12 @@ const navItems = [
 
     <div
       id="mobile-menu"
-      class="hidden md:hidden pt-4 pb-2 space-y-3"
+      class="hidden md:hidden pt-2 pb-3 space-y-2 max-h-0 overflow-hidden transition-all duration-300"
     >
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="block text-turf-green-100 hover:text-turf-green-50 transition-colors duration-300 font-medium py-2"
+          class="block text-turf-green-100 hover:text-turf-green-50 hover:bg-medium-jungle/10 transition-colors duration-300 font-medium py-2 px-2 rounded text-sm"
         >
           {item.name}
         </a>
@@ -57,15 +57,32 @@ const navItems = [
 <script>
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
+  let isOpen = false;
 
   mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
+    isOpen = !isOpen;
+    if (isOpen) {
+      mobileMenu?.classList.remove('hidden');
+      // Animate menu opening
+      setTimeout(() => {
+        mobileMenu?.style.setProperty('max-height', mobileMenu.scrollHeight + 'px');
+      }, 0);
+    } else {
+      mobileMenu?.style.setProperty('max-height', '0');
+      setTimeout(() => {
+        mobileMenu?.classList.add('hidden');
+      }, 300);
+    }
   });
 
   const menuLinks = mobileMenu?.querySelectorAll('a');
   menuLinks?.forEach((link) => {
     link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
+      isOpen = false;
+      mobileMenu?.style.setProperty('max-height', '0');
+      setTimeout(() => {
+        mobileMenu?.classList.add('hidden');
+      }, 300);
     });
   });
 </script>
