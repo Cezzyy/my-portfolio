@@ -14,7 +14,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
 
 <HeroSectionAnimator client:load>
 <section
-    class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-onyx"
+    class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-deep-forest"
 >
     <!-- Background SVG -->
     <div class="absolute inset-0">
@@ -30,7 +30,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
     </div>
 
     <!-- Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-onyx/50 via-transparent to-hooker-green-900/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-deep-forest/50 via-transparent to-medium-jungle-900/60"></div>
 
     <!-- Floating Geometric Shapes -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -47,43 +47,43 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
             <!-- Left Column - Text Content -->
             <div class="text-left space-y-6 hero-content">
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                    <span class="block text-celadon-800 mb-2">Hello, I'm</span>
-                    <span class="block bg-gradient-to-r from-emerald via-aquamarine to-celadon bg-clip-text text-transparent">
+                    <span class="block text-turf-green-200 mb-2">Hello, I'm</span>
+                    <span class="block bg-gradient-to-r from-emerald via-forest-green to-turf-green bg-clip-text text-transparent">
                         {name.split(' ')[0]} {name.split(' ')[1]}
                     </span>
-                    <span class="block bg-gradient-to-r from-celadon via-emerald to-aquamarine bg-clip-text text-transparent">
+                    <span class="block bg-gradient-to-r from-turf-green via-emerald to-forest-green bg-clip-text text-transparent">
                         {name.split(' ')[2]}
                     </span>
                 </h1>
 
-                <div class="hero-subtitle flex items-center gap-3 text-2xl md:text-3xl text-celadon-700">
+                <div class="hero-subtitle flex items-center gap-3 text-2xl md:text-3xl text-turf-green-300">
                     <span>I'm a</span>
-                    <span class="typing-text font-semibold text-aquamarine"></span>
+                    <span class="typing-text font-semibold text-forest-green"></span>
                 </div>
 
-                <div class="hero-location flex items-center gap-3 text-lg md:text-xl text-celadon-800">
-                    <svg class="w-5 h-5 text-aquamarine" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="hero-location flex items-center gap-3 text-lg md:text-xl text-turf-green-200">
+                    <svg class="w-5 h-5 text-forest-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>{location}</span>
                 </div>
 
-                <p class="hero-description text-lg md:text-xl text-celadon-800 max-w-xl leading-relaxed">
-                    {goal}. Currently focusing on <span class="text-aquamarine font-semibold">{currentFocus.join(', ')}</span>.
+                <p class="hero-description text-lg md:text-xl text-turf-green-200 max-w-xl leading-relaxed">
+                    {goal}. Currently focusing on <span class="text-forest-green font-semibold">{currentFocus.join(', ')}</span>.
                 </p>
 
                 <div class="hero-buttons flex flex-wrap gap-4 pt-6">
                     <a
                         href="#projects"
-                        class="group px-8 py-4 bg-gradient-to-r from-aquamarine to-emerald text-onyx font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-aquamarine/30 relative overflow-hidden"
+                        class="group px-8 py-4 bg-gradient-to-r from-forest-green to-emerald text-deep-forest font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-forest-green/30 relative overflow-hidden"
                     >
                         <span class="relative z-10">View My Work</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-emerald to-aquamarine opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-emerald to-forest-green opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a
                         href="#contact"
-                        class="px-8 py-4 bg-transparent border-2 border-celadon text-celadon font-semibold rounded-lg hover:bg-celadon hover:text-onyx transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                        class="px-8 py-4 bg-transparent border-2 border-turf-green text-turf-green font-semibold rounded-lg hover:bg-turf-green hover:text-deep-forest transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                     >
                         <span class="relative z-10">Get In Touch</span>
                     </a>
@@ -113,13 +113,13 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
             <div class="hidden md:flex items-center justify-center hero-visual animate-fade-in-delay-6">
                 <div class="code-editor w-full max-w-lg">
                     <!-- Editor Header -->
-                    <div class="editor-header flex items-center justify-between px-4 py-3 bg-black/90 rounded-t-xl border-b border-celadon/10">
+                    <div class="editor-header flex items-center justify-between px-4 py-3 bg-black/90 rounded-t-xl border-b border-turf-green/10">
                         <div class="flex items-center gap-2">
                             <div class="w-3 h-3 rounded-full bg-emerald animate-pulse-slow"></div>
-                            <div class="w-3 h-3 rounded-full bg-aquamarine animate-pulse-slow" style="animation-delay: 0.2s;"></div>
-                            <div class="w-3 h-3 rounded-full bg-celadon animate-pulse-slow" style="animation-delay: 0.4s;"></div>
+                            <div class="w-3 h-3 rounded-full bg-forest-green animate-pulse-slow" style="animation-delay: 0.2s;"></div>
+                            <div class="w-3 h-3 rounded-full bg-turf-green animate-pulse-slow" style="animation-delay: 0.4s;"></div>
                         </div>
-                        <div class="flex items-center gap-2 text-celadon-700 text-sm font-mono">
+                        <div class="flex items-center gap-2 text-turf-green-300 text-sm font-mono">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                             </svg>
@@ -131,7 +131,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                     <div class="editor-content bg-black p-6 rounded-b-xl font-mono text-sm overflow-hidden relative">
                         <!-- Line Numbers -->
                         <div class="flex gap-4">
-                            <div class="line-numbers text-celadon-600 select-none">
+                            <div class="line-numbers text-turf-green-600 select-none">
                                 <div class="typing-line">1</div>
                                 <div class="typing-line">2</div>
                                 <div class="typing-line">3</div>
@@ -148,20 +148,20 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                             </div>
 
                             <!-- Code Content -->
-                            <div class="code-content flex-1 text-celadon-900">
-                                <div class="typing-line"><span class="text-emerald">const</span> <span class="text-aquamarine">developer</span> = &#123;</div>
-                                <div class="typing-line pl-4"><span class="text-celadon-700">name:</span> <span class="text-celadon">"{name}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-celadon-700">status:</span> <span class="text-celadon">"{status}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-celadon-700">location:</span> <span class="text-celadon">"{location}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-celadon-700">goal:</span> <span class="text-celadon">"{goal}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-celadon-700">focus:</span> [</div>
+                            <div class="code-content flex-1 text-turf-green-100">
+                                <div class="typing-line"><span class="text-emerald">const</span> <span class="text-forest-green">developer</span> = &#123;</div>
+                                <div class="typing-line pl-4"><span class="text-turf-green-300">name:</span> <span class="text-turf-green">"{name}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-turf-green-300">status:</span> <span class="text-turf-green">"{status}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-turf-green-300">location:</span> <span class="text-turf-green">"{location}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-turf-green-300">goal:</span> <span class="text-turf-green">"{goal}"</span>,</div>
+                                <div class="typing-line pl-4"><span class="text-turf-green-300">focus:</span> [</div>
                                 {currentFocus.map((tech, index) => (
                                     <div class="typing-line pl-8">
-                                        <span class="text-celadon">"{tech}"</span>{index < currentFocus.length - 1 ? ',' : ''}
+                                        <span class="text-turf-green">"{tech}"</span>{index < currentFocus.length - 1 ? ',' : ''}
                                     </div>
                                 ))}
                                 <div class="typing-line pl-4">],</div>
-                                <div class="typing-line pl-4"><span class="text-celadon-700">motto:</span> <span class="text-celadon">"{motto.slice(0, 40)}..."</span></div>
+                                <div class="typing-line pl-4"><span class="text-turf-green-300">motto:</span> <span class="text-turf-green">"{motto.slice(0, 40)}..."</span></div>
                                 <div class="typing-line">&#125;;</div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                     </div>
 
                     <!-- Editor Footer -->
-                    <div class="editor-footer flex items-center justify-between px-4 py-2 bg-black/80 rounded-b-lg text-xs font-mono text-celadon-700 border-t border-celadon/10">
+                    <div class="editor-footer flex items-center justify-between px-4 py-2 bg-black/80 rounded-b-lg text-xs font-mono text-turf-green-300 border-t border-turf-green/10">
                         <div class="flex items-center gap-4">
                             <span>TypeScript</span>
                             <span>UTF-8</span>
@@ -189,9 +189,9 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
     <!-- Scroll Indicator -->
     <div class="scroll-indicator absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div class="flex flex-col items-center gap-2">
-            <span class="text-aquamarine text-sm">Scroll Down</span>
+            <span class="text-forest-green text-sm">Scroll Down</span>
             <svg
-                class="w-6 h-6 text-aquamarine"
+                class="w-6 h-6 text-forest-green"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -230,7 +230,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
         right: 1.5rem;
         width: 8px;
         height: 16px;
-        background: #38e4ae;
+        background: #39c647;
         animation: blink-cursor 1s infinite;
     }
 
@@ -257,7 +257,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
     /* Floating Shapes */
     .floating-shape {
         position: absolute;
-        background: linear-gradient(135deg, rgba(56, 228, 174, 0.1), rgba(123, 211, 137, 0.1));
+        background: linear-gradient(135deg, rgba(57, 198, 71, 0.1), rgba(75, 180, 98, 0.1));
         border-radius: 50%;
         animation: float 20s infinite ease-in-out;
         opacity: 0;
@@ -332,17 +332,17 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
         align-items: center;
         justify-content: center;
         border-radius: 12px;
-        background: rgba(96, 116, 102, 0.2);
-        border: 1px solid rgba(174, 220, 192, 0.2);
-        color: #aedcc0;
+        background: rgba(71, 184, 86, 0.2);
+        border: 1px solid rgba(36, 219, 134, 0.2);
+        color: #24db86;
         transition: all 0.3s ease;
     }
 
     .social-icon:hover {
-        background: linear-gradient(135deg, #38e4ae, #7bd389);
-        color: #343e3d;
+        background: linear-gradient(135deg, #39c647, #4bb462);
+        color: #11ee83;
         transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(56, 228, 174, 0.3);
+        box-shadow: 0 8px 16px rgba(57, 198, 71, 0.3);
     }
 
     /* Initial states for GSAP animations */
