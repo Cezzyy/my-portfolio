@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, onUnmounted, watch } from 'vue';
-import { fadeInUp, fadeInLeft, fadeInRight } from '../../../lib/gsap/scrollAnimations';
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Reactive DOM references
 const root = ref<HTMLElement | null>(null);
@@ -22,11 +25,6 @@ const elements = reactive({
   profileImage: null as Element | null
 });
 
-// Computed property for checking if all elements are available
-const allElementsAvailable = computed(() => {
-  return !!(elements.title && elements.underline && elements.content && elements.profileImage);
-});
-
 // Populate reactive element references from DOM
 const populateElements = () => {
   const section = document.querySelector('section#about');
@@ -46,7 +44,7 @@ const populateElements = () => {
   elements.content = section.querySelector('.about-content');
   elements.profileImage = section.querySelector('.profile-image');
 
-  if (allElementsAvailable.value) {
+  if (elements.title && elements.underline && elements.content && elements.profileImage) {
     animationState.elementsReady = true;
     initAnimations();
   } else {
@@ -57,34 +55,41 @@ const populateElements = () => {
   }
 };
 
+// Animation function
+const animateAboutElements = () => {
+  gsap.fromTo('.about-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
+  gsap.fromTo('.about-underline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.2 });
+  gsap.fromTo('.about-content', { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out', delay: 0.3 });
+  gsap.fromTo('.profile-image', { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out', delay: 0.3 });
+};
+
 // Initialize animations using reactive elements
 const initAnimations = () => {
-  if (!animationState.elementsReady || !allElementsAvailable.value) {
+  if (!animationState.elementsReady || !aboutSection.value) {
     return;
   }
 
-  animationState.isAnimating = true;
-
-  // Use GSAP animations with reactive elements
-  fadeInUp('.about-title');
-  fadeInUp('.about-underline', { start: 'top 75%' });
-  fadeInLeft('.about-content');
-  fadeInRight('.profile-image');
+  // Create GSAP timeline with ScrollTrigger
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: aboutSection.value,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      toggleActions: 'play none none reverse',
+      onEnter: () => {
+        animationState.isAnimating = true;
+        animateAboutElements();
+      },
+      onEnterBack: () => {
+        animationState.isAnimating = true;
+        animateAboutElements();
+      },
+      onLeave: () => {
+        animationState.isAnimating = false;
+      },
+    }
+  });
 };
-
-// Watch for elements ready state
-watch(() => animationState.elementsReady, (isReady) => {
-  if (isReady) {
-    // Elements are ready
-  }
-});
-
-// Watch all elements availability
-watch(allElementsAvailable, (available) => {
-  if (available) {
-    // All elements are available
-  }
-});
 
 onMounted(() => {
   setTimeout(populateElements, 150);
