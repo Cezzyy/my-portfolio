@@ -123,7 +123,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>personal.ts</span>
+                            <span>developer.dart</span>
                         </div>
                     </div>
 
@@ -149,20 +149,20 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
 
                             <!-- Code Content -->
                             <div class="code-content flex-1 text-turf-green-100">
-                                <div class="typing-line"><span class="text-emerald">const</span> <span class="text-forest-green">developer</span> = &#123;</div>
-                                <div class="typing-line pl-4"><span class="text-turf-green-300">name:</span> <span class="text-turf-green">"{name}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-turf-green-300">status:</span> <span class="text-turf-green">"{status}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-turf-green-300">location:</span> <span class="text-turf-green">"{location}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-turf-green-300">goal:</span> <span class="text-turf-green">"{goal}"</span>,</div>
-                                <div class="typing-line pl-4"><span class="text-turf-green-300">focus:</span> [</div>
+                                <div class="typing-line"><span class="text-emerald">class</span> <span class="text-forest-green">Developer</span> &#123;</div>
+                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> name = <span class="text-turf-green">'{name}'</span>;</div>
+                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> status = <span class="text-turf-green">'{status}'</span>;</div>
+                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> location = <span class="text-turf-green">'{location}'</span>;</div>
+                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> goal = <span class="text-turf-green">'{goal}'</span>;</div>
+                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">List</span>&lt;<span class="text-turf-green-300">String</span>&gt; focus = [</div>
                                 {currentFocus.map((tech, index) => (
                                     <div class="typing-line pl-8">
-                                        <span class="text-turf-green">"{tech}"</span>{index < currentFocus.length - 1 ? ',' : ''}
+                                        <span class="text-turf-green">'{tech}'</span>{index < currentFocus.length - 1 ? ',' : ','}
                                     </div>
                                 ))}
-                                <div class="typing-line pl-4">],</div>
-                                <div class="typing-line pl-4"><span class="text-turf-green-300">motto:</span> <span class="text-turf-green">"{motto.slice(0, 40)}..."</span></div>
-                                <div class="typing-line">&#125;;</div>
+                                <div class="typing-line pl-4">];</div>
+                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> motto = <span class="text-turf-green">'{motto.slice(0, 35)}...'</span>;</div>
+                                <div class="typing-line">&#125;</div>
                             </div>
                         </div>
 
@@ -173,7 +173,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                     <!-- Editor Footer -->
                     <div class="editor-footer flex items-center justify-between px-4 py-2 bg-black/80 rounded-b-lg text-xs font-mono text-turf-green-300 border-t border-turf-green/10">
                         <div class="flex items-center gap-4">
-                            <span>TypeScript</span>
+                            <span>Dart</span>
                             <span>UTF-8</span>
                         </div>
                         <div class="flex items-center gap-2">
