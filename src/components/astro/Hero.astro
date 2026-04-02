@@ -15,6 +15,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
 <section
     class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-elegant-black"
 >
+
     <!-- Elegant Background Pattern -->
     <div class="absolute inset-0">
         <!-- Diagonal Lines Pattern -->
@@ -35,7 +36,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
     </div>
 
     <!-- Main Content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 mt-4 sm:mt-8 lg:mt-12">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20 mt-16">
         <div class="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             <!-- Left Column - Text Content -->
             <div class="text-left space-y-3 sm:space-y-4 lg:space-y-5 hero-content">
@@ -102,7 +103,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
             </div>
 
             <!-- Right Column - Code Editor -->
-            <div class="mt-8 md:mt-0 md:flex items-center justify-center hero-visual animate-fade-in-delay-6 hidden md:flex">
+            <div class="hidden md:flex items-center justify-center hero-visual">
                 <div class="code-editor w-full max-w-lg">
                     <!-- Editor Header -->
                     <div class="editor-header flex items-center justify-between px-4 py-3 bg-elegant-dark-gray rounded-t-xl border-b border-elegant-light-gray/20">
@@ -179,7 +180,7 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="scroll-indicator absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div class="flex flex-col items-center gap-2">
             <span class="text-elegant-white text-sm">Scroll Down</span>
             <svg
@@ -356,263 +357,4 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
         opacity: 0;
         transform: translateY(-20px) translateX(-50%);
     }
-</style>
-
-            <!-- Right Column - Code Editor -->
-            <div class="mt-8 md:mt-0 md:flex items-center justify-center hero-visual animate-fade-in-delay-6 hidden md:flex">
-                <div class="code-editor w-full max-w-lg">
-                    <!-- Editor Header -->
-                    <div class="editor-header flex items-center justify-between px-4 py-3 bg-black/90 rounded-t-xl border-b border-turf-green/10">
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-emerald animate-pulse-slow"></div>
-                            <div class="w-3 h-3 rounded-full bg-forest-green animate-pulse-slow" style="animation-delay: 0.2s;"></div>
-                            <div class="w-3 h-3 rounded-full bg-turf-green animate-pulse-slow" style="animation-delay: 0.4s;"></div>
-                        </div>
-                        <div class="flex items-center gap-2 text-turf-green-300 text-sm font-mono">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span>developer.dart</span>
-                        </div>
-                    </div>
-
-                    <!-- Editor Content -->
-                    <div class="editor-content bg-black p-6 rounded-b-xl font-mono text-sm overflow-hidden relative">
-                        <!-- Line Numbers -->
-                        <div class="flex gap-4">
-                            <div class="line-numbers text-turf-green-600 select-none">
-                                <div class="typing-line">1</div>
-                                <div class="typing-line">2</div>
-                                <div class="typing-line">3</div>
-                                <div class="typing-line">4</div>
-                                <div class="typing-line">5</div>
-                                <div class="typing-line">6</div>
-                                <div class="typing-line">7</div>
-                                <div class="typing-line">8</div>
-                                <div class="typing-line">9</div>
-                                <div class="typing-line">10</div>
-                                <div class="typing-line">11</div>
-                                <div class="typing-line">12</div>
-                                <div class="typing-line">13</div>
-                            </div>
-
-                            <!-- Code Content -->
-                            <div class="code-content flex-1 text-turf-green-100">
-                                <div class="typing-line"><span class="text-emerald">class</span> <span class="text-forest-green">Developer</span> &#123;</div>
-                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> name = <span class="text-turf-green">'{name}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> status = <span class="text-turf-green">'{status}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> location = <span class="text-turf-green">'{location}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> goal = <span class="text-turf-green">'{goal}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">List</span>&lt;<span class="text-turf-green-300">String</span>&gt; focus = [</div>
-                                {currentFocus.map((tech, index) => (
-                                    <div class="typing-line pl-8">
-                                        <span class="text-turf-green">'{tech}'</span>{index < currentFocus.length - 1 ? ',' : ','}
-                                    </div>
-                                ))}
-                                <div class="typing-line pl-4">];</div>
-                                <div class="typing-line pl-4"><span class="text-emerald">final</span> <span class="text-turf-green-300">String</span> motto = <span class="text-turf-green">'{motto.slice(0, 35)}...'</span>;</div>
-                                <div class="typing-line">&#125;</div>
-                            </div>
-                        </div>
-
-                        <!-- Cursor -->
-                        <div class="cursor"></div>
-                    </div>
-
-                    <!-- Editor Footer -->
-                    <div class="editor-footer flex items-center justify-between px-4 py-2 bg-black/80 rounded-b-lg text-xs font-mono text-turf-green-300 border-t border-turf-green/10">
-                        <div class="flex items-center gap-4">
-                            <span>Dart</span>
-                            <span>UTF-8</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-emerald animate-pulse"></div>
-                            <span>Ready</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div class="flex flex-col items-center gap-2">
-            <span class="text-forest-green text-sm">Scroll Down</span>
-            <svg
-                class="w-6 h-6 text-forest-green"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
-    </div>
-</section>
-</HeroSectionAnimator>
-
-<style>
-
-
-    /* Code Editor Styles */
-    .code-editor {
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(174, 220, 192, 0.1);
-        border-radius: 0.75rem;
-        overflow: hidden;
-    }
-
-    .typing-line {
-        opacity: 0;
-        transform: translateX(-10px);
-        line-height: 1.8;
-    }
-
-    .cursor {
-        position: absolute;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 8px;
-        height: 16px;
-        background: #39c647;
-        animation: blink-cursor 1s infinite;
-    }
-
-    @keyframes blink-cursor {
-        0%, 50% { opacity: 1; }
-        51%, 100% { opacity: 0; }
-    }
-
-    @keyframes pulse-slow {
-        0%, 100% {
-            opacity: 0.3;
-            transform: scale(1);
-        }
-        50% {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-    }
-
-    .animate-pulse-slow {
-        animation: pulse-slow 3s ease-in-out infinite;
-    }
-
-    /* Floating Shapes */
-    .floating-shape {
-        position: absolute;
-        background: linear-gradient(135deg, rgba(57, 198, 71, 0.1), rgba(75, 180, 98, 0.1));
-        border-radius: 50%;
-        animation: float 20s infinite ease-in-out;
-        opacity: 0;
-        transform: scale(0.8);
-    }
-
-    .shape-1 {
-        width: 300px;
-        height: 300px;
-        top: 10%;
-        left: 5%;
-        animation-delay: 0s;
-    }
-
-    .shape-2 {
-        width: 200px;
-        height: 200px;
-        top: 60%;
-        right: 10%;
-        animation-delay: 2s;
-    }
-
-    .shape-3 {
-        width: 150px;
-        height: 150px;
-        bottom: 20%;
-        left: 15%;
-        animation-delay: 4s;
-    }
-
-    .shape-4 {
-        width: 250px;
-        height: 250px;
-        top: 30%;
-        right: 20%;
-        animation-delay: 1s;
-    }
-
-    .shape-5 {
-        width: 180px;
-        height: 180px;
-        bottom: 10%;
-        right: 5%;
-        animation-delay: 3s;
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0) rotate(0deg);
-        }
-        50% {
-            transform: translateY(-30px) rotate(180deg);
-        }
-    }
-
-    /* Typing Cursor for roles */
-    .typing-text::after {
-        content: '|';
-        animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-        0%, 50% { opacity: 1; }
-        51%, 100% { opacity: 0; }
-    }
-
-    /* Social Icons */
-    .social-icon {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        background: rgba(145, 212, 154, 0.15);
-        border: 2px solid #91d49a;
-        color: #91d49a;
-        transition: all 0.3s ease;
-    }
-
-    .social-icon:hover {
-        background: #91d49a;
-        color: #0f2414;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(145, 212, 154, 0.4);
-    }
-
-    /* Initial states for GSAP animations */
-    .hero-content h1,
-    .hero-subtitle,
-    .hero-location,
-    .hero-description,
-    .hero-buttons,
-    .hero-social {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    .hero-visual {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    .scroll-indicator {
-        opacity: 0;
-        transform: translateY(-20px) translateX(-50%);
-    }
-
 </style>
