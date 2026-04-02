@@ -88,30 +88,30 @@ const skillCategories = [
 ---
 
 <SkillsSectionAnimator client:load>
-<section id="skills" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-elegant-dark-gray">
+<section id="skills" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-white">
   <!-- Creative Background -->
   <div class="absolute inset-0">
     <!-- Dots Pattern -->
     <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
     </div>
     
     <!-- Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-tr from-elegant-black via-elegant-dark-gray to-elegant-medium-gray opacity-95"></div>
+    <div class="absolute inset-0 bg-gradient-to-tr from-white via-gray-50 to-gray-100 opacity-95"></div>
     
     <!-- Floating Orbs -->
-    <div class="absolute top-1/4 left-1/3 w-72 h-72 bg-elegant-white/5 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 right-1/3 w-96 h-96 bg-elegant-white/3 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/4 left-1/3 w-72 h-72 bg-elegant-black/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/3 w-96 h-96 bg-elegant-black/3 rounded-full blur-3xl"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-8 lg:mb-12">
-      <h2 class="skills-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-white mb-3">
+      <h2 class="skills-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-black mb-3">
         My Skills
       </h2>
-      <div class="skills-underline w-20 h-1 bg-elegant-white mx-auto mb-3"></div>
-      <p class="skills-subtitle text-sm lg:text-base text-elegant-off-white max-w-2xl mx-auto px-2">
+      <div class="skills-underline w-20 h-1 bg-elegant-black mx-auto mb-3"></div>
+      <p class="skills-subtitle text-sm lg:text-base text-elegant-dark-gray max-w-2xl mx-auto px-2">
         Technologies and tools I work with to bring ideas to life
       </p>
     </div>
@@ -120,14 +120,14 @@ const skillCategories = [
     <div class="skills-grid grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8">
       {skillCategories.map((category, categoryIndex) => (
         <div 
-          class={`skill-category skill-category-${categoryIndex} bg-elegant-black/60 backdrop-blur-lg rounded-xl p-5 lg:p-6 border border-elegant-white/10 shadow-2xl space-y-3 hover:border-elegant-white/30 transition-all duration-300`}
+          class={`skill-category skill-category-${categoryIndex} bg-white/80 backdrop-blur-lg rounded-xl p-5 lg:p-6 border border-elegant-black/10 shadow-2xl space-y-3 hover:border-elegant-black/30 transition-all duration-300`}
         >
           <!-- Category Header -->
           <div>
-            <h3 class="text-lg lg:text-xl font-bold text-elegant-white">
+            <h3 class="text-lg lg:text-xl font-bold text-elegant-black">
               {category.title}
             </h3>
-            <p class="text-elegant-pale-gray text-xs mt-1">
+            <p class="text-elegant-soft-gray text-xs mt-1">
               {category.skills.length} {category.skills.length === 1 ? 'skill' : 'skills'}
             </p>
           </div>
@@ -138,7 +138,7 @@ const skillCategories = [
               const icon = getIcon(skill.name);
               return (
                 <div 
-                  class={`skill-badge flex items-center gap-1 px-2.5 py-1 bg-elegant-white/10 border border-elegant-white/20 text-elegant-off-white rounded font-semibold text-xs hover:bg-elegant-white/20 hover:border-elegant-white/40 transition-all duration-300`}
+                  class={`skill-badge flex items-center gap-1 px-2.5 py-1 bg-elegant-black/5 border border-elegant-black/20 text-elegant-dark-gray rounded font-semibold text-xs hover:bg-elegant-black/10 hover:border-elegant-black/40 transition-all duration-300`}
                   style="position: relative; overflow: visible;"
                 >
                   {icon && (
@@ -148,7 +148,7 @@ const skillCategories = [
                   )}
                   <span class="whitespace-nowrap">{skill.name}</span>
                   {skill.isLearning && (
-                    <span class="ml-1 px-1 py-0.5 bg-elegant-white/30 rounded text-xs font-medium">
+                    <span class="ml-1 px-1 py-0.5 bg-elegant-black/20 rounded text-xs font-medium">
                       Learning
                     </span>
                   )}
@@ -162,18 +162,18 @@ const skillCategories = [
 
     <!-- Current Focus Section -->
     <div class="mt-10 lg:mt-12 text-center">
-      <div class="current-focus bg-elegant-black/60 backdrop-blur-lg rounded-xl p-5 lg:p-6 border border-elegant-white/10 shadow-2xl max-w-4xl mx-auto">
-        <h3 class="text-xl lg:text-2xl font-bold text-elegant-white mb-3">
+      <div class="current-focus bg-white/80 backdrop-blur-lg rounded-xl p-5 lg:p-6 border border-elegant-black/10 shadow-2xl max-w-4xl mx-auto">
+        <h3 class="text-xl lg:text-2xl font-bold text-elegant-black mb-3">
           Current Focus
         </h3>
-        <p class="text-elegant-off-white text-sm lg:text-base mb-4">
+        <p class="text-elegant-dark-gray text-sm lg:text-base mb-4">
           Technologies I'm actively working with and improving
         </p>
         <div class="flex flex-wrap justify-center gap-2">
           {currentFocus.map((tech) => {
             const icon = getIcon(tech);
             return (
-              <div class={`focus-item flex items-center gap-1.5 px-3 py-1.5 bg-elegant-white/10 border border-elegant-white/20 text-elegant-off-white rounded font-semibold text-xs hover:bg-elegant-white/20 hover:border-elegant-white/40 transition-all duration-300`}>
+              <div class={`focus-item flex items-center gap-1.5 px-3 py-1.5 bg-elegant-black/5 border border-elegant-black/20 text-elegant-dark-gray rounded font-semibold text-xs hover:bg-elegant-black/10 hover:border-elegant-black/40 transition-all duration-300`}>
                 {icon && (
                   <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                     <path d={icon.path} />
