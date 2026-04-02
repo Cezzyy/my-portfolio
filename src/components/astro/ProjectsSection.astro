@@ -1,5 +1,4 @@
 ---
-import flatMountains from "../../assets/flat-mountains.svg";
 import ProjectsSectionAnimator from '../vue/animations/ProjectsSectionAnimator.vue';
 import { getCollection } from 'astro:content';
 import type { SimpleIcon } from 'simple-icons';
@@ -41,25 +40,27 @@ const projects = sortedProjects.map((project) => ({
 ---
 
 <ProjectsSectionAnimator client:load>
-<section id="projects" class="relative min-h-screen py-16 lg:py-20 overflow-hidden">
-  <!-- Background SVG -->
+<section id="projects" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-elegant-black">
+  <!-- Creative Background -->
   <div class="absolute inset-0">
-    <img
-      src={flatMountains.src}
-      alt=""
-      class="w-full h-full object-cover"
-      loading="lazy"
-    />
+    <!-- Diagonal Stripes -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.05) 10px, rgba(255,255,255,.05) 20px);"></div>
+    </div>
+    
+    <!-- Radial Gradients -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-elegant-white/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-elegant-white/5 rounded-full blur-3xl"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-8 lg:mb-12">
-      <h2 class="projects-title text-3xl sm:text-4xl lg:text-5xl font-bold text-turf-green-50 mb-3">
+      <h2 class="projects-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-white mb-3">
         My Projects
       </h2>
-      <div class="projects-underline w-20 h-1 bg-gradient-to-r from-forest-green to-emerald mx-auto mb-3"></div>
-      <p class="projects-subtitle text-sm lg:text-base text-turf-green-100 max-w-2xl mx-auto px-2">
+      <div class="projects-underline w-20 h-1 bg-elegant-white mx-auto mb-3"></div>
+      <p class="projects-subtitle text-sm lg:text-base text-elegant-off-white max-w-2xl mx-auto px-2">
         A showcase of my recent work and upcoming ventures
       </p>
     </div>
@@ -71,16 +72,16 @@ const projects = sortedProjects.map((project) => ({
           class={`project-card project-card-${index}`}
           data-status={project.status}
         >
-          <div class={`group relative bg-deep-forest-950/95 backdrop-blur-lg rounded-xl lg:rounded-2xl border border-turf-green/20 shadow-2xl overflow-hidden transition-all duration-500 hover:border-forest-green/40 hover:shadow-forest-green/20 ${index % 2 === 0 ? '' : ''}`}>
+          <div class={`group relative bg-elegant-dark-gray/60 backdrop-blur-lg rounded-xl lg:rounded-2xl border border-elegant-white/10 shadow-2xl overflow-hidden transition-all duration-500 hover:border-elegant-white/30 hover:shadow-elegant-white/10 ${index % 2 === 0 ? '' : ''}`}>
             <div class={`grid md:grid-cols-2 gap-0 min-h-[280px] lg:min-h-[320px] ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
 
               {/* Project Image/Visual - Alternates sides */}
-              <div class={`relative overflow-hidden hidden md:block ${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
+              <div class={`relative overflow-hidden hidden md:block ${index % 2 === 1 ? 'md:col-start-2' : ''} bg-elegant-black/40`}>
                 <div class="absolute inset-0 flex items-center justify-center p-4 lg:p-6">
                   <div class="grid grid-cols-2 gap-4 lg:gap-6">
                     {project.icons.map((icon) => (
                       <div class="flex items-center justify-center">
-                        <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-14 lg:w-16 h-14 lg:h-16 transition-colors duration-300" style={`color: #${icon.hex}`}>
+                        <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-14 lg:w-16 h-14 lg:h-16 transition-all duration-300 text-elegant-white/80 hover:text-elegant-white hover:scale-110" style={`color: #${icon.hex}`}>
                           <path d={icon.path} />
                         </svg>
                       </div>
@@ -90,7 +91,7 @@ const projects = sortedProjects.map((project) => ({
 
                 {/* Status Badge */}
                 {project.status === 'upcoming' && (
-                  <div class="absolute top-4 right-4 z-20 px-3 py-1.5 bg-gradient-to-r from-amber-500/95 to-orange-500/95 rounded-full text-xs font-bold text-deep-forest uppercase tracking-wider shadow-lg">
+                  <div class="absolute top-4 right-4 z-20 px-3 py-1.5 bg-elegant-white text-elegant-black rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
                     Coming Soon
                   </div>
                 )}
@@ -101,21 +102,21 @@ const projects = sortedProjects.map((project) => ({
                 <div class="space-y-3 lg:space-y-4">
                   {/* Project Number */}
                   <div class="inline-block">
-                    <span class="text-4xl lg:text-5xl font-bold text-forest-green/20">0{index + 1}</span>
+                    <span class="text-4xl lg:text-5xl font-bold text-elegant-white/10">0{index + 1}</span>
                   </div>
 
-                  <h3 class="text-xl lg:text-2xl font-bold text-turf-green-100 group-hover:text-turf-green-50 transition-colors duration-300">
+                  <h3 class="text-xl lg:text-2xl font-bold text-elegant-white group-hover:text-elegant-white transition-colors duration-300">
                     {project.title}
                   </h3>
 
-                  <p class="text-turf-green-100 text-sm lg:text-base leading-relaxed">
+                  <p class="text-elegant-off-white text-sm lg:text-base leading-relaxed">
                     {project.description}
                   </p>
 
                   {/* Tags */}
                   <div class="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <span class="px-2.5 py-1 bg-gradient-to-r from-forest-green/10 to-emerald/10 border border-forest-green/30 rounded-lg text-turf-green-100 font-medium text-xs">
+                      <span class="px-2.5 py-1 bg-elegant-white/10 border border-elegant-white/20 rounded-lg text-elegant-off-white font-medium text-xs hover:bg-elegant-white/20 transition-colors">
                         {tag}
                       </span>
                     ))}
@@ -128,7 +129,7 @@ const projects = sortedProjects.map((project) => ({
                         {project.demoUrl === '#' ? (
                           <button
                             disabled
-                            class="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-forest-green/40 to-emerald/40 text-deep-forest/60 font-bold text-xs rounded-lg cursor-not-allowed opacity-60"
+                            class="flex items-center gap-1.5 px-4 py-2 bg-elegant-white/20 text-elegant-off-white/60 font-bold text-xs rounded-lg cursor-not-allowed opacity-60"
                           >
                             <span>{project.demoLabel}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
@@ -138,7 +139,7 @@ const projects = sortedProjects.map((project) => ({
                         ) : (
                           <a
                             href={project.demoUrl}
-                            class="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-forest-green to-emerald text-deep-forest font-bold text-xs rounded-lg hover:shadow-lg hover:shadow-forest-green/30 transition-all duration-300 hover:-translate-y-0.5"
+                            class="flex items-center gap-1.5 px-4 py-2 bg-elegant-white text-elegant-black font-bold text-xs rounded-lg hover:shadow-lg hover:shadow-elegant-white/30 transition-all duration-300 hover:-translate-y-0.5"
                           >
                             <span>{project.demoLabel}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
@@ -148,7 +149,7 @@ const projects = sortedProjects.map((project) => ({
                         )}
                         <a
                           href={project.githubUrl}
-                          class="flex items-center gap-1.5 px-4 py-2 border-2 border-turf-green/30 text-turf-green-100 text-xs font-bold rounded-lg hover:border-forest-green hover:bg-forest-green/10 transition-all duration-300 hover:-translate-y-0.5"
+                          class="flex items-center gap-1.5 px-4 py-2 border-2 border-elegant-white/30 text-elegant-off-white text-xs font-bold rounded-lg hover:border-elegant-white hover:bg-elegant-white/10 transition-all duration-300 hover:-translate-y-0.5"
                           aria-label="View source code"
                         >
                           <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
@@ -158,15 +159,15 @@ const projects = sortedProjects.map((project) => ({
                         </a>
                       </div>
                       {project.demoNote && (
-                        <p class="text-turf-green-100 text-xs mt-2 font-medium">{project.demoNote}</p>
+                        <p class="text-elegant-off-white text-xs mt-2 font-medium">{project.demoNote}</p>
                       )}
                     </div>
                   )}
 
                   {project.status === 'upcoming' && (
                     <div class="pt-2">
-                      <div class="px-4 py-2.5 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-2 border-amber-500/30 rounded-lg">
-                        <p class="text-turf-green-100 font-medium text-sm">Currently in development</p>
+                      <div class="px-4 py-2.5 bg-elegant-white/10 border-2 border-elegant-white/20 rounded-lg">
+                        <p class="text-elegant-off-white font-medium text-sm">Currently in development</p>
                       </div>
                     </div>
                   )}

@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import largeTriangles from "../../assets/large-triangles.svg";
 import profilePic from "../../assets/profilepic.webp";
 import { getEntry } from 'astro:content';
 import AboutSectionAnimator from '../vue/animations/AboutSectionAnimator.vue';
@@ -13,39 +12,41 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
 ---
 
 <AboutSectionAnimator client:load>
-<section id="about" class="relative min-h-screen py-16 lg:py-20 overflow-hidden">
-  <!-- Background SVG -->
+<section id="about" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-elegant-dark-gray">
+  <!-- Creative Background Pattern -->
   <div class="absolute inset-0">
-    <img
-      src={largeTriangles.src}
-      alt=""
-      class="w-full h-full object-cover"
-      loading="lazy"
-    />
+    <!-- Grid Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-elegant-black via-elegant-dark-gray to-elegant-medium-gray opacity-90"></div>
+    
+    <!-- Floating Circles -->
+    <div class="absolute top-20 right-20 w-64 h-64 bg-elegant-white/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-20 w-96 h-96 bg-elegant-white/3 rounded-full blur-3xl"></div>
   </div>
-
-  <!-- Gradient Overlay for better text readability -->
-  <div class="absolute inset-0 bg-gradient-to-b from-deep-forest/80 via-deep-forest/70 to-medium-jungle-900/80"></div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-8 lg:mb-12">
-      <h2 class="about-title text-3xl sm:text-4xl lg:text-5xl font-bold text-turf-green-50 mb-3">
+      <h2 class="about-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-white mb-3">
         About Me
       </h2>
-      <div class="about-underline w-20 h-1 bg-gradient-to-r from-forest-green to-emerald mx-auto"></div>
+      <div class="about-underline w-20 h-1 bg-elegant-white mx-auto"></div>
     </div>
 
     <!-- Main Content Grid -->
     <div class="grid md:grid-cols-2 gap-6 lg:gap-10 items-center">
       <!-- Left Column - Information -->
       <div class="about-content">
-        <div class="bg-deep-forest-950/95 backdrop-blur-lg rounded-xl p-5 lg:p-7 border border-turf-green/20 shadow-2xl space-y-4">
+        <div class="bg-elegant-black/60 backdrop-blur-lg rounded-xl p-5 lg:p-7 border border-elegant-white/10 shadow-2xl space-y-4">
           <div class="mb-4">
-            <h3 class="text-xl lg:text-2xl font-bold text-turf-green-100 mb-1">{name}</h3>
-            <p class="text-base lg:text-lg text-turf-green-200 font-semibold mb-2">{status}</p>
-            <div class="flex items-center gap-2 text-turf-green-100 mb-3 text-sm">
-              <svg class="w-4 h-4 text-turf-green-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <h3 class="text-xl lg:text-2xl font-bold text-elegant-white mb-1">{name}</h3>
+            <p class="text-base lg:text-lg text-elegant-off-white font-semibold mb-2">{status}</p>
+            <div class="flex items-center gap-2 text-elegant-off-white mb-3 text-sm">
+              <svg class="w-4 h-4 text-elegant-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
@@ -53,22 +54,22 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
             </div>
           </div>
 
-          <div class="space-y-3 text-turf-green-100">
+          <div class="space-y-3 text-elegant-off-white">
             <p class="text-sm lg:text-base leading-relaxed">
               {goal}. Currently exploring the exciting world of cross-platform
               development while building my skills across the full stack.
             </p>
 
-            <p class="text-sm leading-relaxed italic text-turf-green-200">
+            <p class="text-sm leading-relaxed italic text-elegant-pale-gray">
               "{motto}"
             </p>
           </div>
 
           <div class="pt-3">
-            <h4 class="text-base lg:text-lg font-bold text-turf-green-100 mb-2">Current Focus</h4>
+            <h4 class="text-base lg:text-lg font-bold text-elegant-white mb-2">Current Focus</h4>
             <div class="flex flex-wrap gap-2">
               {currentFocus.map((tech) => (
-                <span class="px-3 py-1.5 bg-gradient-to-r from-forest-green/20 to-emerald/20 border border-forest-green/30 rounded-lg text-turf-green-100 font-medium text-xs">
+                <span class="px-3 py-1.5 bg-elegant-white/10 border border-elegant-white/20 rounded-lg text-elegant-off-white font-medium text-xs hover:bg-elegant-white/20 transition-colors">
                   {tech}
                 </span>
               ))}
@@ -76,11 +77,11 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
           </div>
 
           <div class="pt-3">
-            <h4 class="text-base lg:text-lg font-bold text-turf-green-100 mb-2">Interests</h4>
+            <h4 class="text-base lg:text-lg font-bold text-elegant-white mb-2">Interests</h4>
             <ul class="space-y-2">
               {interests.map((interest) => (
-                <li class="flex items-center gap-2 text-turf-green-100 text-sm lg:text-base">
-                  <div class="w-2 h-2 bg-gradient-to-r from-forest-green to-emerald rounded-full flex-shrink-0"></div>
+                <li class="flex items-center gap-2 text-elegant-off-white text-sm lg:text-base">
+                  <div class="w-2 h-2 bg-elegant-white rounded-full flex-shrink-0"></div>
                   <span>{interest}</span>
                 </li>
               ))}
@@ -93,32 +94,27 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
       <div class="profile-image flex items-center justify-center mt-6 md:mt-0">
         <div class="relative">
           <!-- Decorative Ring 1 -->
-          <div class="absolute inset-0 rounded-full border-4 border-forest-green/30 animate-pulse-ring"></div>
+          <div class="absolute inset-0 rounded-full border-4 border-elegant-white/20 animate-pulse-ring"></div>
 
           <!-- Decorative Ring 2 -->
-          <div class="absolute inset-0 rounded-full border-4 border-emerald/20 animate-pulse-ring-delayed" style="animation-delay: 0.5s;"></div>
+          <div class="absolute inset-0 rounded-full border-4 border-elegant-white/10 animate-pulse-ring-delayed" style="animation-delay: 0.5s;"></div>
 
           <!-- Profile Picture Container -->
-          <div class="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-6 border-gradient shadow-2xl shadow-forest-green/30">
-            <!-- Gradient Border Effect -->
-            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-forest-green via-emerald to-turf-green p-2">
-              <div class="w-full h-full rounded-full overflow-hidden">
-                <Image
-                  src={profilePic}
-                  alt={name}
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                  width={320}
-                  height={320}
-                  quality={90}
-                />
-              </div>
-            </div>
+          <div class="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-elegant-white/30 shadow-2xl shadow-elegant-white/10">
+            <Image
+              src={profilePic}
+              alt={name}
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+              loading="lazy"
+              width={320}
+              height={320}
+              quality={90}
+            />
           </div>
 
           <!-- Corner Accent -->
-          <div class="absolute -bottom-3 -right-3 w-16 h-16 bg-gradient-to-br from-forest-green to-emerald rounded-full flex items-center justify-center shadow-lg">
-            <svg class="w-8 h-8 text-deep-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute -bottom-3 -right-3 w-16 h-16 bg-elegant-white rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-8 h-8 text-elegant-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
             </svg>
           </div>

@@ -8,28 +8,28 @@ const navItems = [
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-deep-forest-950/95 backdrop-blur-md border-b border-medium-jungle/20">
+<header class="fixed top-0 left-0 right-0 z-50 bg-elegant-black/90 backdrop-blur-md border-b border-elegant-light-gray/30">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-1 sm:space-x-2">
-        <span class="text-turf-green-100 text-base sm:text-lg md:text-xl font-semibold">Portfolio</span>
+        <span class="text-elegant-white text-base sm:text-lg md:text-xl font-semibold tracking-tight">Portfolio</span>
       </div>
 
       <div class="hidden md:flex items-center space-x-8">
         {navItems.map((item) => (
           <a
             href={item.href}
-            class="text-turf-green-100 hover:text-turf-green-50 transition-colors duration-300 font-medium relative group text-sm md:text-base"
+            class="text-elegant-off-white hover:text-elegant-white transition-colors duration-300 font-medium relative group text-sm md:text-base"
           >
             {item.name}
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-forest-green transition-all duration-300 group-hover:w-full"></span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-elegant-white transition-all duration-300 group-hover:w-full"></span>
           </a>
         ))}
       </div>
 
       <button
         id="mobile-menu-button"
-        class="md:hidden text-turf-green-100 hover:text-turf-green-50 transition-colors p-2"
+        class="md:hidden text-elegant-off-white hover:text-elegant-white transition-colors p-2"
         aria-label="Toggle menu"
       >
         <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +45,7 @@ const navItems = [
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="block text-turf-green-100 hover:text-turf-green-50 hover:bg-medium-jungle/10 transition-colors duration-300 font-medium py-2 px-2 rounded text-sm"
+          class="block text-elegant-off-white hover:text-elegant-white hover:bg-elegant-light-gray/20 transition-colors duration-300 font-medium py-2 px-2 rounded text-sm"
         >
           {item.name}
         </a>
