@@ -3,12 +3,47 @@ import { Image } from 'astro:assets';
 import profilePic from "../../assets/profilepic.webp";
 import { getEntry } from 'astro:content';
 import AboutSectionAnimator from '../vue/animations/AboutSectionAnimator.vue';
+import type { SimpleIcon } from 'simple-icons';
+import { 
+  siFlutter, siDart, siVuedotjs, siNuxt, siTypescript, siJavascript, siAstro, siTailwindcss, 
+  siHtml5, siGo, siSharp, siNodedotjs, siHono, siExpress, siBun,
+  siPostgresql, siSupabase, siFirebase, siKotlin
+} from 'simple-icons';
 
 const personalInfo = await getEntry('info', 'personal');
 if (!personalInfo) {
     throw new Error('Personal information not found');
 }
 const { name, status, location, goal, currentFocus, interests, motto } = personalInfo.data;
+
+// Icon mapping
+const iconMap: Record<string, SimpleIcon | null> = {
+  "Flutter": siFlutter,
+  "Dart": siDart,
+  "Vue.js": siVuedotjs,
+  "Nuxt.js": siNuxt,
+  "TypeScript": siTypescript,
+  "JavaScript": siJavascript,
+  "Astro": siAstro,
+  "TailwindCSS": siTailwindcss,
+  "HTML5 & CSS3": siHtml5,
+  "Go": siGo,
+  "C# & .NET 8": siSharp,
+  "Node.js": siNodedotjs,
+  "Hono": siHono,
+  "Express.js": siExpress,
+  "Bun": siBun,
+  "PostgreSQL": siPostgresql,
+  "Supabase": siSupabase,
+  "Firebase": siFirebase,
+  "Kotlin": siKotlin
+};
+
+const getIcon = (skillName: string): SimpleIcon | null => {
+  const icon = iconMap[skillName];
+  if (icon !== undefined) return icon;
+  return null;
+};
 ---
 
 <AboutSectionAnimator client:load>
@@ -67,12 +102,20 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
 
           <div class="pt-3">
             <h4 class="text-base lg:text-lg font-bold text-elegant-black mb-2">Current Focus</h4>
-            <div class="flex flex-wrap gap-2">
-              {currentFocus.map((tech) => (
-                <span class="px-3 py-1.5 bg-elegant-black/5 border border-elegant-black/20 rounded-lg text-elegant-dark-gray font-medium text-xs hover:bg-elegant-black/10 transition-colors">
-                  {tech}
-                </span>
-              ))}
+            <div class="flex flex-wrap gap-1.5">
+              {currentFocus.map((tech) => {
+                const icon = getIcon(tech);
+                return (
+                  <span class="flex items-center gap-1 px-2.5 py-1 bg-elegant-black/5 border border-elegant-black/20 text-elegant-dark-gray rounded font-semibold text-xs hover:bg-elegant-black/10 hover:border-elegant-black/40 transition-all duration-300">
+                    {icon && (
+                      <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 flex-shrink-0">
+                        <path d={icon.path} />
+                      </svg>
+                    )}
+                    <span class="whitespace-nowrap">{tech}</span>
+                  </span>
+                );
+              })}
             </div>
           </div>
 
@@ -104,7 +147,7 @@ const { name, status, location, goal, currentFocus, interests, motto } = persona
             <Image
               src={profilePic}
               alt={name}
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+              class="w-full h-full object-cover transition-all duration-500 hover:scale-110"
               loading="lazy"
               width={320}
               height={320}
