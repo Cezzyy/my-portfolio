@@ -116,39 +116,39 @@ const skillCategories = [
       </p>
     </div>
 
-    <!-- Skills Grid -->
-    <div class="skills-grid grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8">
+    <!-- Skills Grid - One Category Per Row -->
+    <div class="skills-grid space-y-6 lg:space-y-8">
       {skillCategories.map((category, categoryIndex) => (
         <div 
-          class={`skill-category skill-category-${categoryIndex} bg-white/80 backdrop-blur-lg rounded-xl p-5 lg:p-6 border border-elegant-black/10 shadow-2xl space-y-3 hover:border-elegant-black/30 transition-all duration-300`}
+          class={`skill-category skill-category-${categoryIndex} bg-white/80 backdrop-blur-lg rounded-2xl p-6 lg:p-8 border border-elegant-black/10 shadow-2xl hover:border-elegant-black/30 hover:shadow-3xl transition-all duration-300`}
         >
           <!-- Category Header -->
-          <div>
-            <h3 class="text-lg lg:text-xl font-bold text-elegant-black">
+          <div class="mb-5">
+            <h3 class="text-2xl lg:text-3xl font-bold text-elegant-black mb-2">
               {category.title}
             </h3>
-            <p class="text-elegant-soft-gray text-xs mt-1">
+            <p class="text-elegant-soft-gray text-sm">
               {category.skills.length} {category.skills.length === 1 ? 'skill' : 'skills'}
             </p>
           </div>
 
-          <!-- Skills Badges -->
-          <div class="flex flex-wrap gap-1.5">
+          <!-- Skills Badges - Bigger and More Visible -->
+          <div class="flex flex-wrap gap-3 lg:gap-4">
             {category.skills.map((skill, skillIndex) => {
               const icon = getIcon(skill.name);
               return (
                 <div 
-                  class={`skill-badge flex items-center gap-1 px-2.5 py-1 bg-elegant-black/5 border border-elegant-black/20 text-elegant-dark-gray rounded font-semibold text-xs hover:bg-elegant-black/10 hover:border-elegant-black/40 transition-all duration-300`}
+                  class={`skill-badge flex items-center gap-2.5 px-5 py-3 lg:px-6 lg:py-4 bg-elegant-black/5 border-2 border-elegant-black/20 text-elegant-dark-gray rounded-xl font-bold text-base lg:text-lg hover:bg-elegant-black hover:text-white hover:border-elegant-black hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl`}
                   style="position: relative; overflow: visible;"
                 >
                   {icon && (
-                    <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 flex-shrink-0">
+                    <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 lg:w-7 lg:h-7 flex-shrink-0">
                       <path d={icon.path} />
                     </svg>
                   )}
                   <span class="whitespace-nowrap">{skill.name}</span>
                   {skill.isLearning && (
-                    <span class="ml-1 px-1 py-0.5 bg-elegant-black/20 rounded text-xs font-medium">
+                    <span class="ml-2 px-2 py-1 bg-elegant-black/20 rounded-lg text-xs font-medium">
                       Learning
                     </span>
                   )}
@@ -161,21 +161,23 @@ const skillCategories = [
     </div>
 
     <!-- Current Focus Section -->
-    <div class="mt-10 lg:mt-12 text-center">
-      <div class="current-focus bg-white/80 backdrop-blur-lg rounded-xl p-5 lg:p-6 border border-elegant-black/10 shadow-2xl max-w-4xl mx-auto">
-        <h3 class="text-xl lg:text-2xl font-bold text-elegant-black mb-3">
-          Current Focus
-        </h3>
-        <p class="text-elegant-dark-gray text-sm lg:text-base mb-4">
-          Technologies I'm actively working with and improving
-        </p>
-        <div class="flex flex-wrap justify-center gap-2">
+    <div class="mt-10 lg:mt-12">
+      <div class="current-focus bg-white/80 backdrop-blur-lg rounded-2xl p-6 lg:p-8 border border-elegant-black/10 shadow-2xl">
+        <div class="mb-5">
+          <h3 class="text-2xl lg:text-3xl font-bold text-elegant-black mb-2">
+            Current Focus
+          </h3>
+          <p class="text-elegant-dark-gray text-sm lg:text-base">
+            Technologies I'm actively working with and improving
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3 lg:gap-4">
           {currentFocus.map((tech) => {
             const icon = getIcon(tech);
             return (
-              <div class={`focus-item flex items-center gap-1.5 px-3 py-1.5 bg-elegant-black/5 border border-elegant-black/20 text-elegant-dark-gray rounded font-semibold text-xs hover:bg-elegant-black/10 hover:border-elegant-black/40 transition-all duration-300`}>
+              <div class={`focus-item flex items-center gap-2.5 px-5 py-3 lg:px-6 lg:py-4 bg-elegant-black/5 border-2 border-elegant-black/20 text-elegant-dark-gray rounded-xl font-bold text-base lg:text-lg hover:bg-elegant-black hover:text-white hover:border-elegant-black hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl`}>
                 {icon && (
-                  <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 lg:w-7 lg:h-7">
                     <path d={icon.path} />
                   </svg>
                 )}
@@ -219,9 +221,13 @@ const skillCategories = [
 
   .skill-badge {
     display: inline-flex;
+    opacity: 0;
+    transform: scale(0);
   }
 
   .focus-item {
     position: relative;
+    opacity: 0;
+    transform: scale(0);
   }
 </style>

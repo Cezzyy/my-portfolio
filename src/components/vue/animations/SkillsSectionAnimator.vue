@@ -98,30 +98,53 @@ const initAnimations = () => {
           );
         }
 
-        // Animate skill categories with stagger
+        // Animate skill categories with alternating left/right entrance
         elements.skillCategories.forEach((category, index) => {
+          const isEven = index % 2 === 0;
+          const xStart = isEven ? -100 : 100; // Left for even, right for odd
+          
           gsap.fromTo(
             category,
-            { opacity: 0, y: 60, scale: 0.85, rotationX: 20 },
+            { opacity: 0, x: xStart, scale: 0.9 },
             {
               opacity: 1,
-              y: 0,
+              x: 0,
               scale: 1,
-              rotationX: 0,
-              duration: 0.9,
-              delay: 0.4 + index * 0.25,
-              ease: "back.out(1.5)",
+              duration: 0.8,
+              delay: 0.4 + index * 0.4,
+              ease: "power3.out",
+              onComplete: () => {
+                // Animate badges within this category after it appears - typing effect
+                const badges = category.querySelectorAll('.skill-badge');
+                badges.forEach((badge, badgeIndex) => {
+                  gsap.fromTo(
+                    badge,
+                    { opacity: 0, scale: 0, x: -10 },
+                    {
+                      opacity: 1,
+                      scale: 1,
+                      x: 0,
+                      duration: 0.3,
+                      delay: badgeIndex * 0.15, // Typing-like delay between each badge
+                      ease: "back.out(1.7)",
+                    }
+                  );
+                });
+              }
             }
           );
         });
 
-        // Animate skill badges with stagger after categories start appearing
-        setTimeout(() => {
-          animateProgressBars();
-        }, 500);
-
-        // Animate current focus section
+        // Animate current focus section - calculate delay based on all categories and badges
         if (elements.currentFocus) {
+          // Calculate total animation time for all categories and their badges
+          const categoryAnimationTime = 0.4 + (elements.skillCategories.length * 0.4) + 0.8;
+          const maxBadgesInCategory = Math.max(...elements.skillCategories.map(cat => 
+            cat.querySelectorAll('.skill-badge').length
+          ));
+          const badgeAnimationTime = maxBadgesInCategory * 0.15 + 0.3;
+          const totalDelay = categoryAnimationTime + badgeAnimationTime;
+          
           gsap.fromTo(
             elements.currentFocus,
             { opacity: 0, y: 40, scale: 0.9 },
@@ -130,27 +153,28 @@ const initAnimations = () => {
               y: 0,
               scale: 1,
               duration: 0.9,
-              delay: 1.8,
+              delay: totalDelay,
               ease: "back.out(1.2)",
+              onComplete: () => {
+                // Animate focus items with typing effect after current focus appears
+                elements.focusItems.forEach((item, index) => {
+                  gsap.fromTo(
+                    item,
+                    { opacity: 0, scale: 0, x: -10 },
+                    {
+                      opacity: 1,
+                      scale: 1,
+                      x: 0,
+                      duration: 0.4,
+                      delay: index * 0.12,
+                      ease: "back.out(1.7)",
+                    }
+                  );
+                });
+              }
             }
           );
         }
-
-        // Animate focus items with enhanced effect
-        elements.focusItems.forEach((item, index) => {
-          gsap.fromTo(
-            item,
-            { opacity: 0, scale: 0.5, y: 10 },
-            {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              duration: 0.6,
-              delay: 2.1 + index * 0.12,
-              ease: "elastic.out(1, 0.5)",
-            }
-          );
-        });
       },
       onLeave: () => {
         animationState.isAnimating = false;
@@ -158,32 +182,89 @@ const initAnimations = () => {
       onEnterBack: () => {
         animationState.isAnimating = true;
         
-        // Re-animate elements when scrolling back
-        const allElements = [
-          elements.skillsTitle,
-          elements.skillsSubtitle,
-          ...elements.skillCategories,
-          elements.currentFocus,
-        ].filter((el) => el);
-
-        allElements.forEach((element, index) => {
+        // Re-animate elements when scrolling back with alternating effect
+        if (elements.skillsTitle) {
           gsap.fromTo(
-            element,
+            elements.skillsTitle,
             { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+          );
+        }
+
+        if (elements.skillsSubtitle) {
+          gsap.fromTo(
+            elements.skillsSubtitle,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.4, delay: 0.1, ease: "power2.out" }
+          );
+        }
+
+        elements.skillCategories.forEach((category, index) => {
+          const isEven = index % 2 === 0;
+          const xStart = isEven ? -50 : 50;
+          
+          gsap.fromTo(
+            category,
+            { opacity: 0, x: xStart },
             {
               opacity: 1,
-              y: 0,
-              duration: 0.4,
-              delay: index * 0.1,
+              x: 0,
+              duration: 0.5,
+              delay: 0.2 + index * 0.2,
               ease: "power2.out",
+              onComplete: () => {
+                // Re-animate badges with typing effect
+                const badges = category.querySelectorAll('.skill-badge');
+                badges.forEach((badge, badgeIndex) => {
+                  gsap.fromTo(
+                    badge,
+                    { opacity: 0, scale: 0, x: -10 },
+                    {
+                      opacity: 1,
+                      scale: 1,
+                      x: 0,
+                      duration: 0.25,
+                      delay: badgeIndex * 0.12,
+                      ease: "back.out(1.5)",
+                    }
+                  );
+                });
+              }
             }
           );
         });
 
-        // Re-animate progress bars
-        setTimeout(() => {
-          animateProgressBars();
-        }, 500);
+        if (elements.currentFocus) {
+          const totalDelay = 0.2 + elements.skillCategories.length * 0.2 + 0.5;
+          gsap.fromTo(
+            elements.currentFocus,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              delay: totalDelay,
+              ease: "power2.out",
+              onComplete: () => {
+                // Animate focus items with typing effect
+                elements.focusItems.forEach((item, index) => {
+                  gsap.fromTo(
+                    item,
+                    { opacity: 0, scale: 0, x: -10 },
+                    {
+                      opacity: 1,
+                      scale: 1,
+                      x: 0,
+                      duration: 0.3,
+                      delay: index * 0.1,
+                      ease: "back.out(1.5)",
+                    }
+                  );
+                });
+              }
+            }
+          );
+        }
       },
       onLeaveBack: () => {
         animationState.isAnimating = false;
