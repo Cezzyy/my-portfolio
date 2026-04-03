@@ -40,7 +40,7 @@ const projects = sortedProjects.map((project) => ({
 ---
 
 <ProjectsSectionAnimator client:load>
-<section id="projects" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-elegant-black">
+<section id="projects" class="relative min-h-screen py-12 sm:py-14 md:py-16 lg:py-20 overflow-hidden bg-elegant-black">
   <!-- Creative Background -->
   <div class="absolute inset-0">
     <!-- Diagonal Stripes -->
@@ -53,27 +53,27 @@ const projects = sortedProjects.map((project) => ({
     <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-elegant-white/5 rounded-full blur-3xl"></div>
   </div>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="text-center mb-8 lg:mb-12">
-      <h2 class="projects-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-white mb-3">
+    <div class="text-center mb-6 sm:mb-8 lg:mb-12">
+      <h2 class="projects-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-elegant-white mb-2 sm:mb-3">
         My Projects
       </h2>
-      <div class="projects-underline w-20 h-1 bg-elegant-white mx-auto mb-3"></div>
-      <p class="projects-subtitle text-sm lg:text-base text-elegant-off-white max-w-2xl mx-auto px-2">
+      <div class="projects-underline w-16 sm:w-20 h-1 bg-elegant-white mx-auto mb-2 sm:mb-3"></div>
+      <p class="projects-subtitle text-xs sm:text-sm lg:text-base text-elegant-off-white max-w-2xl mx-auto px-2">
         A showcase of my recent work and upcoming ventures
       </p>
     </div>
 
     <!-- Projects Drawer Layout -->
-    <div class="space-y-6 lg:space-y-8">
+    <div class="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
       {projects.map((project, index) => (
         <div
           class={`project-card project-card-${index}`}
           data-status={project.status}
         >
-          <div class={`group relative bg-elegant-dark-gray/60 backdrop-blur-lg rounded-xl lg:rounded-2xl border border-elegant-white/10 shadow-2xl overflow-hidden transition-all duration-500 hover:border-elegant-white/30 hover:shadow-elegant-white/10 ${index % 2 === 0 ? '' : ''}`}>
-            <div class={`grid md:grid-cols-2 gap-0 min-h-[280px] lg:min-h-[320px] ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
+          <div class={`group relative bg-elegant-dark-gray/60 backdrop-blur-lg rounded-lg sm:rounded-xl lg:rounded-2xl border border-elegant-white/10 shadow-2xl overflow-hidden transition-all duration-500 hover:border-elegant-white/30 hover:shadow-elegant-white/10`}>
+            <div class={`grid md:grid-cols-2 gap-0 min-h-[240px] sm:min-h-[260px] md:min-h-[280px] lg:min-h-[320px] ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
 
               {/* Project Image/Visual - Alternates sides */}
               <div class={`relative overflow-hidden hidden md:block ${index % 2 === 1 ? 'md:col-start-2' : ''} bg-elegant-black/40`}>
@@ -98,25 +98,25 @@ const projects = sortedProjects.map((project) => ({
               </div>
 
               {/* Project Content - Alternates sides */}
-              <div class={`flex flex-col justify-center p-5 lg:p-7 ${index % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}`}>
-                <div class="space-y-3 lg:space-y-4">
+              <div class={`flex flex-col justify-center p-4 sm:p-5 md:p-6 lg:p-7 ${index % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}`}>
+                <div class="space-y-2.5 sm:space-y-3 lg:space-y-4">
                   {/* Project Number */}
                   <div class="inline-block">
-                    <span class="text-4xl lg:text-5xl font-bold text-elegant-white/10">0{index + 1}</span>
+                    <span class="text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-white/10">0{index + 1}</span>
                   </div>
 
-                  <h3 class="text-xl lg:text-2xl font-bold text-elegant-white group-hover:text-elegant-white transition-colors duration-300">
+                  <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-elegant-white group-hover:text-elegant-white transition-colors duration-300">
                     {project.title}
                   </h3>
 
-                  <p class="text-elegant-off-white text-sm lg:text-base leading-relaxed">
+                  <p class="text-elegant-off-white text-xs sm:text-sm lg:text-base leading-relaxed">
                     {project.description}
                   </p>
 
                   {/* Tags */}
-                  <div class="flex flex-wrap gap-2">
+                  <div class="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.tags.map((tag) => (
-                      <span class="px-2.5 py-1 bg-elegant-white/10 border border-elegant-white/20 rounded-lg text-elegant-off-white font-medium text-xs hover:bg-elegant-white/20 transition-colors">
+                      <span class="px-2 sm:px-2.5 py-0.5 sm:py-1 bg-elegant-white/10 border border-elegant-white/20 rounded-lg text-elegant-off-white font-medium text-xs hover:bg-elegant-white/20 transition-colors">
                         {tag}
                       </span>
                     ))}
@@ -124,50 +124,50 @@ const projects = sortedProjects.map((project) => ({
 
                   {/* Action Buttons */}
                   {project.status === 'completed' && (
-                    <div class="pt-2">
-                      <div class="flex flex-wrap gap-2">
+                    <div class="pt-1.5 sm:pt-2">
+                      <div class="flex flex-wrap gap-1.5 sm:gap-2">
                         {project.demoUrl === '#' ? (
                           <button
                             disabled
-                            class="flex items-center gap-1.5 px-4 py-2 bg-elegant-white/20 text-elegant-off-white/60 font-bold text-xs rounded-lg cursor-not-allowed opacity-60"
+                            class="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 bg-elegant-white/20 text-elegant-off-white/60 font-bold text-xs rounded-lg cursor-not-allowed opacity-60"
                           >
                             <span>{project.demoLabel}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5 sm:w-4 sm:h-4">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                             </svg>
                           </button>
                         ) : (
                           <a
                             href={project.demoUrl}
-                            class="flex items-center gap-1.5 px-4 py-2 bg-elegant-white text-elegant-black font-bold text-xs rounded-lg hover:shadow-lg hover:shadow-elegant-white/30 transition-all duration-300 hover:-translate-y-0.5"
+                            class="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 bg-elegant-white text-elegant-black font-bold text-xs rounded-lg hover:shadow-lg hover:shadow-elegant-white/30 transition-all duration-300 hover:-translate-y-0.5"
                           >
                             <span>{project.demoLabel}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5 sm:w-4 sm:h-4">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                             </svg>
                           </a>
                         )}
                         <a
                           href={project.githubUrl}
-                          class="flex items-center gap-1.5 px-4 py-2 border-2 border-elegant-white/30 text-elegant-off-white text-xs font-bold rounded-lg hover:border-elegant-white hover:bg-elegant-white/10 transition-all duration-300 hover:-translate-y-0.5"
+                          class="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 border-2 border-elegant-white/30 text-elegant-off-white text-xs font-bold rounded-lg hover:border-elegant-white hover:bg-elegant-white/10 transition-all duration-300 hover:-translate-y-0.5"
                           aria-label="View source code"
                         >
-                          <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                          <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5 sm:h-4 sm:w-4">
                             <path d={siGithub.path} />
                           </svg>
                           <span class="hidden sm:inline">Code</span>
                         </a>
                       </div>
                       {project.demoNote && (
-                        <p class="text-elegant-off-white text-xs mt-2 font-medium">{project.demoNote}</p>
+                        <p class="text-elegant-off-white text-xs mt-1.5 sm:mt-2 font-medium">{project.demoNote}</p>
                       )}
                     </div>
                   )}
 
                   {project.status === 'upcoming' && (
-                    <div class="pt-2">
-                      <div class="px-4 py-2.5 bg-elegant-white/10 border-2 border-elegant-white/20 rounded-lg">
-                        <p class="text-elegant-off-white font-medium text-sm">Currently in development</p>
+                    <div class="pt-1.5 sm:pt-2">
+                      <div class="px-3 sm:px-4 py-2 sm:py-2.5 bg-elegant-white/10 border-2 border-elegant-white/20 rounded-lg">
+                        <p class="text-elegant-off-white font-medium text-xs sm:text-sm">Currently in development</p>
                       </div>
                     </div>
                   )}

@@ -200,7 +200,7 @@ const handleSubmit = async (e: Event) => {
 };
 
 const getInputClasses = (field: keyof FormData) => {
-  const baseClasses = 'w-full px-4 py-3 bg-elegant-black/40 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none transition-all';
+  const baseClasses = 'w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-elegant-black/40 rounded-lg text-elegant-off-white text-xs sm:text-sm placeholder-elegant-soft-gray focus:outline-none transition-all';
   
   if (touched[field] && errors[field]) {
     return `${baseClasses} border-2 border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20`;
@@ -215,23 +215,23 @@ const getInputClasses = (field: keyof FormData) => {
 </script>
 
 <template>
-  <div class="contact-form-card bg-elegant-dark-gray/40 backdrop-blur-lg rounded-2xl p-6 lg:p-8 border border-elegant-white/10 shadow-2xl">
-    <h3 class="text-xl lg:text-2xl font-bold text-elegant-white mb-6">
+  <div class="contact-form-card bg-elegant-dark-gray/40 backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-elegant-white/10 shadow-2xl">
+    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-elegant-white mb-4 sm:mb-5 md:mb-6">
       Send a Message
     </h3>
     
-    <div v-if="submitSuccess" class="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-lg">
-      <p class="text-green-400 text-sm font-medium">Message sent successfully! I'll get back to you soon.</p>
+    <div v-if="submitSuccess" class="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 bg-green-500/20 border border-green-500 rounded-lg">
+      <p class="text-green-400 text-xs sm:text-sm font-medium">Message sent successfully! I'll get back to you soon.</p>
     </div>
     
-    <div v-if="submitError" class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg">
-      <p class="text-red-400 text-sm font-medium">{{ submitError }}</p>
+    <div v-if="submitError" class="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 bg-red-500/20 border border-red-500 rounded-lg">
+      <p class="text-red-400 text-xs sm:text-sm font-medium">{{ submitError }}</p>
     </div>
     
-    <form @submit="handleSubmit" class="space-y-5">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <form @submit="handleSubmit" class="space-y-3.5 sm:space-y-4 md:space-y-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
         <div>
-          <label for="contact-name" class="block text-sm font-medium text-elegant-off-white mb-2">
+          <label for="contact-name" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
             Name
           </label>
           <input
@@ -244,14 +244,14 @@ const getInputClasses = (field: keyof FormData) => {
             :class="getInputClasses('name')"
           />
           <transition name="fade">
-            <p v-if="touched.name && errors.name" class="mt-1.5 text-xs text-red-400">
+            <p v-if="touched.name && errors.name" class="mt-1 sm:mt-1.5 text-xs text-red-400">
               {{ errors.name }}
             </p>
           </transition>
         </div>
         
         <div>
-          <label for="contact-email" class="block text-sm font-medium text-elegant-off-white mb-2">
+          <label for="contact-email" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
             Email
           </label>
           <input
@@ -264,7 +264,7 @@ const getInputClasses = (field: keyof FormData) => {
             :class="getInputClasses('email')"
           />
           <transition name="fade">
-            <p v-if="touched.email && errors.email" class="mt-1.5 text-xs text-red-400">
+            <p v-if="touched.email && errors.email" class="mt-1 sm:mt-1.5 text-xs text-red-400">
               {{ errors.email }}
             </p>
           </transition>
@@ -272,7 +272,7 @@ const getInputClasses = (field: keyof FormData) => {
       </div>
       
       <div>
-        <label for="contact-subject" class="block text-sm font-medium text-elegant-off-white mb-2">
+        <label for="contact-subject" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
           Subject
         </label>
         <input
@@ -285,14 +285,14 @@ const getInputClasses = (field: keyof FormData) => {
           :class="getInputClasses('subject')"
         />
         <transition name="fade">
-          <p v-if="touched.subject && errors.subject" class="mt-1.5 text-xs text-red-400">
+          <p v-if="touched.subject && errors.subject" class="mt-1 sm:mt-1.5 text-xs text-red-400">
             {{ errors.subject }}
           </p>
         </transition>
       </div>
       
       <div>
-        <label for="contact-message" class="block text-sm font-medium text-elegant-off-white mb-2">
+        <label for="contact-message" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
           Message
         </label>
         <textarea
@@ -305,24 +305,24 @@ const getInputClasses = (field: keyof FormData) => {
           :class="getInputClasses('message') + ' resize-none'"
         ></textarea>
         <transition name="fade">
-          <p v-if="touched.message && errors.message" class="mt-1.5 text-xs text-red-400">
+          <p v-if="touched.message && errors.message" class="mt-1 sm:mt-1.5 text-xs text-red-400">
             {{ errors.message }}
           </p>
         </transition>
       </div>
       
-      <div class="pt-2">
+      <div class="pt-1 sm:pt-2">
         <button
           type="submit"
           :disabled="!isFormValid || isSubmitting"
-          class="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-elegant-white hover:bg-elegant-off-white text-elegant-black font-semibold text-sm rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-elegant-white/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+          class="group w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 px-5 sm:px-6 py-2.5 sm:py-3 md:py-3.5 bg-elegant-white hover:bg-elegant-off-white text-elegant-black font-semibold text-xs sm:text-sm rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-elegant-white/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
         >
           <span v-if="!isSubmitting">Send Message</span>
           <span v-else>Sending...</span>
-          <svg v-if="!isSubmitting" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg v-if="!isSubmitting" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
-          <svg v-else class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+          <svg v-else class="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
