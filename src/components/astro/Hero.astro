@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import HeroSectionAnimator from '../vue/animations/HeroSectionAnimator.vue';
-import { siGithub, siFacebook } from 'simple-icons';
+import { siGithub, siFacebook, siInstagram } from 'simple-icons';
 
 const personalInfo = await getEntry('info', 'personal');
 if (!personalInfo) {
@@ -96,6 +96,11 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                     <a href="https://www.facebook.com/john.cez.casupanan04" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook Profile">
                         <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24">
                             <path d={siFacebook.path} />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/cezzyyyyyy_" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram Profile">
+                        <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24">
+                            <path d={siInstagram.path} />
                         </svg>
                     </a>
                 </div>

@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 import ContactSectionAnimator from '../vue/animations/ContactSectionAnimator.vue';
 import ContactForm from '../vue/ContactForm.vue';
-import { siGithub, siFacebook } from 'simple-icons';
+import { siGithub, siFacebook, siInstagram } from 'simple-icons';
 
 const personalInfo = await getEntry('info', 'personal');
 if (!personalInfo) {
@@ -119,6 +119,11 @@ const { name, location } = personalInfo.data;
             <a href="https://www.facebook.com/john.cez.casupanan04" target="_blank" rel="noopener noreferrer" class="contact-social-link social-icon" aria-label="Facebook Profile">
               <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24">
                 <path d={siFacebook.path} />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/cezzyyyyyy_" target="_blank" rel="noopener noreferrer" class="contact-social-link social-icon" aria-label="Instagram Profile">
+              <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24">
+                <path d={siInstagram.path} />
               </svg>
             </a>
           </div>
