@@ -1,6 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import ContactSectionAnimator from '../vue/animations/ContactSectionAnimator.vue';
+import ContactForm from '../vue/ContactForm.vue';
 import { siGithub, siFacebook } from 'simple-icons';
 
 const personalInfo = await getEntry('info', 'personal');
@@ -125,70 +126,7 @@ const { name, location } = personalInfo.data;
       </div>
 
       <!-- Right Side - Contact Form -->
-      <div class="contact-form-card bg-elegant-dark-gray/40 backdrop-blur-lg rounded-2xl p-6 lg:p-8 border border-elegant-white/10 shadow-2xl">
-        <h3 class="text-xl lg:text-2xl font-bold text-elegant-white mb-6">
-          Send a Message
-        </h3>
-        <form id="contact-form" class="space-y-5" action="https://formspree.io/f/your-form-id" method="POST">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label for="contact-name" class="block text-sm font-medium text-elegant-off-white mb-2">Name</label>
-              <input
-                type="text"
-                id="contact-name"
-                name="name"
-                required
-                placeholder="John Doe"
-                class="w-full px-4 py-3 bg-elegant-black/40 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-2 focus:ring-elegant-white/20 transition-all"
-              />
-            </div>
-            <div>
-              <label for="contact-email" class="block text-sm font-medium text-elegant-off-white mb-2">Email</label>
-              <input
-                type="email"
-                id="contact-email"
-                name="email"
-                required
-                placeholder="john@example.com"
-                class="w-full px-4 py-3 bg-elegant-black/40 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-2 focus:ring-elegant-white/20 transition-all"
-              />
-            </div>
-          </div>
-          <div>
-            <label for="contact-subject" class="block text-sm font-medium text-elegant-off-white mb-2">Subject</label>
-            <input
-              type="text"
-              id="contact-subject"
-              name="subject"
-              required
-              placeholder="Project Inquiry"
-              class="w-full px-4 py-3 bg-elegant-black/40 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-2 focus:ring-elegant-white/20 transition-all"
-            />
-          </div>
-          <div>
-            <label for="contact-message" class="block text-sm font-medium text-elegant-off-white mb-2">Message</label>
-            <textarea
-              id="contact-message"
-              name="message"
-              required
-              rows="5"
-              placeholder="Tell me about your project..."
-              class="w-full px-4 py-3 bg-elegant-black/40 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-2 focus:ring-elegant-white/20 transition-all resize-none"
-            ></textarea>
-          </div>
-          <div class="pt-2">
-            <button
-              type="submit"
-              class="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-elegant-white hover:bg-elegant-off-white text-elegant-black font-semibold text-sm rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-elegant-white/30"
-            >
-              <span>Send Message</span>
-              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </button>
-          </div>
-        </form>
-      </div>
+      <ContactForm client:load />
     </div>
 
     <!-- Footer -->
@@ -232,7 +170,6 @@ const { name, location } = personalInfo.data;
   .contact-subtitle,
   .contact-info-side,
   .contact-info-item,
-  .contact-form-card,
   .contact-social-link {
     opacity: 0;
     transform: translateY(30px);
@@ -241,5 +178,11 @@ const { name, location } = personalInfo.data;
   .contact-underline {
     opacity: 0;
     transform: scaleX(0);
+  }
+  
+  /* Contact form card animation handled by Vue component */
+  :global(.contact-form-card) {
+    opacity: 0;
+    transform: translateY(30px);
   }
 </style>
