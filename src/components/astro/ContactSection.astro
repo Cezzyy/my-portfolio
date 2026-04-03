@@ -11,30 +11,30 @@ const { name, location } = personalInfo.data;
 ---
 
 <ContactSectionAnimator client:load>
-<section id="contact" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-white">
+<section id="contact" class="relative min-h-screen py-16 lg:py-20 overflow-hidden bg-elegant-black">
   <!-- Creative Background -->
   <div class="absolute inset-0">
     <!-- Hexagon Pattern -->
     <div class="absolute inset-0 opacity-5">
-      <div class="absolute inset-0" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,0,0,.03) 50px, rgba(0,0,0,.03) 100px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0,0,0,.03) 50px, rgba(0,0,0,.03) 100px);"></div>
+      <div class="absolute inset-0" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,.1) 50px, rgba(255,255,255,.1) 100px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,.1) 50px, rgba(255,255,255,.1) 100px);"></div>
     </div>
     
     <!-- Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white opacity-95"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-elegant-black via-elegant-dark-gray/30 to-elegant-black opacity-95"></div>
     
     <!-- Floating Shapes -->
-    <div class="absolute top-20 left-10 w-80 h-80 bg-elegant-black/5 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 right-10 w-96 h-96 bg-elegant-black/3 rounded-full blur-3xl"></div>
+    <div class="absolute top-20 left-10 w-80 h-80 bg-elegant-white/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-elegant-white/3 rounded-full blur-3xl"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-8 lg:mb-12">
-      <h2 class="contact-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-black mb-3">
+      <h2 class="contact-title text-3xl sm:text-4xl lg:text-5xl font-bold text-elegant-white mb-3">
         Get In Touch
       </h2>
-      <div class="contact-underline w-20 h-1 bg-elegant-black mx-auto mb-3"></div>
-      <p class="contact-subtitle text-sm lg:text-base text-elegant-dark-gray max-w-2xl mx-auto px-2">
+      <div class="contact-underline w-20 h-1 bg-elegant-white mx-auto mb-3"></div>
+      <p class="contact-subtitle text-sm lg:text-base text-elegant-off-white max-w-2xl mx-auto px-2">
         Have a project in mind or want to collaborate? I'd love to hear from you.
       </p>
     </div>
@@ -42,38 +42,38 @@ const { name, location } = personalInfo.data;
     <!-- Info Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 lg:mb-10">
       <!-- Email Card -->
-      <div class="contact-info-card bg-white/80 backdrop-blur-lg rounded-xl p-5 border border-elegant-black/10 shadow-2xl text-center transition-all duration-300 hover:border-elegant-black/30 hover:shadow-elegant-black/10 hover:-translate-y-1">
-        <div class="w-12 h-12 mx-auto mb-3 bg-elegant-black/5 border border-elegant-black/20 rounded-xl flex items-center justify-center">
-          <svg class="w-6 h-6 text-elegant-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="contact-info-card bg-elegant-dark-gray/60 backdrop-blur-lg rounded-xl p-5 border border-elegant-white/10 shadow-2xl text-center transition-all duration-300 hover:border-elegant-white/30 hover:shadow-elegant-white/10 hover:-translate-y-1">
+        <div class="w-12 h-12 mx-auto mb-3 bg-elegant-white/5 border border-elegant-white/20 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-elegant-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
           </svg>
         </div>
-        <h3 class="text-base font-bold text-elegant-black mb-1">Email</h3>
-        <a href="mailto:casupananjohncez@gmail.com" class="text-elegant-dark-gray text-xs hover:text-elegant-black transition-colors break-all">
+        <h3 class="text-base font-bold text-elegant-white mb-1">Email</h3>
+        <a href="mailto:casupananjohncez@gmail.com" class="text-elegant-off-white text-xs hover:text-elegant-white transition-colors break-all">
           casupananjohncez@gmail.com
         </a>
       </div>
 
       <!-- Location Card -->
-      <div class="contact-info-card bg-white/80 backdrop-blur-lg rounded-xl p-5 border border-elegant-black/10 shadow-2xl text-center transition-all duration-300 hover:border-elegant-black/30 hover:shadow-elegant-black/10 hover:-translate-y-1">
-        <div class="w-12 h-12 mx-auto mb-3 bg-elegant-black/5 border border-elegant-black/20 rounded-xl flex items-center justify-center">
-          <svg class="w-6 h-6 text-elegant-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="contact-info-card bg-elegant-dark-gray/60 backdrop-blur-lg rounded-xl p-5 border border-elegant-white/10 shadow-2xl text-center transition-all duration-300 hover:border-elegant-white/30 hover:shadow-elegant-white/10 hover:-translate-y-1">
+        <div class="w-12 h-12 mx-auto mb-3 bg-elegant-white/5 border border-elegant-white/20 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-elegant-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
           </svg>
         </div>
-        <h3 class="text-base font-bold text-elegant-black mb-1">Location</h3>
-        <p class="text-elegant-dark-gray text-xs">{location}</p>
+        <h3 class="text-base font-bold text-elegant-white mb-1">Location</h3>
+        <p class="text-elegant-off-white text-xs">{location}</p>
       </div>
 
       <!-- Socials Card -->
-      <div class="contact-info-card bg-white/80 backdrop-blur-lg rounded-xl p-5 border border-elegant-black/10 shadow-2xl text-center transition-all duration-300 hover:border-elegant-black/30 hover:shadow-elegant-black/10 hover:-translate-y-1">
-        <div class="w-12 h-12 mx-auto mb-3 bg-elegant-black/5 border border-elegant-black/20 rounded-xl flex items-center justify-center">
-          <svg class="w-6 h-6 text-elegant-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="contact-info-card bg-elegant-dark-gray/60 backdrop-blur-lg rounded-xl p-5 border border-elegant-white/10 shadow-2xl text-center transition-all duration-300 hover:border-elegant-white/30 hover:shadow-elegant-white/10 hover:-translate-y-1">
+        <div class="w-12 h-12 mx-auto mb-3 bg-elegant-white/5 border border-elegant-white/20 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-elegant-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
           </svg>
         </div>
-        <h3 class="text-base font-bold text-elegant-black mb-1">Socials</h3>
+        <h3 class="text-base font-bold text-elegant-white mb-1">Socials</h3>
         <div class="flex justify-center gap-2 mt-2">
           <a href="https://github.com/Cezzyy" target="_blank" rel="noopener noreferrer" class="contact-social-link social-icon" aria-label="GitHub Profile">
             <svg class="w-4 h-4" fill="currentColor" role="img" viewBox="0 0 24 24">
@@ -95,61 +95,61 @@ const { name, location } = personalInfo.data;
     </div>
 
     <!-- Contact Form -->
-    <div class="contact-form-card max-w-3xl mx-auto bg-white/80 backdrop-blur-lg rounded-xl p-5 lg:p-7 border border-elegant-black/10 shadow-2xl">
-      <h3 class="text-lg lg:text-xl font-bold text-elegant-black mb-5 text-center">
+    <div class="contact-form-card max-w-3xl mx-auto bg-elegant-dark-gray/60 backdrop-blur-lg rounded-xl p-5 lg:p-7 border border-elegant-white/10 shadow-2xl">
+      <h3 class="text-lg lg:text-xl font-bold text-elegant-white mb-5 text-center">
         Send Me a Message
       </h3>
       <form id="contact-form" class="space-y-4" action="https://formspree.io/f/your-form-id" method="POST">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label for="contact-name" class="block text-xs font-medium text-elegant-dark-gray mb-1.5">Name</label>
+            <label for="contact-name" class="block text-xs font-medium text-elegant-off-white mb-1.5">Name</label>
             <input
               type="text"
               id="contact-name"
               name="name"
               required
               placeholder="Your name"
-              class="w-full px-3 py-2 bg-white border border-elegant-black/20 rounded-lg text-elegant-dark-gray text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-black focus:ring-1 focus:ring-elegant-black transition-colors"
+              class="w-full px-3 py-2 bg-elegant-black/60 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-1 focus:ring-elegant-white transition-colors"
             />
           </div>
           <div>
-            <label for="contact-email" class="block text-xs font-medium text-elegant-dark-gray mb-1.5">Email</label>
+            <label for="contact-email" class="block text-xs font-medium text-elegant-off-white mb-1.5">Email</label>
             <input
               type="email"
               id="contact-email"
               name="email"
               required
               placeholder="your@email.com"
-              class="w-full px-3 py-2 bg-white border border-elegant-black/20 rounded-lg text-elegant-dark-gray text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-black focus:ring-1 focus:ring-elegant-black transition-colors"
+              class="w-full px-3 py-2 bg-elegant-black/60 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-1 focus:ring-elegant-white transition-colors"
             />
           </div>
         </div>
         <div>
-          <label for="contact-subject" class="block text-xs font-medium text-elegant-dark-gray mb-1.5">Subject</label>
+          <label for="contact-subject" class="block text-xs font-medium text-elegant-off-white mb-1.5">Subject</label>
           <input
             type="text"
             id="contact-subject"
             name="subject"
             required
             placeholder="What's this about?"
-            class="w-full px-3 py-2 bg-white border border-elegant-black/20 rounded-lg text-elegant-dark-gray text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-black focus:ring-1 focus:ring-elegant-black transition-colors"
+            class="w-full px-3 py-2 bg-elegant-black/60 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-1 focus:ring-elegant-white transition-colors"
           />
         </div>
         <div>
-          <label for="contact-message" class="block text-xs font-medium text-elegant-dark-gray mb-1.5">Message</label>
+          <label for="contact-message" class="block text-xs font-medium text-elegant-off-white mb-1.5">Message</label>
           <textarea
             id="contact-message"
             name="message"
             required
             rows="4"
             placeholder="Tell me about your project or idea..."
-            class="w-full px-3 py-2 bg-white border border-elegant-black/20 rounded-lg text-elegant-dark-gray text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-black focus:ring-1 focus:ring-elegant-black transition-colors resize-none"
+            class="w-full px-3 py-2 bg-elegant-black/60 border border-elegant-white/20 rounded-lg text-elegant-off-white text-sm placeholder-elegant-soft-gray focus:outline-none focus:border-elegant-white focus:ring-1 focus:ring-elegant-white transition-colors resize-none"
           ></textarea>
         </div>
         <div class="text-center pt-2">
           <button
             type="submit"
-            class="group inline-flex items-center gap-2 px-6 py-2.5 bg-elegant-black hover:bg-elegant-dark-gray text-elegant-white font-semibold text-sm rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-elegant-black/30 relative overflow-hidden"
+            class="group inline-flex items-center gap-2 px-6 py-2.5 bg-elegant-white hover:bg-elegant-off-white text-elegant-black font-semibold text-sm rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-elegant-white/30 relative overflow-hidden"
           >
             <span class="relative z-10">Send Message</span>
             <svg class="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,9 +164,9 @@ const { name, location } = personalInfo.data;
     <div class="mt-10 lg:mt-12 text-center">
       <p class="text-elegant-soft-gray text-xs">
         &copy; {new Date().getFullYear()} {name}. Built with
-        <span class="text-elegant-black">Astro</span>,
-        <span class="text-elegant-black">Vue</span> &
-        <span class="text-elegant-black">TailwindCSS</span>.
+        <span class="text-elegant-off-white">Astro</span>,
+        <span class="text-elegant-off-white">Vue</span> &
+        <span class="text-elegant-off-white">TailwindCSS</span>.
       </p>
     </div>
   </div>
@@ -182,17 +182,17 @@ const { name, location } = personalInfo.data;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
     transition: all 0.3s ease;
   }
 
   .social-icon:hover {
-    background: #0a0a0a;
-    color: #ffffff;
+    background: #ffffff;
+    color: #0a0a0a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
   }
 
   /* Initial states for GSAP animations */
