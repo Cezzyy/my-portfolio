@@ -24,7 +24,8 @@ const elements = reactive({
   underline: null as Element | null,
   subtitle: null as Element | null,
   formCard: null as Element | null,
-  infoCards: [] as Element[],
+  infoSide: null as Element | null,
+  infoItems: [] as Element[],
   socialLinks: [] as Element[],
   floatingShapes: [] as Element[],
 });
@@ -47,7 +48,8 @@ const populateElements = () => {
   elements.underline = section.querySelector(".contact-underline");
   elements.subtitle = section.querySelector(".contact-subtitle");
   elements.formCard = section.querySelector(".contact-form-card");
-  elements.infoCards = Array.from(section.querySelectorAll(".contact-info-card"));
+  elements.infoSide = section.querySelector(".contact-info-side");
+  elements.infoItems = Array.from(section.querySelectorAll(".contact-info-item"));
   elements.socialLinks = Array.from(section.querySelectorAll(".contact-social-link"));
   elements.floatingShapes = Array.from(section.querySelectorAll(".contact-shape"));
 
@@ -88,18 +90,32 @@ const animateContactElements = () => {
     );
   }
 
-  // Animate info cards with stagger
-  elements.infoCards.forEach((card, index) => {
+  // Animate info side
+  if (elements.infoSide) {
     gsap.fromTo(
-      card,
-      { opacity: 0, y: 40, scale: 0.9 },
+      elements.infoSide,
+      { opacity: 0, x: -40 },
       {
         opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.7,
-        delay: 0.4 + index * 0.15,
-        ease: "back.out(1.5)",
+        x: 0,
+        duration: 0.8,
+        delay: 0.4,
+        ease: "power2.out",
+      }
+    );
+  }
+
+  // Animate info items with stagger
+  elements.infoItems.forEach((item, index) => {
+    gsap.fromTo(
+      item,
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        delay: 0.5 + index * 0.1,
+        ease: "power2.out",
       }
     );
   });
