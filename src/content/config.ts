@@ -12,6 +12,19 @@ const infoCollection = defineCollection({
     learning: z.array(z.string()),
     interests: z.array(z.string()),
     motto: z.string(),
+    education: z.object({
+      school: z.string(),
+      degree: z.string(),
+      year: z.string(),
+      location: z.string(),
+    }).optional(),
+    experience: z.array(z.object({
+      title: z.string(),
+      company: z.string(),
+      period: z.string(),
+      description: z.string(),
+    })).optional(),
+    background: z.string().optional(),
   }),
 });
 

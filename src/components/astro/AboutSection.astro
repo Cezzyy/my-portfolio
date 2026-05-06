@@ -14,7 +14,7 @@ const personalInfo = await getEntry('info', 'personal');
 if (!personalInfo) {
     throw new Error('Personal information not found');
 }
-const { name, status, location, goal, currentFocus, interests, motto } = personalInfo.data;
+const { name, status, location, goal, currentFocus, interests, motto, education, experience, background } = personalInfo.data;
 
 // Icon mapping
 const iconMap: Record<string, SimpleIcon | null> = {
@@ -75,13 +75,14 @@ const getIcon = (skillName: string): SimpleIcon | null => {
     <!-- Main Content Grid -->
     <div class="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-center">
       <!-- Left Column - Information -->
-      <div class="about-content">
-        <div class="bg-white/80 backdrop-blur-lg rounded-xl p-4 sm:p-5 md:p-6 lg:p-7 border border-elegant-black/10 shadow-2xl space-y-3 sm:space-y-4">
+      <div class="about-content space-y-4 sm:space-y-5 md:space-y-6">
+        <!-- Main Info Card -->
+        <div class="bg-white/80 backdrop-blur-lg rounded-xl p-4 sm:p-5 md:p-6 lg:p-7 border border-elegant-black/10 shadow-2xl">
           <div class="mb-3 sm:mb-4">
             <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-elegant-black mb-1">{name}</h3>
             <p class="text-sm sm:text-base lg:text-lg text-elegant-dark-gray font-semibold mb-2">{status}</p>
             <div class="flex items-center gap-1.5 sm:gap-2 text-elegant-dark-gray mb-2 sm:mb-3 text-xs sm:text-sm">
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-elegant-black flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-elegant-black flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
@@ -89,10 +90,17 @@ const getIcon = (skillName: string): SimpleIcon | null => {
             </div>
           </div>
 
+          {background && (
+            <div class="mb-3 sm:mb-4">
+              <p class="text-xs sm:text-sm lg:text-base leading-relaxed text-elegant-dark-gray">
+                {background}
+              </p>
+            </div>
+          )}
+
           <div class="space-y-2.5 sm:space-y-3 text-elegant-dark-gray">
             <p class="text-xs sm:text-sm lg:text-base leading-relaxed">
-              {goal}. Currently exploring the exciting world of cross-platform
-              development while building my skills across the full stack.
+              {goal}. Currently focusing on building cross-platform applications and expanding my full-stack capabilities.
             </p>
 
             <p class="text-xs sm:text-sm leading-relaxed italic text-elegant-soft-gray">
@@ -100,10 +108,10 @@ const getIcon = (skillName: string): SimpleIcon | null => {
             </p>
           </div>
 
-          <div class="pt-2 sm:pt-3">
+          <div class="pt-3 sm:pt-4">
             <h4 class="text-sm sm:text-base lg:text-lg font-bold text-elegant-black mb-2">Current Focus</h4>
             <div class="flex flex-wrap gap-1.5">
-              {currentFocus.map((tech) => {
+              {currentFocus.map((tech: string) => {
                 const icon = getIcon(tech);
                 return (
                   <span class="flex items-center gap-1 px-2 sm:px-2.5 py-1 bg-elegant-black/5 border border-elegant-black/20 text-elegant-dark-gray rounded font-semibold text-xs hover:bg-elegant-black/10 hover:border-elegant-black/40 transition-all duration-300">
@@ -119,10 +127,10 @@ const getIcon = (skillName: string): SimpleIcon | null => {
             </div>
           </div>
 
-          <div class="pt-2 sm:pt-3">
+          <div class="pt-3 sm:pt-4">
             <h4 class="text-sm sm:text-base lg:text-lg font-bold text-elegant-black mb-2">Interests</h4>
             <ul class="space-y-1.5 sm:space-y-2">
-              {interests.map((interest) => (
+              {interests.map((interest: string) => (
                 <li class="flex items-center gap-2 text-elegant-dark-gray text-xs sm:text-sm lg:text-base">
                   <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-elegant-black rounded-full flex-shrink-0"></div>
                   <span>{interest}</span>
@@ -131,10 +139,64 @@ const getIcon = (skillName: string): SimpleIcon | null => {
             </ul>
           </div>
         </div>
+
+        <!-- Education Card -->
+        {education && (
+          <div class="bg-white/80 backdrop-blur-lg rounded-xl p-4 sm:p-5 md:p-6 border border-elegant-black/10 shadow-2xl">
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-elegant-black rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm sm:text-base lg:text-lg font-bold text-elegant-black mb-1">Education</h4>
+                <p class="text-xs sm:text-sm lg:text-base font-semibold text-elegant-dark-gray">{education.degree}</p>
+                <p class="text-xs sm:text-sm text-elegant-dark-gray">{education.school}</p>
+                <div class="flex items-center gap-2 mt-1 text-xs text-elegant-soft-gray">
+                  <span>{education.year}</span>
+                  <span>•</span>
+                  <span>{education.location}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Experience Card -->
+        {experience && experience.length > 0 && (
+          <div class="bg-white/80 backdrop-blur-lg rounded-xl p-4 sm:p-5 md:p-6 border border-elegant-black/10 shadow-2xl">
+            <div class="flex items-center gap-2 mb-3 sm:mb-4">
+              <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-elegant-black rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <h4 class="text-sm sm:text-base lg:text-lg font-bold text-elegant-black">Experience</h4>
+            </div>
+            <div class="space-y-4">
+              {experience.map((exp: any) => (
+                <div class="relative pl-4 border-l-2 border-elegant-black/20">
+                  {/* Timeline Dot */}
+                  <div class="absolute -left-[5px] top-1 w-2 h-2 bg-elegant-black rounded-full"></div>
+                  
+                  <div>
+                    <h5 class="text-xs sm:text-sm lg:text-base font-bold text-elegant-black">{exp.title}</h5>
+                    <p class="text-xs sm:text-sm text-elegant-dark-gray font-semibold">{exp.company}</p>
+                    <p class="text-xs text-elegant-soft-gray mb-1">{exp.period}</p>
+                    <p class="text-xs sm:text-sm text-elegant-dark-gray leading-relaxed">{exp.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <!-- Right Column - Profile Picture -->
-      <div class="profile-image flex items-center justify-center mt-6 md:mt-0">
+      <div class="profile-image flex items-center justify-center">
         <div class="relative">
           <!-- Decorative Ring 1 -->
           <div class="absolute inset-0 rounded-full border-2 sm:border-4 border-elegant-black/20 animate-pulse-ring"></div>
@@ -143,21 +205,21 @@ const getIcon = (skillName: string): SimpleIcon | null => {
           <div class="absolute inset-0 rounded-full border-2 sm:border-4 border-elegant-black/10 animate-pulse-ring-delayed" style="animation-delay: 0.5s;"></div>
 
           <!-- Profile Picture Container -->
-          <div class="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 sm:border-4 border-elegant-black/30 shadow-2xl shadow-elegant-black/10">
+          <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 xl:w-[28rem] xl:h-[28rem] rounded-full overflow-hidden border-2 sm:border-4 border-elegant-black/30 shadow-2xl shadow-elegant-black/10">
             <Image
               src={profilePic}
               alt={name}
               class="w-full h-full object-cover transition-all duration-500 hover:scale-110"
               loading="lazy"
-              width={320}
-              height={320}
+              width={448}
+              height={448}
               quality={90}
             />
           </div>
 
           <!-- Corner Accent -->
-          <div class="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-elegant-black rounded-full flex items-center justify-center shadow-lg">
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-elegant-black rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
             </svg>
           </div>
