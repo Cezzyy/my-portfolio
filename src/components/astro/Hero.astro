@@ -145,21 +145,21 @@ const { name, status, location, goal, currentFocus, motto } = personalInfo.data;
                             </div>
 
                             <!-- Code Content -->
-                            <div class="code-content flex-1 text-elegant-off-white">
-                                <div class="typing-line"><span class="text-elegant-white">class</span> <span class="text-elegant-pale-gray">Developer</span> &#123;</div>
-                                <div class="typing-line pl-4"><span class="text-elegant-white">final</span> <span class="text-elegant-off-white">String</span> name = <span class="text-elegant-pale-gray">'{name}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-elegant-white">final</span> <span class="text-elegant-off-white">String</span> status = <span class="text-elegant-pale-gray">'{status}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-elegant-white">final</span> <span class="text-elegant-off-white">String</span> location = <span class="text-elegant-pale-gray">'{location}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-elegant-white">final</span> <span class="text-elegant-off-white">String</span> goal = <span class="text-elegant-pale-gray">'{goal}'</span>;</div>
-                                <div class="typing-line pl-4"><span class="text-elegant-white">final</span> <span class="text-elegant-off-white">List</span>&lt;<span class="text-elegant-off-white">String</span>&gt; focus = [</div>
+                            <div class="code-content flex-1">
+                                <div class="typing-line"><span class="text-white font-bold">class</span> <span class="text-white font-semibold">Developer</span> <span class="text-white">&#123;</span></div>
+                                <div class="typing-line pl-4"><span class="text-white font-bold">final</span> <span class="text-white font-semibold">String</span> <span class="text-white">name</span> <span class="text-white font-medium">=</span> <span class="text-white italic">'{name}'</span><span class="text-white">;</span></div>
+                                <div class="typing-line pl-4"><span class="text-white font-bold">final</span> <span class="text-white font-semibold">String</span> <span class="text-white">status</span> <span class="text-white font-medium">=</span> <span class="text-white italic">'{status}'</span><span class="text-white">;</span></div>
+                                <div class="typing-line pl-4"><span class="text-white font-bold">final</span> <span class="text-white font-semibold">String</span> <span class="text-white">location</span> <span class="text-white font-medium">=</span> <span class="text-white italic">'{location}'</span><span class="text-white">;</span></div>
+                                <div class="typing-line pl-4"><span class="text-white font-bold">final</span> <span class="text-white font-semibold">String</span> <span class="text-white">goal</span> <span class="text-white font-medium">=</span> <span class="text-white italic">'{goal}'</span><span class="text-white">;</span></div>
+                                <div class="typing-line pl-4"><span class="text-white font-bold">final</span> <span class="text-white font-semibold">List</span><span class="text-white">&lt;</span><span class="text-white font-semibold">String</span><span class="text-white">&gt;</span> <span class="text-white">focus</span> <span class="text-white font-medium">=</span> <span class="text-white">[</span></div>
                                 {currentFocus.map((tech, index) => (
                                     <div class="typing-line pl-8">
-                                        <span class="text-elegant-pale-gray">'{tech}'</span>{index < currentFocus.length - 1 ? ',' : ','}
+                                        <span class="text-white italic">'{tech}'</span><span class="text-white">{index < currentFocus.length - 1 ? ',' : ','}</span>
                                     </div>
                                 ))}
-                                <div class="typing-line pl-4">];</div>
-                                <div class="typing-line pl-4"><span class="text-elegant-white">final</span> <span class="text-elegant-off-white">String</span> motto = <span class="text-elegant-pale-gray">'{motto.slice(0, 35)}...'</span>;</div>
-                                <div class="typing-line">&#125;</div>
+                                <div class="typing-line pl-4"><span class="text-white">]</span><span class="text-white">;</span></div>
+                                <div class="typing-line pl-4"><span class="text-white font-bold">final</span> <span class="text-white font-semibold">String</span> <span class="text-white">motto</span> <span class="text-white font-medium">=</span> <span class="text-white italic">'{motto.slice(0, 35)}...'</span><span class="text-white">;</span></div>
+                                <div class="typing-line"><span class="text-white">&#125;</span></div>
                             </div>
                         </div>
 
