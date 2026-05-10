@@ -5,7 +5,7 @@ import type { SimpleIcon } from 'simple-icons';
 import { 
   siFlutter, siDart, siVuedotjs, siNuxt, siTypescript, siJavascript, siAstro, siTailwindcss, 
   siHtml5, siGo, siSharp, siNodedotjs, siHono, siExpress, siBun,
-  siPostgresql, siSupabase, siFirebase, siKotlin
+  siPostgresql, siSupabase, siFirebase, siKotlin, siReact, siExpo
 } from 'simple-icons';
 
 const personalInfo = await getEntry('info', 'personal');
@@ -34,7 +34,9 @@ const iconMap: Record<string, SimpleIcon | null> = {
   "PostgreSQL": siPostgresql,
   "Supabase": siSupabase,
   "Firebase": siFirebase,
-  "Kotlin": siKotlin
+  "Kotlin": siKotlin,
+  "React Native with Expo": siReact,
+  "Expo": siExpo
 };
 
 const getIcon = (skillName: string): SimpleIcon | null => {
@@ -81,7 +83,8 @@ const skillCategories = [
   {
     title: "Currently Learning",
     skills: [
-      { name: "Kotlin", category: "language", isLearning: true }
+      { name: "Kotlin", category: "language", isLearning: true },
+      { name: "React Native with Expo", category: "mobile", isLearning: true }
     ]
   }
 ];
