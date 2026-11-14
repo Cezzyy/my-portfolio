@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/source-sans-3";
+
+/*
+ * Evergreen & Marigold, shared with DigiBridge (docs/updated-design.md).
+ * Evergreen for every action; marigold only where the eye should go next.
+ * Never use `marigold` as text on white; use `marigold-text`.
+ */
+@theme {
+  --color-evergreen: #1e5b44;
+  --color-evergreen-hover: #174a37;
+  --color-evergreen-soft: #edf6f0;
+  --color-on-evergreen: #ffffff;
+  --color-marigold: #f4a51c;
+  --color-marigold-text: #8a5a00;
+  --color-marigold-soft: #fdf1da;
+  --color-ink: #12241c;
+  --color-quiet: #4f6459;
+  --color-line: #d4e3da;
+  --color-line-strong: #6f8a7c;
+  --color-surface: #ffffff;
+  --color-mist: #e4efe8;
+  --color-mist-soft: #f2f7f4;
+  --color-track: #e7f1eb;
+  --color-error: #c2412d;
+  --color-error-soft: #fbedea;
+  --color-level-1: #d6ebdf;
+  --color-level-2: #8cc5a6;
+  --color-level-3: #2f7d58;
+  --color-level-4: #1e5b44;
+  --color-on-level: #12241c;
+
+  /* Full-bleed bands. These stay dark in both themes, so white text is always safe on them. */
+  --color-brand: #1e5b44;
+  --color-night: #12241c;
+
+  --font-sans: "Source Sans 3 Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Source Sans 3 Variable", ui-sans-serif, sans-serif;
+
+  --radius-card: 0.75rem;
+  --radius-control: 0.5rem;
+  --spacing-header: 4.25rem;
+
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark theme: follows the system unless the visitor picked one with the toggle. */
+@layer base {
+  :root[data-theme="dark"] {
+    --color-evergreen: #74d1a2;
+    --color-evergreen-hover: #93dfb8;
+    --color-evergreen-soft: #1b3a2c;
+    --color-on-evergreen: #0b1d14;
+    --color-marigold-text: #f5c26b;
+    --color-marigold-soft: #3a2d13;
+    --color-ink: #e3eee7;
+    --color-quiet: #a2b7ab;
+    --color-line: #2a3e34;
+    --color-line-strong: #64806f;
+    --color-surface: #16231d;
+    --color-mist: #0e1813;
+    --color-mist-soft: #1c2c24;
+    --color-track: #22352b;
+    --color-error: #ff907d;
+    --color-error-soft: #3b1d18;
+    --color-night: #09110d;
+    color-scheme: dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-evergreen: #74d1a2;
+      --color-evergreen-hover: #93dfb8;
+      --color-evergreen-soft: #1b3a2c;
+      --color-on-evergreen: #0b1d14;
+      --color-marigold-text: #f5c26b;
+      --color-marigold-soft: #3a2d13;
+      --color-ink: #e3eee7;
+      --color-quiet: #a2b7ab;
+      --color-line: #2a3e34;
+      --color-line-strong: #64806f;
+      --color-surface: #16231d;
+      --color-mist: #0e1813;
+      --color-mist-soft: #1c2c24;
+      --color-track: #22352b;
+      --color-error: #ff907d;
+      --color-error-soft: #3b1d18;
+      --color-night: #09110d;
+      color-scheme: dark;
+    }
+  }
+
+  html {
+    background: var(--color-mist);
+    scroll-padding-top: var(--spacing-header);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-mist);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    background: var(--color-marigold);
+    color: #12241c;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-evergreen);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/*
+ * Motion is GSAP (src/scripts/motion). Animated elements start hidden only while JS runs and
+ * motion is allowed. The head script adds .no-motion if GSAP never boots, so the page always reads.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.no-motion)
+    :is([data-intro], [data-reveal], [data-split], [data-stagger] > *, [data-mock-piece]) {
+    visibility: hidden;
+  }
+}
+
+/* SplitText line masks: pad them so tight display leading doesn't clip ascenders and descenders. */
+.split-line-mask {
+  padding-block: 0.1em 0.14em;
+  margin-block: -0.1em -0.14em;
+}
+
+/* Dotted backdrop behind the hero, fading out from the portrait. */
+.dot-field {
+  background-image: radial-gradient(var(--color-line-strong) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 60% 70% at 72% 45%, #000 10%, transparent 70%);
+}
+
+/* Outlined display type for the second marquee row. */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.45);
+}

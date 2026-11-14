@@ -1,20 +1,32 @@
 ---
+import { getCollection, getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
 import Hero from '../components/astro/Hero.astro';
 import AboutSection from '../components/astro/AboutSection.astro';
 import ProjectsSection from '../components/astro/ProjectsSection.astro';
-import SkillsSection from '../components/astro/SkillsSection.astro';
+import StackSection from '../components/astro/StackSection.astro';
 import ContactSection from '../components/astro/ContactSection.astro';
+import Footer from '../components/astro/Footer.astro';
+
+const personal = await getEntry('info', 'personal');
+if (!personal) throw new Error('Personal information not found');
+const info = personal.data;
+
+const projects = await getCollection('projects');
 ---
 
-<Layout title="Portfolio | John Cez Casupanan" description="Welcome to my portfolio showcasing my work and projects">
-  <Header />
-  <main id="home">
-    <Hero />
-    <AboutSection />
-    <ProjectsSection />
-    <SkillsSection />
-    <ContactSection />
+<Layout
+  title={`${info.name} · ${info.role}`}
+  description={`${info.status} in ${info.location} building cross-platform mobile apps with Flutter and full-stack web projects with Vue, React, Hono and Supabase.`}
+>
+  <Header nickname={info.nickname} />
+  <main id="main">
+    <Hero info={info} projectCount={projects.length} />
+    <AboutSection entry={personal} />
+    <ProjectsSection projects={projects} />
+    <StackSection stack={info.stack} />
+    <ContactSection info={info} />
   </main>
+  <Footer name={info.name} nickname={info.nickname} teamQuote={info.teamQuote} />
 </Layout>

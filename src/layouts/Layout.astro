@@ -1,22 +1,63 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
-  description?: string;
+  description: string;
 }
 
-const { title, description = "My Portfolio" } = Astro.props;
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e4efe8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1813" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+
     <title>{title}</title>
+
+    <!--
+      Runs before first paint: apply the saved theme and flag JS, so nothing flashes.
+      If the GSAP bundle hasn't booted after 3s, .no-motion un-hides everything it would animate.
+    -->
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        try {
+          const saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
+        } catch {}
+        setTimeout(() => {
+          if (!root.classList.contains('motion-ready')) root.classList.add('no-motion');
+        }, 3000);
+      })();
+    </script>
   </head>
-  <body class="bg-elegant-black text-elegant-off-white antialiased">
+  <body class="min-h-dvh">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-control focus:bg-evergreen focus:px-4 focus:py-2 focus:font-semibold focus:text-on-evergreen"
+    >
+      Skip to content
+    </a>
     <slot />
+
+    <script>
+      import '../scripts/motion';
+    </script>
   </body>
 </html>

@@ -1,345 +1,369 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
+type FieldKey = 'name' | 'email' | 'subject' | 'message';
+
+interface FieldConfig {
+  key: FieldKey;
+  index: string;
+  label: string;
+  type: 'text' | 'email' | 'textarea';
+  placeholder: string;
+  autocomplete?: string;
+  max: number;
+  wide?: boolean;
 }
 
-interface FormErrors {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+const fields: FieldConfig[] = [
+  { key: 'name', index: '01', label: 'Your name', type: 'text', autocomplete: 'name', placeholder: 'Juan Dela Cruz', max: 50 },
+  { key: 'email', index: '02', label: 'Email address', type: 'email', autocomplete: 'email', placeholder: 'you@example.com', max: 254 },
+  { key: 'subject', index: '03', label: 'Subject', type: 'text', placeholder: 'What is this about?', max: 100, wide: true },
+  { key: 'message', index: '04', label: 'Message', type: 'textarea', placeholder: 'Tell me a bit about what you have in mind.', max: 1000, wide: true },
+];
 
-interface TouchedFields {
-  name: boolean;
-  email: boolean;
-  subject: boolean;
-  message: boolean;
-}
+const topics = ['Internship', 'Freelance project', 'Collaboration', 'Just saying hi'];
 
-const formData = reactive<FormData>({
-  name: '',
-  email: '',
-  subject: '',
-  message: ''
-});
+const MESSAGE_MIN = 10;
 
-const errors = reactive<FormErrors>({
-  name: '',
-  email: '',
-  subject: '',
-  message: ''
-});
+const emptyRecord = <T,>(value: T) => ({ name: value, email: value, subject: value, message: value });
 
-const touched = reactive<TouchedFields>({
-  name: false,
-  email: false,
-  subject: false,
-  message: false
-});
+const formData = reactive<Record<FieldKey, string>>(emptyRecord(''));
+const errors = reactive<Record<FieldKey, string>>(emptyRecord(''));
+const touched = reactive<Record<FieldKey, boolean>>(emptyRecord(false));
 
 const isSubmitting = ref(false);
 const submitSuccess = ref(false);
 const submitError = ref('');
+const sentTo = ref('');
+const botcheck = ref(false);
 
-const validateName = (value: string): string => {
-  if (!value.trim()) {
-    return 'Name is required';
-  }
-  if (value.trim().length < 2) {
-    return 'Name must be at least 2 characters';
-  }
-  if (value.trim().length > 50) {
-    return 'Name must be less than 50 characters';
-  }
+const lengthRule = (label: string, value: string, min: number, max: number) => {
+  const length = value.trim().length;
+  if (!length) return `${label} is required`;
+  if (length < min) return `${label} must be at least ${min} characters`;
+  if (length > max) return `${label} must be less than ${max} characters`;
   return '';
 };
 
-const validateEmail = (value: string): string => {
-  if (!value.trim()) {
-    return 'Email is required';
-  }
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(value)) {
-    return 'Please enter a valid email address';
-  }
-  return '';
+const validators: Record<FieldKey, (value: string) => string> = {
+  name: (v) => lengthRule('Name', v, 2, 50),
+  email: (v) => {
+    if (!v.trim()) return 'Email is required';
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Please enter a valid email address';
+  },
+  subject: (v) => lengthRule('Subject', v, 3, 100),
+  message: (v) => lengthRule('Message', v, MESSAGE_MIN, 1000),
 };
 
-const validateSubject = (value: string): string => {
-  if (!value.trim()) {
-    return 'Subject is required';
-  }
-  if (value.trim().length < 3) {
-    return 'Subject must be at least 3 characters';
-  }
-  if (value.trim().length > 100) {
-    return 'Subject must be less than 100 characters';
-  }
-  return '';
+const validate = (field: FieldKey) => {
+  errors[field] = validators[field](formData[field]);
 };
 
-const validateMessage = (value: string): string => {
-  if (!value.trim()) {
-    return 'Message is required';
-  }
-  if (value.trim().length < 10) {
-    return 'Message must be at least 10 characters';
-  }
-  if (value.trim().length > 1000) {
-    return 'Message must be less than 1000 characters';
-  }
-  return '';
+// Errors only appear once a field has been left, so nobody is scolded mid-word.
+const handleInput = (field: FieldKey) => {
+  if (touched[field]) validate(field);
 };
 
-const handleInput = (field: keyof FormData) => {
+const handleBlur = (field: FieldKey) => {
+  if (!formData[field] && !touched[field]) return;
   touched[field] = true;
-  
-  switch (field) {
-    case 'name':
-      errors.name = validateName(formData.name);
-      break;
-    case 'email':
-      errors.email = validateEmail(formData.email);
-      break;
-    case 'subject':
-      errors.subject = validateSubject(formData.subject);
-      break;
-    case 'message':
-      errors.message = validateMessage(formData.message);
-      break;
-  }
+  validate(field);
 };
 
-const handleBlur = (field: keyof FormData) => {
-  touched[field] = true;
-  handleInput(field);
-};
+const fieldInvalid = (field: FieldKey) => touched[field] && !!errors[field];
+const fieldValid = (field: FieldKey) => touched[field] && !errors[field] && !!formData[field].trim();
 
-const isFormValid = computed(() => {
-  return (
-    !errors.name &&
-    !errors.email &&
-    !errors.subject &&
-    !errors.message &&
-    formData.name.trim() &&
-    formData.email.trim() &&
-    formData.subject.trim() &&
-    formData.message.trim()
-  );
-});
-
-const handleSubmit = async (e: Event) => {
-  e.preventDefault();
-  
-  touched.name = true;
-  touched.email = true;
+const pickTopic = (topic: string) => {
+  formData.subject = topic;
   touched.subject = true;
-  touched.message = true;
-  
-  errors.name = validateName(formData.name);
-  errors.email = validateEmail(formData.email);
-  errors.subject = validateSubject(formData.subject);
-  errors.message = validateMessage(formData.message);
-  
-  if (!isFormValid.value) {
+  validate('subject');
+};
+
+const messageLength = computed(() => formData.message.trim().length);
+const messageProgress = computed(() => Math.min(messageLength.value / 1000, 1));
+
+const fieldKeys = fields.map((f) => f.key);
+
+const handleSubmit = async () => {
+  fieldKeys.forEach((key) => {
+    touched[key] = true;
+    validate(key);
+  });
+
+  const firstInvalid = fieldKeys.find((key) => errors[key]);
+  if (firstInvalid) {
+    document.getElementById(`contact-${firstInvalid}`)?.focus();
     return;
   }
-  
+
   isSubmitting.value = true;
   submitError.value = '';
-  submitSuccess.value = false;
-  
+
   try {
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         access_key: '38df5ea4-df29-46bb-b6f2-bbb3415ea1ec',
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+        botcheck: botcheck.value,
       }),
     });
-    
+
     const result = await response.json();
-    
     if (!response.ok || !result.success) {
       throw new Error(result.message || 'Failed to send message');
     }
-    
+
+    sentTo.value = formData.name.trim().split(/\s+/)[0] ?? '';
     submitSuccess.value = true;
-    
-    formData.name = '';
-    formData.email = '';
-    formData.subject = '';
-    formData.message = '';
-    
-    touched.name = false;
-    touched.email = false;
-    touched.subject = false;
-    touched.message = false;
-    
-    setTimeout(() => {
-      submitSuccess.value = false;
-    }, 5000);
-    
-  } catch (error) {
-    submitError.value = 'Failed to send message. Please try again.';
+    fieldKeys.forEach((key) => {
+      formData[key] = '';
+      errors[key] = '';
+      touched[key] = false;
+    });
+  } catch {
+    submitError.value = "Something went wrong and your message wasn't sent. Please try again, or email me directly.";
   } finally {
     isSubmitting.value = false;
   }
 };
 
-const getInputClasses = (field: keyof FormData) => {
-  const baseClasses = 'w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-elegant-black/40 rounded-lg text-elegant-off-white text-xs sm:text-sm placeholder-elegant-soft-gray focus:outline-none transition-all';
-  
-  if (touched[field] && errors[field]) {
-    return `${baseClasses} border-2 border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20`;
-  }
-  
-  if (touched[field] && !errors[field] && formData[field].trim()) {
-    return `${baseClasses} border-2 border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20`;
-  }
-  
-  return `${baseClasses} border border-elegant-white/20 focus:border-elegant-white focus:ring-2 focus:ring-elegant-white/20`;
+const sendAnother = () => {
+  submitSuccess.value = false;
+  requestAnimationFrame(() => document.getElementById('contact-name')?.focus());
 };
+
+const describedBy = (field: FieldKey) =>
+  [fieldInvalid(field) && `contact-${field}-error`, field === 'message' && 'contact-message-count']
+    .filter(Boolean)
+    .join(' ') || undefined;
 </script>
 
 <template>
-  <div class="contact-form-card bg-elegant-dark-gray/40 backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-elegant-white/10 shadow-2xl">
-    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-elegant-white mb-4 sm:mb-5 md:mb-6">
-      Send a Message
-    </h3>
-    
-    <div v-if="submitSuccess" class="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 bg-green-500/20 border border-green-500 rounded-lg">
-      <p class="text-green-400 text-xs sm:text-sm font-medium">Message sent successfully! I'll get back to you soon.</p>
-    </div>
-    
-    <div v-if="submitError" class="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 bg-red-500/20 border border-red-500 rounded-lg">
-      <p class="text-red-400 text-xs sm:text-sm font-medium">{{ submitError }}</p>
-    </div>
-    
-    <form @submit="handleSubmit" class="space-y-3.5 sm:space-y-4 md:space-y-5">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
-        <div>
-          <label for="contact-name" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-            Name
-          </label>
-          <input
-            type="text"
-            id="contact-name"
-            v-model="formData.name"
-            @input="handleInput('name')"
-            @blur="handleBlur('name')"
-            placeholder="John Doe"
-            :class="getInputClasses('name')"
-          />
-          <transition name="fade">
-            <p v-if="touched.name && errors.name" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-              {{ errors.name }}
-            </p>
-          </transition>
-        </div>
-        
-        <div>
-          <label for="contact-email" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-            Email
-          </label>
-          <input
-            type="text"
-            id="contact-email"
-            v-model="formData.email"
-            @input="handleInput('email')"
-            @blur="handleBlur('email')"
-            placeholder="john@example.com"
-            :class="getInputClasses('email')"
-          />
-          <transition name="fade">
-            <p v-if="touched.email && errors.email" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-              {{ errors.email }}
-            </p>
-          </transition>
-        </div>
-      </div>
-      
-      <div>
-        <label for="contact-subject" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-          Subject
-        </label>
-        <input
-          type="text"
-          id="contact-subject"
-          v-model="formData.subject"
-          @input="handleInput('subject')"
-          @blur="handleBlur('subject')"
-          placeholder="Project Inquiry"
-          :class="getInputClasses('subject')"
-        />
-        <transition name="fade">
-          <p v-if="touched.subject && errors.subject" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-            {{ errors.subject }}
-          </p>
-        </transition>
-      </div>
-      
-      <div>
-        <label for="contact-message" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-          Message
-        </label>
-        <textarea
-          id="contact-message"
-          v-model="formData.message"
-          @input="handleInput('message')"
-          @blur="handleBlur('message')"
-          rows="5"
-          placeholder="Tell me about your project..."
-          :class="getInputClasses('message') + ' resize-none'"
-        ></textarea>
-        <transition name="fade">
-          <p v-if="touched.message && errors.message" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-            {{ errors.message }}
-          </p>
-        </transition>
-      </div>
-      
-      <div class="pt-1 sm:pt-2">
+  <div class="relative">
+    <Transition
+      mode="out-in"
+      enter-active-class="motion-safe:transition motion-safe:duration-500 motion-safe:ease-glide"
+      enter-from-class="opacity-0 motion-safe:translate-y-3"
+      leave-active-class="motion-safe:transition motion-safe:duration-200"
+      leave-to-class="opacity-0"
+    >
+      <!-- Sent -->
+      <div v-if="submitSuccess" key="sent" role="status" class="flex flex-col items-start py-6">
+        <span class="relative grid size-16 place-items-center rounded-full bg-evergreen text-on-evergreen">
+          <span class="absolute inset-0 rounded-full bg-evergreen/30 motion-safe:animate-ping" aria-hidden="true"></span>
+          <svg class="relative size-8 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </span>
+        <h4 class="mt-6 font-display text-3xl font-bold tracking-[-0.02em]">
+          Message sent<template v-if="sentTo">, thanks {{ sentTo }}</template>.
+        </h4>
+        <p class="mt-3 max-w-sm leading-relaxed text-quiet">
+          It landed in my inbox. I'll read it properly and get back to you within a couple of days.
+        </p>
         <button
-          type="submit"
-          :disabled="!isFormValid || isSubmitting"
-          class="group w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 px-5 sm:px-6 py-2.5 sm:py-3 md:py-3.5 bg-elegant-white hover:bg-elegant-off-white text-elegant-black font-semibold text-xs sm:text-sm rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-elegant-white/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+          type="button"
+          class="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full border border-line-strong/60 px-6 font-semibold text-ink transition-colors hover:border-evergreen hover:text-evergreen"
+          @click="sendAnother"
         >
-          <span v-if="!isSubmitting">Send Message</span>
-          <span v-else>Sending...</span>
-          <svg v-if="!isSubmitting" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          <svg class="size-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" />
           </svg>
-          <svg v-else class="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          Send another message
         </button>
       </div>
-    </form>
+
+      <!-- Form -->
+      <form v-else key="form" novalidate class="grid gap-4 sm:grid-cols-2" @submit.prevent="handleSubmit">
+        <div
+          v-if="submitError"
+          role="alert"
+          class="flex gap-3 rounded-2xl bg-error-soft px-4 py-3.5 text-error sm:col-span-2"
+        >
+          <svg class="mt-0.5 size-5 shrink-0 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" /><path d="M12 8v4.5M12 16h.01" />
+          </svg>
+          <p class="font-semibold">{{ submitError }}</p>
+        </div>
+
+        <!-- Honeypot for Web3Forms: hidden from people and assistive tech, bots tick it. -->
+        <input v-model="botcheck" type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <div v-for="field in fields" :key="field.key" :class="field.wide && 'sm:col-span-2'">
+          <div
+            class="group relative overflow-hidden rounded-2xl ring-1 transition-[background-color,box-shadow] duration-300 focus-within:bg-surface focus-within:shadow-[0_18px_40px_-24px_rgb(18_36_28/0.45)]"
+            :class="
+              fieldInvalid(field.key)
+                ? 'bg-error-soft/50 ring-error focus-within:ring-2'
+                : 'bg-mist-soft ring-line hover:ring-line-strong/70 focus-within:ring-2 focus-within:ring-evergreen'
+            "
+          >
+            <label
+              :for="`contact-${field.key}`"
+              class="flex cursor-text items-center gap-2.5 px-4 pt-3.5 text-sm font-semibold transition-colors"
+              :class="fieldInvalid(field.key) ? 'text-error' : 'text-quiet group-focus-within:text-evergreen'"
+            >
+              <span class="font-display text-xs font-bold tabular-nums opacity-70">{{ field.index }}</span>
+              <span class="h-px w-4 bg-current opacity-40" aria-hidden="true"></span>
+              {{ field.label }}
+
+              <span class="ml-auto grid size-5 place-items-center" aria-hidden="true">
+                <svg
+                  v-if="fieldValid(field.key)"
+                  class="size-5 fill-none stroke-evergreen stroke-[2.5]"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                <svg
+                  v-else-if="fieldInvalid(field.key)"
+                  class="size-5 fill-none stroke-error stroke-2"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="9" /><path d="M12 8v4.5M12 16h.01" />
+                </svg>
+              </span>
+            </label>
+
+            <textarea
+              v-if="field.type === 'textarea'"
+              :id="`contact-${field.key}`"
+              v-model="formData[field.key]"
+              rows="5"
+              :maxlength="field.max"
+              :placeholder="field.placeholder"
+              :aria-invalid="fieldInvalid(field.key)"
+              :aria-describedby="describedBy(field.key)"
+              class="block field-sizing-content min-h-36 max-h-96 w-full resize-none bg-transparent px-4 pt-1.5 pb-2 text-lg leading-relaxed text-ink placeholder:text-quiet/55 focus:outline-none focus-visible:outline-none"
+              @input="handleInput(field.key)"
+              @blur="handleBlur(field.key)"
+            ></textarea>
+            <input
+              v-else
+              :id="`contact-${field.key}`"
+              v-model="formData[field.key]"
+              :type="field.type"
+              :autocomplete="field.autocomplete"
+              :maxlength="field.max"
+              :placeholder="field.placeholder"
+              :aria-invalid="fieldInvalid(field.key)"
+              :aria-describedby="describedBy(field.key)"
+              class="block min-h-12 w-full bg-transparent px-4 pt-1 pb-3.5 text-lg text-ink placeholder:text-quiet/55 focus:outline-none focus-visible:outline-none"
+              @input="handleInput(field.key)"
+              @blur="handleBlur(field.key)"
+            />
+
+            <!-- Character count and a thin meter for the message -->
+            <div
+              v-if="field.key === 'message'"
+              id="contact-message-count"
+              class="flex items-center gap-3 px-4 pb-3.5 text-xs font-semibold text-quiet"
+            >
+              <span class="h-1 flex-1 overflow-hidden rounded-full bg-track" aria-hidden="true">
+                <span
+                  class="block h-full origin-left rounded-full transition-[transform,background-color] duration-300"
+                  :class="messageLength >= MESSAGE_MIN ? 'bg-evergreen' : 'bg-line-strong/60'"
+                  :style="{ transform: `scaleX(${messageProgress})` }"
+                ></span>
+              </span>
+              <span class="tabular-nums">
+                <template v-if="messageLength < MESSAGE_MIN">{{ MESSAGE_MIN - messageLength }} more to go · </template>
+                {{ messageLength }} / {{ field.max }}
+              </span>
+            </div>
+
+            <!-- Marigold underline that draws in on focus -->
+            <span
+              class="pointer-events-none absolute inset-x-4 bottom-0 h-0.5 origin-left scale-x-0 rounded-full transition-transform duration-500 ease-glide group-focus-within:scale-x-100"
+              :class="fieldInvalid(field.key) ? 'bg-error' : 'bg-marigold'"
+              aria-hidden="true"
+            ></span>
+          </div>
+
+          <p
+            v-if="fieldInvalid(field.key)"
+            :id="`contact-${field.key}-error`"
+            class="mt-2 px-1 text-sm font-semibold text-error"
+          >
+            {{ errors[field.key] }}
+          </p>
+
+          <!-- Quick picks for the subject -->
+          <div
+            v-if="field.key === 'subject'"
+            role="group"
+            aria-label="Common subjects"
+            class="mt-3 flex flex-wrap gap-2"
+          >
+            <button
+              v-for="topic in topics"
+              :key="topic"
+              type="button"
+              :aria-pressed="formData.subject === topic"
+              class="inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3.5 text-sm font-semibold transition-colors"
+              :class="
+                formData.subject === topic
+                  ? 'border-evergreen bg-evergreen text-on-evergreen'
+                  : 'border-line bg-surface text-quiet hover:border-evergreen hover:text-evergreen'
+              "
+              @click="pickTopic(topic)"
+            >
+              <svg
+                v-if="formData.subject === topic"
+                class="size-3.5 fill-none stroke-current stroke-3"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              {{ topic }}
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-col-reverse gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+          <p class="flex items-center gap-2 text-sm text-quiet">
+            <svg class="size-4 shrink-0 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" />
+            </svg>
+            Only used to reply to you.
+          </p>
+
+          <button
+            type="submit"
+            :disabled="isSubmitting"
+            class="group inline-flex min-h-14 items-center justify-between gap-4 rounded-full bg-evergreen pr-2 pl-7 text-lg font-semibold text-on-evergreen shadow-[0_14px_30px_-14px_rgb(30_91_68/0.8)] transition-colors hover:bg-evergreen-hover disabled:cursor-wait disabled:opacity-80 sm:justify-center"
+          >
+            {{ isSubmitting ? 'Sending…' : 'Send message' }}
+            <span class="grid size-10 place-items-center rounded-full bg-marigold text-[#12241c] transition-transform duration-300 group-hover:-rotate-45">
+              <svg
+                v-if="!isSubmitting"
+                class="size-5 fill-none stroke-current stroke-[2.25]"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+              <svg v-else class="size-5 animate-spin fill-none stroke-current stroke-[2.25]" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-6.2-8.6" stroke-linecap="round" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </form>
+    </Transition>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
