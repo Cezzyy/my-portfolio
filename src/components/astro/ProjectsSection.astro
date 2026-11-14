@@ -33,7 +33,7 @@ const panels = [
         <h2
           id="projects-title"
           data-split
-          class="mt-5 text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-[1] font-bold tracking-[-0.035em] text-balance"
+          class="mt-5 text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-none font-bold tracking-[-0.035em] text-balance"
         >
           Things I've built and shipped.
         </h2>
@@ -54,7 +54,7 @@ const panels = [
             <article
               data-stack-inner
               aria-labelledby={`project-${i}`}
-              class="relative grid overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[0_1px_0_var(--color-line),0_40px_80px_-50px_rgb(18_36_28/0.45)] lg:min-h-[31rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] xl:grid-cols-[minmax(0,1fr)_minmax(0,29rem)]"
+              class="relative grid overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[0_1px_0_var(--color-line),0_40px_80px_-50px_rgb(18_36_28/0.45)] lg:min-h-124 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] xl:grid-cols-[minmax(0,1fr)_minmax(0,29rem)]"
             >
               <!-- Copy -->
               <div class="flex flex-col p-6 sm:p-9 lg:p-10">
@@ -158,12 +158,12 @@ const panels = [
               <!-- Visual -->
               <div
                 class:list={[
-                  'relative order-first grid min-h-80 place-items-center overflow-hidden px-6 py-10 sm:min-h-96 lg:order-none lg:min-h-0',
+                  'relative order-first grid min-h-80 place-items-center overflow-hidden px-6 py-10 sm:min-h-96 lg:order-0 lg:min-h-0',
                   panels[i % panels.length],
                 ]}
               >
                 <span
-                  class="pointer-events-none absolute -right-4 -bottom-10 font-display text-[11rem] leading-none font-extrabold tracking-[-0.06em] text-ink/[0.05] select-none"
+                  class="pointer-events-none absolute -right-4 -bottom-10 font-display text-[11rem] leading-none font-extrabold tracking-[-0.06em] text-ink/5 select-none"
                   aria-hidden="true"
                 >
                   {index}

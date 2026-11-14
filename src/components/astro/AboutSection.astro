@@ -18,7 +18,7 @@ const [topHighlight, ...otherHighlights] = info.highlights;
     <h2
       id="about-title"
       data-split
-      class="mt-5 max-w-4xl text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-[1] font-bold tracking-[-0.035em] text-balance"
+      class="mt-5 max-w-4xl text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-none font-bold tracking-[-0.035em] text-balance"
     >
       Mobile first. Full stack when the project needs it.
     </h2>
@@ -28,7 +28,7 @@ const [topHighlight, ...otherHighlights] = info.highlights;
       <div class="lg:col-span-7">
         <div
           data-scrub-words
-          class="space-y-6 text-xl leading-[1.55] text-ink sm:text-2xl sm:leading-[1.5] [&_strong]:font-semibold [&_strong]:text-evergreen"
+          class="space-y-6 text-xl leading-[1.55] text-ink sm:text-2xl sm:leading-normal [&_strong]:font-semibold [&_strong]:text-evergreen"
         >
           <Content />
         </div>
@@ -73,7 +73,7 @@ const [topHighlight, ...otherHighlights] = info.highlights;
           </div>
         </dl>
 
-        <blockquote data-reveal class="relative mt-8 rounded-[1.5rem] bg-marigold-soft p-6 sm:p-7">
+        <blockquote data-reveal class="relative mt-8 rounded-3xl bg-marigold-soft p-6 sm:p-7">
           <svg class="absolute -top-4 left-6 size-9 fill-marigold" viewBox="0 0 32 32" aria-hidden="true">
             <path d="M13 8c-5 2-8 6-8 12v4h8v-8H9c0-3 2-5 5-6l-1-2Zm14 0c-5 2-8 6-8 12v4h8v-8h-4c0-3 2-5 5-6l-1-2Z" />
           </svg>
@@ -108,7 +108,7 @@ const [topHighlight, ...otherHighlights] = info.highlights;
       <!-- Highlights -->
       {topHighlight && (
         <div data-reveal data-reveal-delay="0.1" class="relative overflow-hidden rounded-[1.75rem] bg-night p-6 text-white sm:p-10 lg:col-span-5">
-          <svg class="absolute -right-10 -bottom-10 size-56 fill-none stroke-white/[0.06] stroke-[1.2]" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="absolute -right-10 -bottom-10 size-56 fill-none stroke-white/6 stroke-[1.2]" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z" />
             <path d="M17 6h2.5a1.5 1.5 0 0 1 1.5 1.5V8a4 4 0 0 1-4 4M7 6H4.5A1.5 1.5 0 0 0 3 7.5V8a4 4 0 0 0 4 4" />
           </svg>

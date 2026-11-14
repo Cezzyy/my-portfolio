@@ -50,7 +50,7 @@ const ringLength = 2 * Math.PI * ringRadius;
               viewBox="0 0 200 16"
               preserveAspectRatio="none"
               aria-hidden="true"
-              class="absolute -bottom-[0.04em] left-[-4%] -z-10 h-[0.28em] w-[108%]"
+              class="absolute bottom-[-0.04em] left-[-4%] -z-10 h-[0.28em] w-[108%]"
               ><path
                 data-swash
                 d="M4 11 C 50 4, 140 2, 196 8"
@@ -64,7 +64,7 @@ const ringLength = 2 * Math.PI * ringRadius;
         >
       </h1>
 
-      <p data-intro data-hero-fade class="mt-7 max-w-[34rem] text-lg leading-relaxed text-quiet sm:text-xl">
+      <p data-intro data-hero-fade class="mt-7 max-w-136 text-lg leading-relaxed text-quiet sm:text-xl">
         {info.status} in {info.location}, working toward a career in{' '}
         <strong class="font-semibold text-ink">mobile development</strong>. I build cross-platform apps with Flutter, and
         the web side with Vue, React, Hono and Supabase.
@@ -113,14 +113,14 @@ const ringLength = 2 * Math.PI * ringRadius;
     </div>
 
     <!-- Portrait stage -->
-    <div data-hero-stage class="relative mx-auto w-full max-w-[19rem] sm:max-w-[24rem] lg:mr-0 lg:max-w-[27rem]">
-      <div class="relative aspect-[4/5]">
+    <div data-hero-stage class="relative mx-auto w-full max-w-76 sm:max-w-[24rem] lg:mr-0 lg:max-w-108">
+      <div class="relative aspect-4/5">
         <!-- Marigold slab peeking out from behind -->
         <div data-depth="0.35" class="absolute inset-0">
           <div
             data-intro
             data-hero-slab
-            class="size-full translate-x-3 translate-y-3 rotate-[5deg] rounded-[2rem] bg-marigold sm:translate-x-5 sm:translate-y-4"
+            class="size-full translate-x-3 translate-y-3 rotate-[5deg] rounded-4xl bg-marigold sm:translate-x-5 sm:translate-y-4"
           >
           </div>
         </div>
@@ -130,7 +130,7 @@ const ringLength = 2 * Math.PI * ringRadius;
           <figure
             data-intro
             data-hero-portrait
-            class="relative size-full overflow-hidden rounded-[2rem] bg-brand shadow-[0_40px_80px_-40px_rgb(18_36_28/0.6)]"
+            class="relative size-full overflow-hidden rounded-4xl bg-brand shadow-[0_40px_80px_-40px_rgb(18_36_28/0.6)]"
           >
             <Image
               src={profilePic}
@@ -186,7 +186,7 @@ const ringLength = 2 * Math.PI * ringRadius;
             <div
               data-intro
               data-hero-pop
-              class="flex -rotate-[4deg] items-center gap-3 rounded-2xl bg-surface p-2.5 pr-4 shadow-[0_18px_40px_-18px_rgb(18_36_28/0.55)] ring-1 ring-line"
+              class="flex rotate-[-4deg] items-center gap-3 rounded-2xl bg-surface p-2.5 pr-4 shadow-[0_18px_40px_-18px_rgb(18_36_28/0.55)] ring-1 ring-line"
             >
               <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-marigold text-[#12241c]" aria-hidden="true">
                 <svg class="size-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">

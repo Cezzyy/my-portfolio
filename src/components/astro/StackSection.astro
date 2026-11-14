@@ -23,7 +23,7 @@ const rows = [tools.slice(0, half), tools.slice(half)].map((row) => [...row, ...
         <h2
           id="stack-title"
           data-split
-          class="mt-5 text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-[1] font-bold tracking-[-0.035em] text-balance"
+          class="mt-5 text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-none font-bold tracking-[-0.035em] text-balance"
         >
           The tools I reach for.
         </h2>
@@ -82,7 +82,7 @@ const rows = [tools.slice(0, half), tools.slice(half)].map((row) => [...row, ...
                   'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[0.9375rem] font-semibold transition-colors',
                   group.learning
                     ? 'bg-marigold/15 text-white ring-1 ring-marigold/50'
-                    : 'bg-white/[0.07] text-white/90 ring-1 ring-white/10 hover:bg-white/[0.12]',
+                    : 'bg-white/[0.07] text-white/90 ring-1 ring-white/10 hover:bg-white/12',
                 ]}
               >
                 <BrandGlyph name={item} class:list={['size-4', group.learning ? 'text-marigold' : 'text-white/70']} />

@@ -319,7 +319,7 @@ const describedBy = (field: FieldKey) =>
             >
               <svg
                 v-if="formData.subject === topic"
-                class="size-3.5 fill-none stroke-current stroke-[3]"
+                class="size-3.5 fill-none stroke-current stroke-3"
                 viewBox="0 0 24 24"
                 stroke-linecap="round"
                 stroke-linejoin="round"
