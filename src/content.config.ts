@@ -50,6 +50,8 @@ const projectsCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
+    /** Short label shown inside the project's device mock, e.g. "TAMS". Defaults to the title. */
+    shortName: z.string().optional(),
     kind: z.string(),
     summary: z.string(),
     role: z.string().optional(),
@@ -58,7 +60,6 @@ const projectsCollection = defineCollection({
     status: z.enum(['completed', 'upcoming', 'in-progress']),
     liveUrl: z.url().nullable().optional(),
     repoUrl: z.url().nullable().optional(),
-    featured: z.boolean().default(false),
     order: z.number(),
   }),
 });
