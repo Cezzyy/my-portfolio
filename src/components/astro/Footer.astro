@@ -3,30 +3,44 @@ import LogoMark from '../ui/LogoMark.astro';
 
 interface Props {
   name: string;
+  nickname: string;
   teamQuote: string;
 }
-const { name, teamQuote } = Astro.props;
+const { name, nickname, teamQuote } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-night text-sm text-white/65">
-  <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:px-6 lg:px-8">
-    <p class="flex items-center gap-2 font-display text-base font-bold text-white">
-      <LogoMark class="size-6" />
-      {name}
-    </p>
-    <div class="max-w-2xl sm:text-right">
-      <p class="leading-relaxed">
-        <span class="italic">“{teamQuote}”</span>
-        <br />
-        © {year} {name}. Built with Astro, deployed on Cloudflare.
-      </p>
+<footer class="overflow-hidden bg-night text-sm text-white/65">
+  <div class="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+    <div class="flex flex-col gap-8 border-b border-white/10 pb-10 sm:flex-row sm:items-end sm:justify-between">
+      <p class="max-w-md font-display text-2xl leading-snug font-semibold text-balance text-white">“{teamQuote}”</p>
       <a
         href="#top"
-        class="mt-2 inline-flex min-h-11 items-center font-semibold text-white underline decoration-white/40 underline-offset-2 hover:decoration-white"
+        data-magnetic
+        class="group inline-flex min-h-12 shrink-0 items-center gap-2 self-start rounded-full border border-white/20 px-5 font-semibold text-white transition-colors hover:border-marigold hover:text-marigold sm:self-auto"
       >
         Back to top
+        <svg class="size-4 fill-none stroke-current stroke-2 transition-transform group-hover:-translate-y-0.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19V5M6 11l6-6 6 6" />
+        </svg>
       </a>
     </div>
+
+    <div class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="flex items-center gap-2 font-display text-base font-bold text-white">
+        <LogoMark class="size-6" />
+        {name}
+      </p>
+      <p>© {year} {name}. Built with Astro and GSAP, deployed on Cloudflare.</p>
+    </div>
   </div>
+
+  <!-- Oversized wordmark that rises into place as the page ends -->
+  <p
+    data-rise="45"
+    class="-mb-[0.18em] text-center font-display text-[clamp(6rem,30vw,26rem)] leading-[0.8] font-extrabold tracking-[-0.06em] text-white/[0.07] select-none"
+    aria-hidden="true"
+  >
+    {nickname.toLowerCase()}<span class="text-marigold/45">.</span>
+  </p>
 </footer>
