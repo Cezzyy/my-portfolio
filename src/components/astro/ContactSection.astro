@@ -35,20 +35,31 @@ const channels = [
 ];
 ---
 
-<section id="contact" class="bg-brand text-white" aria-labelledby="contact-title">
-  <div class="mx-auto grid max-w-7xl gap-14 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-2 lg:gap-20 lg:px-8">
+<section id="contact" class="relative overflow-hidden bg-brand text-white" aria-labelledby="contact-title">
+  <!-- Soft light behind the form -->
+  <div
+    class="pointer-events-none absolute -top-40 -right-40 size-[36rem] rounded-full bg-[#74d1a2]/20 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto grid max-w-7xl gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2 lg:gap-20 lg:px-8">
     <div>
-      <SectionEyebrow class="text-marigold">Contact</SectionEyebrow>
-      <h2 id="contact-title" data-reveal class="mt-4 text-4xl leading-[1.05] font-bold tracking-[-0.025em] text-balance sm:text-5xl">
+      <SectionEyebrow index="04" class="text-marigold">Contact</SectionEyebrow>
+      <h2
+        id="contact-title"
+        data-split
+        class="mt-5 text-[clamp(2.6rem,1.4rem+4.4vw,5rem)] leading-[0.98] font-bold tracking-[-0.04em] text-balance"
+      >
         Let's build something together.
       </h2>
-      <p data-reveal style="--reveal-delay: 100ms" class="mt-6 max-w-lg text-lg leading-relaxed text-white/80">
+      <p data-reveal data-reveal-delay="0.1" class="mt-7 max-w-lg text-lg leading-relaxed text-white/80">
         I'm open to internships, freelance work and collaborations. Send a message, or reach me directly.
       </p>
 
-      <ul class="mt-10 space-y-6">
-        {channels.map((channel, i) => (
-          <li data-reveal style={`--reveal-delay: ${150 + i * 60}ms`} class="flex gap-4">
+      <ul data-stagger class="mt-10 space-y-6">
+        {channels.map((channel) => (
+          <li class="flex gap-4">
             <span class="grid size-11 shrink-0 place-items-center rounded-full bg-white/10" aria-hidden="true">
               <svg class="size-5 fill-none stroke-marigold stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                 {channel.icon.map((d) => <path d={d} />)}
@@ -71,14 +82,15 @@ const channels = [
         ))}
       </ul>
 
-      <ul data-reveal style="--reveal-delay: 350ms" class="mt-10 flex flex-wrap gap-2" aria-label="Social profiles">
+      <ul data-stagger class="mt-10 flex flex-wrap gap-3" aria-label="Social profiles">
         {info.socials.map((social) => (
           <li>
             <a
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="grid size-11 place-items-center rounded-control bg-white/10 text-white transition-colors hover:bg-white/20"
+              data-magnetic="0.4"
+              class="grid size-13 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/15 transition-colors hover:bg-marigold hover:text-[#12241c] hover:ring-marigold"
             >
               <BrandGlyph name={social.label} class="size-5" />
               <span class="sr-only">{social.label} (opens in a new tab)</span>
@@ -90,8 +102,8 @@ const channels = [
 
     <div
       data-reveal
-      style="--reveal-delay: 120ms"
-      class="self-start rounded-[1.25rem] bg-surface p-6 text-ink shadow-[0_30px_60px_-30px_rgb(0_0_0/0.6)] sm:p-10"
+      data-reveal-delay="0.15"
+      class="self-start rounded-[1.75rem] bg-surface p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)] sm:p-10"
     >
       <h3 class="text-2xl font-bold tracking-[-0.01em]">Send a message</h3>
       <p class="mt-2 text-quiet">I usually reply within a couple of days.</p>
