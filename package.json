@@ -20,6 +20,7 @@
     "@fontsource-variable/source-sans-3": "^5.3.1",
     "@tailwindcss/vite": "^4.3.5",
     "astro": "7.4.12",
+    "gsap": "^3.15.1",
     "simple-icons": "^15.18.0",
     "tailwindcss": "^4.3.5",
     "vue": "^3.5.22"
