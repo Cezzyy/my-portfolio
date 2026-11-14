@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionEyebrow from '../ui/SectionEyebrow.astro';
+import BrandGlyph from '../ui/BrandGlyph.astro';
+
+interface Props {
+  stack: CollectionEntry<'info'>['data']['stack'];
+}
+const { stack } = Astro.props;
+---
+
+<section id="stack" class="bg-night text-white" aria-labelledby="stack-title">
+  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+    <SectionEyebrow class="text-marigold">Tech stack</SectionEyebrow>
+    <div class="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
+      <h2
+        id="stack-title"
+        data-reveal
+        class="mt-4 text-4xl leading-[1.05] font-bold tracking-[-0.025em] text-balance sm:text-5xl"
+      >
+        The tools I reach for.
+      </h2>
+      <p data-reveal style="--reveal-delay: 100ms" class="max-w-xl text-lg leading-relaxed text-white/70">
+        Flutter on mobile, Vue or React on the web, type-safe Hono APIs on PostgreSQL and Supabase,
+        usually in a Turborepo monorepo and deployed on Cloudflare.
+      </p>
+    </div>
+
+    <ul class="mt-14 grid gap-4 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3">
+      {stack.map((group, i) => (
+        <li
+          data-reveal
+          style={`--reveal-delay: ${(i % 3) * 80}ms`}
+          class:list={[
+            'rounded-[1.25rem] p-6 ring-1 sm:p-7',
+            group.learning ? 'bg-marigold/[0.08] ring-marigold/45' : 'bg-white/[0.06] ring-white/15',
+          ]}
+        >
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="flex items-center gap-2.5 font-display text-lg font-bold">
+              {group.learning && (
+                <span class="relative flex size-2" aria-hidden="true">
+                  <span class="absolute inline-flex size-full rounded-full bg-marigold opacity-70 motion-safe:animate-ping"></span>
+                  <span class="relative inline-flex size-2 rounded-full bg-marigold"></span>
+                </span>
+              )}
+              {group.group}
+            </h3>
+            <span class="text-sm text-white/50 tabular-nums">{group.items.length}</span>
+          </div>
+          <ul class="mt-5 flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <li class="inline-flex min-h-10 items-center gap-2 rounded-control bg-white/[0.08] px-3 text-[0.9375rem] font-semibold text-white/90">
+                <BrandGlyph name={item} class:list={['size-4', group.learning ? 'text-marigold' : 'text-white/70']} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
