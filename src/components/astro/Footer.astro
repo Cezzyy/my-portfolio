@@ -1,0 +1,32 @@
+---
+import LogoMark from '../ui/LogoMark.astro';
+
+interface Props {
+  name: string;
+  teamQuote: string;
+}
+const { name, teamQuote } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-night text-sm text-white/65">
+  <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:px-6 lg:px-8">
+    <p class="flex items-center gap-2 font-display text-base font-bold text-white">
+      <LogoMark class="size-6" />
+      {name}
+    </p>
+    <div class="max-w-2xl sm:text-right">
+      <p class="leading-relaxed">
+        <span class="italic">“{teamQuote}”</span>
+        <br />
+        © {year} {name}. Built with Astro, deployed on Cloudflare.
+      </p>
+      <a
+        href="#top"
+        class="mt-2 inline-flex min-h-11 items-center font-semibold text-white underline decoration-white/40 underline-offset-2 hover:decoration-white"
+      >
+        Back to top
+      </a>
+    </div>
+  </div>
+</footer>
