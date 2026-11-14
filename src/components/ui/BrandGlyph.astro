@@ -1,0 +1,16 @@
+---
+import { glyphFor } from '../../lib/icons';
+
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: className = 'size-4' } = Astro.props;
+const glyph = glyphFor(name);
+---
+
+{glyph && (
+  <svg class:list={['shrink-0 fill-current', className]} viewBox="0 0 24 24" aria-hidden="true">
+    <path d={glyph.path} />
+  </svg>
+)}

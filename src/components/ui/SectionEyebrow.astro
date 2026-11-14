@@ -1,0 +1,12 @@
+---
+/** Small section label with a leading rule, as on DigiBridge. Colour comes from the parent via `class`. */
+interface Props {
+  class?: string;
+}
+const { class: className = 'text-evergreen' } = Astro.props;
+---
+
+<p data-reveal class:list={['flex items-center gap-3 font-semibold', className]}>
+  <span class="rule h-px w-8 bg-current" aria-hidden="true"></span>
+  <slot />
+</p>
