@@ -14,7 +14,6 @@ if (!personal) throw new Error('Personal information not found');
 const info = personal.data;
 
 const projects = await getCollection('projects');
-const featuredCount = projects.filter((p) => p.data.featured).length;
 ---
 
 <Layout
@@ -23,11 +22,11 @@ const featuredCount = projects.filter((p) => p.data.featured).length;
 >
   <Header nickname={info.nickname} />
   <main id="main">
-    <Hero info={info} featuredCount={featuredCount} />
+    <Hero info={info} projectCount={projects.length} />
     <AboutSection entry={personal} />
     <ProjectsSection projects={projects} />
     <StackSection stack={info.stack} />
     <ContactSection info={info} />
   </main>
-  <Footer name={info.name} teamQuote={info.teamQuote} />
+  <Footer name={info.name} nickname={info.nickname} teamQuote={info.teamQuote} />
 </Layout>
