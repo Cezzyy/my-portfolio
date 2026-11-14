@@ -43,14 +43,6 @@
   --spacing-header: 4.25rem;
 
   --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-rise: rise 0.8s var(--ease-glide) both;
-
-  @keyframes rise {
-    0% {
-      opacity: 0;
-      transform: translateY(1.25rem);
-    }
-  }
 }
 
 /* Dark theme: follows the system unless the visitor picked one with the toggle. */
@@ -136,42 +128,33 @@
   }
 }
 
-/* Scroll reveal. Hidden only when JS is running, so the page still reads without it. */
+/*
+ * Motion is GSAP (src/scripts/motion). Animated elements start hidden only while JS runs and
+ * motion is allowed. The head script adds .no-motion if GSAP never boots, so the page always reads.
+ */
 @media (prefers-reduced-motion: no-preference) {
-  html.js [data-reveal] {
-    opacity: 0;
-    translate: 0 1.25rem;
-    transition:
-      opacity 0.7s var(--ease-glide) var(--reveal-delay, 0s),
-      translate 0.7s var(--ease-glide) var(--reveal-delay, 0s);
+  html.js:not(.no-motion)
+    :is([data-intro], [data-reveal], [data-split], [data-stagger] > *, [data-mock-piece]) {
+    visibility: hidden;
   }
+}
 
-  html.js [data-reveal][data-revealed] {
-    opacity: 1;
-    translate: 0 0;
-  }
+/* SplitText line masks: pad them so tight display leading doesn't clip ascenders and descenders. */
+.split-line-mask {
+  padding-block: 0.1em 0.14em;
+  margin-block: -0.1em -0.14em;
+}
 
-  /* The short rule in front of each section eyebrow grows in. */
-  html.js [data-reveal] .rule {
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.6s var(--ease-glide) calc(var(--reveal-delay, 0s) + 0.2s);
-  }
+/* Dotted backdrop behind the hero, fading out from the portrait. */
+.dot-field {
+  background-image: radial-gradient(var(--color-line-strong) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 60% 70% at 72% 45%, #000 10%, transparent 70%);
+}
 
-  html.js [data-reveal][data-revealed] .rule {
-    transform: scaleX(1);
-  }
-
-  /* Hand-drawn marigold underline in the hero. */
-  .swash {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards;
-  }
-
-  @keyframes draw {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
+/* Outlined display type for the second marquee row. */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.45);
 }
