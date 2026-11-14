@@ -7,50 +7,84 @@ interface Props {
   stack: CollectionEntry<'info'>['data']['stack'];
 }
 const { stack } = Astro.props;
+
+// Marquee rows: every tool once, split across two rows. Each track holds its row twice over,
+// twice, so one copy is always wider than the screen and the loop never shows a gap.
+const tools = [...new Set(stack.flatMap((group) => group.items))];
+const half = Math.ceil(tools.length / 2);
+const rows = [tools.slice(0, half), tools.slice(half)].map((row) => [...row, ...row]);
 ---
 
-<section id="stack" class="bg-night text-white" aria-labelledby="stack-title">
-  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <SectionEyebrow class="text-marigold">Tech stack</SectionEyebrow>
-    <div class="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
-      <h2
-        id="stack-title"
-        data-reveal
-        class="mt-4 text-4xl leading-[1.05] font-bold tracking-[-0.025em] text-balance sm:text-5xl"
-      >
-        The tools I reach for.
-      </h2>
-      <p data-reveal style="--reveal-delay: 100ms" class="max-w-xl text-lg leading-relaxed text-white/70">
+<section id="stack" class="overflow-x-clip bg-night text-white" aria-labelledby="stack-title">
+  <div class="mx-auto max-w-7xl px-4 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-16">
+      <div class="lg:col-span-7">
+        <SectionEyebrow index="03" class="text-marigold">Tech stack</SectionEyebrow>
+        <h2
+          id="stack-title"
+          data-split
+          class="mt-5 text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-[1] font-bold tracking-[-0.035em] text-balance"
+        >
+          The tools I reach for.
+        </h2>
+      </div>
+      <p data-reveal data-reveal-delay="0.1" class="max-w-xl text-lg leading-relaxed text-white/70 lg:col-span-5">
         Flutter on mobile, Vue or React on the web, type-safe Hono APIs on PostgreSQL and Supabase,
         usually in a Turborepo monorepo and deployed on Cloudflare.
       </p>
     </div>
+  </div>
 
-    <ul class="mt-14 grid gap-4 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3">
-      {stack.map((group, i) => (
-        <li
-          data-reveal
-          style={`--reveal-delay: ${(i % 3) * 80}ms`}
-          class:list={[
-            'rounded-[1.25rem] p-6 ring-1 sm:p-7',
-            group.learning ? 'bg-marigold/[0.08] ring-marigold/45' : 'bg-white/[0.06] ring-white/15',
-          ]}
-        >
-          <div class="flex items-center justify-between gap-3">
-            <h3 class="flex items-center gap-2.5 font-display text-lg font-bold">
-              {group.learning && (
-                <span class="relative flex size-2" aria-hidden="true">
-                  <span class="absolute inline-flex size-full rounded-full bg-marigold opacity-70 motion-safe:animate-ping"></span>
-                  <span class="relative inline-flex size-2 rounded-full bg-marigold"></span>
-                </span>
-              )}
-              {group.group}
-            </h3>
-            <span class="text-sm text-white/50 tabular-nums">{group.items.length}</span>
-          </div>
-          <ul class="mt-5 flex flex-wrap gap-2">
+  <!-- Marquee: decorative; the grouped list below carries the same tools for everyone. -->
+  <div class="mt-16 space-y-2 sm:mt-24 sm:space-y-4" aria-hidden="true">
+    {rows.map((row, r) => (
+      <div class="flex overflow-hidden">
+        <div data-marquee={r === 1 ? 'reverse' : ''} class="flex w-max shrink-0">
+          {[0, 1].map(() => (
+            <ul class="flex shrink-0 items-center">
+              {row.map((tool) => (
+                <li
+                  class:list={[
+                    'flex items-center gap-4 px-5 font-display text-5xl font-extrabold tracking-[-0.03em] whitespace-nowrap sm:gap-5 sm:px-8 sm:text-7xl',
+                    r === 1 && 'text-outline',
+                  ]}
+                >
+                  <BrandGlyph name={tool} class:list={['size-9 sm:size-12', r === 1 ? 'text-marigold' : 'text-white/85']} />
+                  {tool}
+                  <span class="ml-4 text-3xl text-marigold sm:ml-6 sm:text-4xl" style="-webkit-text-stroke: 0">✦</span>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 sm:pt-24 sm:pb-32 lg:px-8">
+    <ul class="border-t border-white/15">
+      {stack.map((group) => (
+        <li class="grid gap-4 border-b border-white/15 py-6 md:grid-cols-[16rem_1fr] md:items-center md:gap-10 md:py-7">
+          <h3 class="flex items-center gap-3 font-display text-xl font-bold">
+            {group.learning && (
+              <span class="relative flex size-2.5" aria-hidden="true">
+                <span class="absolute inline-flex size-full rounded-full bg-marigold opacity-70 motion-safe:animate-ping"></span>
+                <span class="relative inline-flex size-2.5 rounded-full bg-marigold"></span>
+              </span>
+            )}
+            {group.group}
+            <span class="text-sm font-semibold text-white/45 tabular-nums">{String(group.items.length).padStart(2, '0')}</span>
+          </h3>
+          <ul data-stagger class="flex flex-wrap gap-2">
             {group.items.map((item) => (
-              <li class="inline-flex min-h-10 items-center gap-2 rounded-control bg-white/[0.08] px-3 text-[0.9375rem] font-semibold text-white/90">
+              <li
+                class:list={[
+                  'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[0.9375rem] font-semibold transition-colors',
+                  group.learning
+                    ? 'bg-marigold/15 text-white ring-1 ring-marigold/50'
+                    : 'bg-white/[0.07] text-white/90 ring-1 ring-white/10 hover:bg-white/[0.12]',
+                ]}
+              >
                 <BrandGlyph name={item} class:list={['size-4', group.learning ? 'text-marigold' : 'text-white/70']} />
                 {item}
               </li>
