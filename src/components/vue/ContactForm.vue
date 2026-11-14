@@ -199,147 +199,115 @@ const handleSubmit = async (e: Event) => {
   }
 };
 
+const fieldInvalid = (field: keyof FormData) => touched[field] && !!errors[field];
+
 const getInputClasses = (field: keyof FormData) => {
-  const baseClasses = 'w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-elegant-black/40 rounded-lg text-elegant-off-white text-xs sm:text-sm placeholder-elegant-soft-gray focus:outline-none transition-all';
-  
-  if (touched[field] && errors[field]) {
-    return `${baseClasses} border-2 border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20`;
-  }
-  
-  if (touched[field] && !errors[field] && formData[field].trim()) {
-    return `${baseClasses} border-2 border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20`;
-  }
-  
-  return `${baseClasses} border border-elegant-white/20 focus:border-elegant-white focus:ring-2 focus:ring-elegant-white/20`;
+  const base =
+    'block w-full rounded-control border bg-surface px-4 text-ink placeholder:text-quiet/70 transition-[border-color,box-shadow] focus:outline-none focus:ring-4';
+  return fieldInvalid(field)
+    ? `${base} border-error focus:border-error focus:ring-error/15`
+    : `${base} border-line-strong focus:border-evergreen focus:ring-evergreen/15`;
 };
+
+const fields = [
+  { key: 'name', label: 'Name', type: 'text', autocomplete: 'name', placeholder: 'Juan Dela Cruz' },
+  { key: 'email', label: 'Email', type: 'email', autocomplete: 'email', placeholder: 'you@example.com' },
+] as const;
 </script>
 
 <template>
-  <div class="contact-form-card bg-elegant-dark-gray/40 backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-elegant-white/10 shadow-2xl">
-    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-elegant-white mb-4 sm:mb-5 md:mb-6">
-      Send a Message
-    </h3>
-    
-    <div v-if="submitSuccess" class="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 bg-green-500/20 border border-green-500 rounded-lg">
-      <p class="text-green-400 text-xs sm:text-sm font-medium">Message sent successfully! I'll get back to you soon.</p>
+  <div>
+    <div
+      v-if="submitSuccess"
+      role="status"
+      class="mb-6 flex gap-3 rounded-control bg-evergreen-soft px-4 py-3 text-evergreen"
+    >
+      <svg class="mt-0.5 size-5 shrink-0 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+      <p class="font-semibold">Message sent. I'll get back to you soon.</p>
     </div>
-    
-    <div v-if="submitError" class="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 bg-red-500/20 border border-red-500 rounded-lg">
-      <p class="text-red-400 text-xs sm:text-sm font-medium">{{ submitError }}</p>
+
+    <div v-if="submitError" role="alert" class="mb-6 rounded-control bg-error-soft px-4 py-3 font-semibold text-error">
+      {{ submitError }}
     </div>
-    
-    <form @submit="handleSubmit" class="space-y-3.5 sm:space-y-4 md:space-y-5">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
-        <div>
-          <label for="contact-name" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-            Name
-          </label>
+
+    <form novalidate class="space-y-5" @submit="handleSubmit">
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div v-for="field in fields" :key="field.key">
+          <label :for="`contact-${field.key}`" class="block font-semibold">{{ field.label }}</label>
           <input
-            type="text"
-            id="contact-name"
-            v-model="formData.name"
-            @input="handleInput('name')"
-            @blur="handleBlur('name')"
-            placeholder="John Doe"
-            :class="getInputClasses('name')"
+            :id="`contact-${field.key}`"
+            v-model="formData[field.key]"
+            :type="field.type"
+            :autocomplete="field.autocomplete"
+            :placeholder="field.placeholder"
+            :aria-invalid="fieldInvalid(field.key)"
+            :aria-describedby="fieldInvalid(field.key) ? `contact-${field.key}-error` : undefined"
+            :class="[getInputClasses(field.key), 'mt-2 min-h-12']"
+            @input="handleInput(field.key)"
+            @blur="handleBlur(field.key)"
           />
-          <transition name="fade">
-            <p v-if="touched.name && errors.name" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-              {{ errors.name }}
-            </p>
-          </transition>
-        </div>
-        
-        <div>
-          <label for="contact-email" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-            Email
-          </label>
-          <input
-            type="text"
-            id="contact-email"
-            v-model="formData.email"
-            @input="handleInput('email')"
-            @blur="handleBlur('email')"
-            placeholder="john@example.com"
-            :class="getInputClasses('email')"
-          />
-          <transition name="fade">
-            <p v-if="touched.email && errors.email" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-              {{ errors.email }}
-            </p>
-          </transition>
+          <p v-if="fieldInvalid(field.key)" :id="`contact-${field.key}-error`" class="mt-1.5 text-sm font-semibold text-error">
+            {{ errors[field.key] }}
+          </p>
         </div>
       </div>
-      
+
       <div>
-        <label for="contact-subject" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-          Subject
-        </label>
+        <label for="contact-subject" class="block font-semibold">Subject</label>
         <input
-          type="text"
           id="contact-subject"
           v-model="formData.subject"
+          type="text"
+          placeholder="Internship, freelance project, collab…"
+          :aria-invalid="fieldInvalid('subject')"
+          :aria-describedby="fieldInvalid('subject') ? 'contact-subject-error' : undefined"
+          :class="[getInputClasses('subject'), 'mt-2 min-h-12']"
           @input="handleInput('subject')"
           @blur="handleBlur('subject')"
-          placeholder="Project Inquiry"
-          :class="getInputClasses('subject')"
         />
-        <transition name="fade">
-          <p v-if="touched.subject && errors.subject" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-            {{ errors.subject }}
-          </p>
-        </transition>
+        <p v-if="fieldInvalid('subject')" id="contact-subject-error" class="mt-1.5 text-sm font-semibold text-error">
+          {{ errors.subject }}
+        </p>
       </div>
-      
+
       <div>
-        <label for="contact-message" class="block text-xs sm:text-sm font-medium text-elegant-off-white mb-1.5 sm:mb-2">
-          Message
-        </label>
+        <label for="contact-message" class="block font-semibold">Message</label>
         <textarea
           id="contact-message"
           v-model="formData.message"
+          rows="5"
+          placeholder="Tell me a bit about what you have in mind."
+          :aria-invalid="fieldInvalid('message')"
+          :aria-describedby="fieldInvalid('message') ? 'contact-message-error' : undefined"
+          :class="[getInputClasses('message'), 'mt-2 resize-y py-3 leading-relaxed']"
           @input="handleInput('message')"
           @blur="handleBlur('message')"
-          rows="5"
-          placeholder="Tell me about your project..."
-          :class="getInputClasses('message') + ' resize-none'"
         ></textarea>
-        <transition name="fade">
-          <p v-if="touched.message && errors.message" class="mt-1 sm:mt-1.5 text-xs text-red-400">
-            {{ errors.message }}
-          </p>
-        </transition>
+        <p v-if="fieldInvalid('message')" id="contact-message-error" class="mt-1.5 text-sm font-semibold text-error">
+          {{ errors.message }}
+        </p>
       </div>
-      
-      <div class="pt-1 sm:pt-2">
-        <button
-          type="submit"
-          :disabled="!isFormValid || isSubmitting"
-          class="group w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 px-5 sm:px-6 py-2.5 sm:py-3 md:py-3.5 bg-elegant-white hover:bg-elegant-off-white text-elegant-black font-semibold text-xs sm:text-sm rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-elegant-white/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
-        >
-          <span v-if="!isSubmitting">Send Message</span>
-          <span v-else>Sending...</span>
-          <svg v-if="!isSubmitting" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+
+      <button
+        type="submit"
+        :disabled="isSubmitting"
+        class="group inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-control bg-evergreen px-7 text-lg font-semibold text-on-evergreen shadow-[0_10px_24px_-10px_rgb(30_91_68/0.7)] transition-colors hover:bg-evergreen-hover disabled:cursor-wait disabled:opacity-70"
+      >
+        <template v-if="!isSubmitting">
+          Send message
+          <svg class="size-5 fill-none stroke-current stroke-2 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
-          <svg v-else class="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </template>
+        <template v-else>
+          <svg class="size-5 animate-spin fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-6.2-8.6" stroke-linecap="round" />
           </svg>
-        </button>
-      </div>
+          Sending…
+        </template>
+      </button>
     </form>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
