@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import SectionEyebrow from '../ui/SectionEyebrow.astro';
 import BrandGlyph from '../ui/BrandGlyph.astro';
+import DeviceMock from '../ui/DeviceMock.astro';
 
 interface Props {
   projects: CollectionEntry<'projects'>[];
@@ -9,148 +10,194 @@ interface Props {
 const { projects } = Astro.props;
 
 const sorted = [...projects].sort((a, b) => a.data.order - b.data.order);
-const featured = sorted.filter((p) => p.data.featured);
-const earlier = sorted.filter((p) => !p.data.featured);
+const total = String(sorted.length).padStart(2, '0');
 
 const host = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 const isRepo = (url: string) => host(url) === 'github.com';
+const MOBILE = new Set(['Flutter', 'Expo', 'React Native']);
+const isMobile = (tags: string[]) => tags.some((tag) => MOBILE.has(tag));
+
+// Each card's visual panel gets its own tint, cycling through the palette.
+const panels = [
+  'bg-evergreen-soft',
+  'bg-marigold-soft',
+  'bg-mist',
+];
 ---
 
 <section id="projects" aria-labelledby="projects-title">
-  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <SectionEyebrow>Projects</SectionEyebrow>
-    <div class="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
-      <h2
-        id="projects-title"
-        data-reveal
-        class="mt-4 text-4xl leading-[1.05] font-bold tracking-[-0.025em] text-balance sm:text-5xl"
-      >
-        Things I've built and shipped.
-      </h2>
-      <p data-reveal style="--reveal-delay: 100ms" class="max-w-xl text-lg leading-relaxed text-quiet">
-        From an RFID and IoT capstone to research tools and a magazine platform. Most are team projects,
-        where I build features and often run project management and QA too.
+  <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-16">
+      <div class="lg:col-span-7">
+        <SectionEyebrow index="02">Projects</SectionEyebrow>
+        <h2
+          id="projects-title"
+          data-split
+          class="mt-5 text-[clamp(2.4rem,1.4rem+3.6vw,4.25rem)] leading-[1] font-bold tracking-[-0.035em] text-balance"
+        >
+          Things I've built and shipped.
+        </h2>
+      </div>
+      <p data-reveal data-reveal-delay="0.1" class="max-w-xl text-lg leading-relaxed text-quiet lg:col-span-5">
+        From an RFID and IoT capstone to research tools, a magazine platform and mobile apps. Most are
+        team projects, where I build features and often run project management and QA too.
       </p>
     </div>
 
-    <ol class="mt-14 grid gap-6 sm:mt-20 md:grid-cols-2">
-      {featured.map(({ data }, i) => (
-        <li
-          data-reveal
-          style={`--reveal-delay: ${(i % 2) * 100}ms`}
-          class="group flex flex-col rounded-[1.25rem] border border-line bg-surface p-6 shadow-[0_1px_0_var(--color-line),0_30px_60px_-30px_rgb(18_36_28/0.3)] transition-[border-color,box-shadow,translate] duration-300 ease-glide hover:-translate-y-0.5 hover:border-line-strong/50 hover:shadow-[0_1px_0_var(--color-line),0_40px_70px_-34px_rgb(18_36_28/0.45)] sm:p-8"
-        >
-          <article class="flex h-full flex-col" aria-labelledby={`project-${i}`}>
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="rounded-full bg-evergreen-soft px-3 py-1 text-sm font-semibold text-evergreen">{data.kind}</span>
-                {data.status === 'in-progress' && (
-                  <span class="rounded-full bg-marigold-soft px-3 py-1 text-sm font-semibold text-marigold-text">In progress</span>
-                )}
-                {data.liveUrl && data.status === 'completed' && !isRepo(data.liveUrl) && (
-                  <span class="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-sm font-semibold text-quiet">
-                    <span class="size-1.5 rounded-full bg-evergreen" aria-hidden="true"></span>Live
+    <ol class="project-stack mt-14 grid gap-6 sm:mt-20">
+      {sorted.map(({ data }, i) => {
+        const index = String(i + 1).padStart(2, '0');
+        const live = data.liveUrl && !isRepo(data.liveUrl) ? data.liveUrl : null;
+        const release = data.liveUrl && isRepo(data.liveUrl) ? data.liveUrl : null;
+        return (
+          <li data-stack-card style={`--i: ${i}`}>
+            <article
+              data-stack-inner
+              aria-labelledby={`project-${i}`}
+              class="relative grid overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[0_1px_0_var(--color-line),0_40px_80px_-50px_rgb(18_36_28/0.45)] lg:min-h-[31rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] xl:grid-cols-[minmax(0,1fr)_minmax(0,29rem)]"
+            >
+              <!-- Copy -->
+              <div class="flex flex-col p-6 sm:p-9 lg:p-10">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="mr-2 font-display text-sm font-bold tabular-nums">
+                    {index}<span class="text-line-strong"> / {total}</span>
                   </span>
-                )}
-              </div>
-              <span class="font-display text-lg font-bold text-line-strong tabular-nums" aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-            </div>
+                  <span class="rounded-full bg-evergreen-soft px-3 py-1 text-sm font-semibold text-evergreen">{data.kind}</span>
+                  {data.status === 'in-progress' && (
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-marigold-soft px-3 py-1 text-sm font-semibold text-marigold-text">
+                      <span class="size-1.5 rounded-full bg-marigold" aria-hidden="true"></span>In progress
+                    </span>
+                  )}
+                  {live && (
+                    <span class="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-sm font-semibold text-quiet">
+                      <span class="size-1.5 rounded-full bg-evergreen" aria-hidden="true"></span>Live
+                    </span>
+                  )}
+                </div>
 
-            <h3 id={`project-${i}`} class="mt-6 text-2xl leading-tight font-bold tracking-[-0.015em] sm:text-3xl">
-              {data.title}
-            </h3>
-            <p class="mt-3 text-lg leading-relaxed text-quiet">{data.summary}</p>
-
-            {(data.role || data.team) && (
-              <dl class="mt-5 grid gap-1.5 text-[0.9375rem]">
-                {data.role && (
-                  <div class="flex gap-2">
-                    <dt class="shrink-0 font-semibold">My role</dt>
-                    <dd class="text-quiet">{data.role}</dd>
-                  </div>
-                )}
-                {data.team && (
-                  <div class="flex gap-2">
-                    <dt class="shrink-0 font-semibold">Team</dt>
-                    <dd class="text-quiet">{data.team}</dd>
-                  </div>
-                )}
-              </dl>
-            )}
-
-            <ul class="mt-6 mb-8 flex flex-wrap gap-2" aria-label="Built with">
-              {data.tags.map((tag) => (
-                <li class="inline-flex items-center gap-1.5 rounded-full border border-line bg-mist-soft px-3 py-1 text-sm font-semibold">
-                  <BrandGlyph name={tag} class="size-3.5 text-quiet" />
-                  {tag}
-                </li>
-              ))}
-            </ul>
-
-            {(data.liveUrl || data.repoUrl) && (
-              <div class="mt-auto flex flex-wrap gap-x-6 border-t border-line pt-4">
-                {data.liveUrl && (
-                  <a
-                    href={data.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-evergreen underline-offset-4 hover:underline"
-                  >
-                    {isRepo(data.liveUrl) ? 'Download release' : `Visit ${host(data.liveUrl)}`}
-                    <svg class="size-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M7 17 17 7M8 7h9v9" />
-                    </svg>
-                    <span class="sr-only">(opens in a new tab)</span>
-                  </a>
-                )}
-                {data.repoUrl && (
-                  <a
-                    href={data.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-evergreen underline-offset-4 hover:underline"
-                  >
-                    <BrandGlyph name="GitHub" class="size-4" />
-                    View on GitHub
-                    <span class="sr-only">(opens in a new tab)</span>
-                  </a>
-                )}
-              </div>
-            )}
-          </article>
-        </li>
-      ))}
-    </ol>
-
-    {earlier.length > 0 && (
-      <div class="mt-16 sm:mt-20">
-        <h3 data-reveal class="text-2xl font-bold tracking-[-0.01em]">Earlier work</h3>
-        <ul data-reveal class="mt-5 divide-y divide-line overflow-hidden rounded-[1.25rem] border border-line bg-surface">
-          {earlier.map(({ data }) => (
-            <li class="grid gap-3 p-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:px-6">
-              <div class="min-w-0">
-                <p class="font-display text-lg font-bold">{data.title}</p>
-                <p class="mt-1 leading-relaxed text-quiet">{data.summary}</p>
-                <p class="mt-2 text-sm font-semibold text-quiet">{data.tags.join(' · ')}</p>
-              </div>
-              {data.repoUrl && (
-                <a
-                  href={data.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex min-h-11 items-center gap-1.5 justify-self-start font-semibold text-evergreen underline-offset-4 hover:underline"
+                <h3
+                  id={`project-${i}`}
+                  class="mt-6 text-[clamp(1.85rem,1.3rem+1.8vw,2.9rem)] leading-[1.02] font-bold tracking-[-0.03em] text-balance"
                 >
-                  <BrandGlyph name="GitHub" class="size-4" />
-                  Code
-                  <span class="sr-only">for {data.title} (opens in a new tab)</span>
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
+                  {data.title}
+                </h3>
+                <p class="mt-4 max-w-xl text-lg leading-relaxed text-quiet">{data.summary}</p>
+
+                {(data.role || data.team) && (
+                  <dl class="mt-5 grid gap-1.5 text-[0.9375rem]">
+                    {data.role && (
+                      <div class="flex gap-2">
+                        <dt class="shrink-0 font-semibold">My role</dt>
+                        <dd class="text-quiet">{data.role}</dd>
+                      </div>
+                    )}
+                    {data.team && (
+                      <div class="flex gap-2">
+                        <dt class="shrink-0 font-semibold">Team</dt>
+                        <dd class="text-quiet">{data.team}</dd>
+                      </div>
+                    )}
+                  </dl>
+                )}
+
+                <ul class="mt-6 flex flex-wrap gap-2" aria-label="Built with">
+                  {data.tags.map((tag) => (
+                    <li class="inline-flex items-center gap-1.5 rounded-full border border-line bg-mist-soft px-3 py-1 text-sm font-semibold">
+                      <BrandGlyph name={tag} class="size-3.5 text-quiet" />
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+
+                {(data.liveUrl || data.repoUrl) && (
+                  <div class="mt-auto flex flex-wrap gap-3 pt-8">
+                    {live && (
+                      <a
+                        href={live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-evergreen px-5 font-semibold text-on-evergreen transition-colors hover:bg-evergreen-hover"
+                      >
+                        Visit {host(live)}
+                        <svg class="size-4 fill-none stroke-current stroke-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M7 17 17 7M8 7h9v9" />
+                        </svg>
+                        <span class="sr-only">(opens in a new tab)</span>
+                      </a>
+                    )}
+                    {release && (
+                      <a
+                        href={release}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-evergreen px-5 font-semibold text-on-evergreen transition-colors hover:bg-evergreen-hover"
+                      >
+                        Download release
+                        <svg class="size-4 fill-none stroke-current stroke-2 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M12 4v12M6 11l6 6 6-6M5 20h14" />
+                        </svg>
+                        <span class="sr-only">(opens in a new tab)</span>
+                      </a>
+                    )}
+                    {data.repoUrl && (
+                      <a
+                        href={data.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex min-h-12 items-center gap-2 rounded-full border border-line-strong/60 px-5 font-semibold text-ink transition-colors hover:border-evergreen hover:text-evergreen"
+                      >
+                        <BrandGlyph name="GitHub" class="size-4" />
+                        View code
+                        <span class="sr-only">for {data.title} (opens in a new tab)</span>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <!-- Visual -->
+              <div
+                class:list={[
+                  'relative order-first grid min-h-80 place-items-center overflow-hidden px-6 py-10 sm:min-h-96 lg:order-none lg:min-h-0',
+                  panels[i % panels.length],
+                ]}
+              >
+                <span
+                  class="pointer-events-none absolute -right-4 -bottom-10 font-display text-[11rem] leading-none font-extrabold tracking-[-0.06em] text-ink/[0.05] select-none"
+                  aria-hidden="true"
+                >
+                  {index}
+                </span>
+                <DeviceMock
+                  variant={isMobile(data.tags) ? 'phone' : 'browser'}
+                  name={data.shortName ?? data.title}
+                  tags={data.tags}
+                  host={live ? host(live) : null}
+                />
+              </div>
+
+              <!-- Darkens as the next card slides over this one (desktop stack) -->
+              <div data-stack-shade class="pointer-events-none absolute inset-0 bg-night opacity-0" aria-hidden="true"></div>
+            </article>
+          </li>
+        );
+      })}
+    </ol>
   </div>
 </section>
+
+<style>
+  /*
+   * Desktop: cards stick under the header, each a little lower than the last, so they stack.
+   * Only when the window is tall enough to show a whole card; keep in sync with src/scripts/motion.
+   */
+  @media (width >= 64rem) and (height >= 44rem) {
+    .project-stack {
+      gap: 2.5rem;
+    }
+    .project-stack > li {
+      position: sticky;
+      top: calc(var(--spacing-header) + 1.25rem + var(--i) * 0.75rem);
+    }
+  }
+</style>
