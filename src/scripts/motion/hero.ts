@@ -24,6 +24,9 @@ export function heroIntro(signal: AbortSignal) {
 
   const split = SplitText.create(title, { type: 'lines,words', mask: 'lines', linesClass: 'split-line' });
   gsap.set(q('[data-intro]'), { visibility: 'visible' });
+  // Keep the swash undrawn while the words rise. Set after splitting so the HTML that
+  // revert() restores stays untouched (fully drawn) if motion is switched off.
+  gsap.set(q('[data-swash]'), { strokeDashoffset: 1 });
 
   // Stickers bob once they've landed; created now so matchMedia can revert them.
   const bob = gsap.to(q('[data-hero-pop]'), {
@@ -52,8 +55,16 @@ export function heroIntro(signal: AbortSignal) {
   tl.from(q('[data-hero-kicker]'), { y: 16, opacity: 0, duration: 0.7 })
     .from(split.words, { yPercent: 115, duration: 1.1, ease: 'expo.out', stagger: 0.055 }, 0.12)
     // Unsplit once the words land, so the line masks can't clip the swash or resize badly.
-    .call(() => split.revert())
-    .fromTo(q('[data-swash]'), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' })
+    // revert() rebuilds the headline's HTML, so the swash path has to be looked up again here;
+    // a tween aimed at the old path would animate a detached node.
+    .call(() => {
+      split.revert();
+      gsap.fromTo(
+        title.querySelector('[data-swash]'),
+        { strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' },
+      );
+    })
     .from(q('[data-hero-fade]'), { y: 24, opacity: 0, stagger: 0.09 }, 0.6)
     .add(() => counters.forEach((c) => c.play()), 0.9)
 
