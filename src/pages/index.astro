@@ -20,7 +20,7 @@ const projects = await getCollection('projects');
   title={`${info.name} · ${info.role}`}
   description={`${info.status} in ${info.location} building cross-platform mobile apps with Flutter and full-stack web projects with Vue, React, Hono and Supabase.`}
 >
-  <Header nickname={info.nickname} />
+  <Header nickname={info.nickname} name={info.name} resume={info.resume} />
   <main id="main">
     <Hero info={info} projectCount={projects.length} />
     <AboutSection entry={personal} />

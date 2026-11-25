@@ -26,6 +26,17 @@ const channels = [
         },
       ]
     : []),
+  ...(info.resume
+    ? [
+        {
+          label: 'Resume',
+          value: 'Download CV (PDF)',
+          href: info.resume,
+          download: `${info.name} Resume.pdf`,
+          icon: ['M12 4v11', 'M7 10l5 5 5-5', 'M5 20h14'],
+        },
+      ]
+    : []),
   {
     label: 'Based in',
     value: info.location,
@@ -70,6 +81,7 @@ const channels = [
               {channel.href ? (
                 <a
                   href={channel.href}
+                  download={'download' in channel ? channel.download : undefined}
                   class="font-semibold wrap-break-word text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
                 >
                   {channel.value}

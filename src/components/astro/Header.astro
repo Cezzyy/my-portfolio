@@ -3,8 +3,14 @@ import LogoMark from '../ui/LogoMark.astro';
 
 interface Props {
   nickname: string;
+  /** Resume PDF path; adds a download link after the nav items. */
+  resume?: string;
+  /** Used for the downloaded file's name. */
+  name: string;
 }
-const { nickname } = Astro.props;
+const { nickname, resume, name } = Astro.props;
+const resumeFile = `${name} Resume.pdf`;
+const downloadIcon = 'M12 4v11M7 10l5 5 5-5M5 20h14';
 
 const navItems = [
   { label: 'About', href: '#about' },
@@ -34,6 +40,20 @@ const navItems = [
           {item.label}
         </a>
       ))}
+      <!-- Not [data-nav]: the scroll-spy expects every nav link to point at a section hash. -->
+      {resume && (
+        <a
+          href={resume}
+          download={resumeFile}
+          class="group hidden min-h-11 items-center gap-1.5 rounded-control px-3 font-semibold text-quiet transition-colors hover:text-ink md:inline-flex"
+        >
+          Resume
+          <svg class="size-4 fill-none stroke-current stroke-2 transition-transform duration-300 group-hover:translate-y-0.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d={downloadIcon} />
+          </svg>
+          <span class="sr-only">(PDF download)</span>
+        </a>
+      )}
 
       <button
         type="button"
@@ -92,6 +112,17 @@ const navItems = [
           </a>
         </li>
       ))}
+      {resume && (
+        <li>
+          <a href={resume} download={resumeFile} class="flex min-h-12 items-center gap-2 rounded-control px-3 text-lg font-semibold text-ink hover:bg-evergreen-soft">
+            Resume
+            <svg class="size-5 fill-none stroke-current stroke-2 text-quiet" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={downloadIcon} />
+            </svg>
+            <span class="sr-only">(PDF download)</span>
+          </a>
+        </li>
+      )}
     </ul>
   </div>
 </header>

@@ -22,6 +22,8 @@ const infoCollection = defineCollection({
     rightNow: z.array(z.string()),
     email: z.string(),
     phone: z.string().optional(),
+    /** Path to the resume PDF in /public, e.g. "/resume.pdf". Shows "Download CV" links when set. */
+    resume: z.string().startsWith('/').optional(),
     socials: z.array(z.object({
       label: z.string(),
       url: z.url(),
