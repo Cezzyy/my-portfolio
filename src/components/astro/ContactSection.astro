@@ -82,6 +82,8 @@ const channels = [
         ))}
       </ul>
 
+      <!-- Each pill grows to the right on hover/focus to reveal the platform and account name.
+           The width animates via grid-template-columns 0fr → 1fr, so it fits any handle length. -->
       <ul data-stagger class="mt-10 flex flex-wrap gap-3" aria-label="Social profiles">
         {info.socials.map((social) => (
           <li>
@@ -89,11 +91,31 @@ const channels = [
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              data-magnetic="0.4"
-              class="grid size-13 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/15 transition-colors hover:bg-marigold hover:text-[#12241c] hover:ring-marigold"
+              class="group flex h-13 items-center rounded-full bg-white/10 text-white ring-1 ring-white/15 transition-colors duration-300 hover:bg-marigold hover:text-[#12241c] hover:ring-marigold focus-visible:bg-marigold focus-visible:text-[#12241c] focus-visible:ring-marigold focus-visible:outline-none"
             >
-              <BrandGlyph name={social.label} class="size-5" />
-              <span class="sr-only">{social.label} (opens in a new tab)</span>
+              <span class="grid size-13 shrink-0 place-items-center">
+                <BrandGlyph name={social.label} class="size-5 transition-transform duration-500 ease-glide group-hover:-rotate-8 group-focus-visible:-rotate-8" />
+              </span>
+              <span class="grid grid-cols-[0fr] transition-[grid-template-columns] duration-500 ease-glide group-hover:grid-cols-[1fr] group-focus-visible:grid-cols-[1fr] motion-reduce:transition-none">
+                <span class="min-w-0 overflow-hidden">
+                  <span class="block -translate-x-3 pr-6 whitespace-nowrap opacity-0 transition duration-300 ease-glide group-hover:translate-x-0 group-hover:opacity-100 group-hover:delay-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 group-focus-visible:delay-100 motion-reduce:translate-x-0 motion-reduce:transition-opacity">
+                    <span class="block text-sm leading-tight font-bold">{social.label}</span>
+                    <span class="mt-0.5 flex items-center gap-1 text-xs leading-tight font-medium opacity-75">
+                      <svg
+                        class="size-3 shrink-0 fill-none stroke-current stroke-[2.5] transition-transform duration-500 ease-glide group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        viewBox="0 0 24 24"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 17 17 7M8 7h9v9" />
+                      </svg>
+                      {social.handle ?? new URL(social.url).hostname.replace(/^www\./, '')}
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <span class="sr-only">(opens in a new tab)</span>
             </a>
           </li>
         ))}

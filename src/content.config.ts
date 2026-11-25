@@ -25,6 +25,8 @@ const infoCollection = defineCollection({
     socials: z.array(z.object({
       label: z.string(),
       url: z.url(),
+      /** Account name shown when the social pill expands. */
+      handle: z.string().optional(),
     })),
     stack: z.array(z.object({
       group: z.string(),
