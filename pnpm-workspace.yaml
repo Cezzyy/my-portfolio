@@ -10,3 +10,9 @@ minimumReleaseAgeExclude:
   - '@astrojs/vue-renderer@0.1.2'
   - '@astrojs/vue@7.1.6'
   - astro@7.4.12
+supportedArchitectures:
+  cpu:
+    - current
+    - wasm32
+overrides:
+  '@astrojs/compiler-binding-linux-x64-gnu': '-'

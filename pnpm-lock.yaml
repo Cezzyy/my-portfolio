@@ -162,6 +162,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@astrojs/compiler-binding-linux-x64-gnu': '-'
+
 importers:
 
   .:
@@ -262,13 +265,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     libc: [musl]
-
-  '@astrojs/compiler-binding-linux-x64-gnu@0.5.3':
-    resolution: {integrity: sha512-8rIMmEFtuVe5mMvwBR59uSHZL7CaJ/CPm5Hh3r3Bd5JLoSPkBbl1xk8kwUkNKJ0QSbGEFdWkUnx73JRZq46i2A==}
-    engines: {node: ^20.19.0 || >=22.12.0}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
 
   '@astrojs/compiler-binding-linux-x64-musl@0.5.3':
     resolution: {integrity: sha512-+sZCsIXq/PQBiemALIr+GbERKQbQ82mHW2ibJUlCDtsjyFA/8Udm8WGZhS7AGjb2P9ekQ4j7Z8dbxb0f3E0oZw==}
@@ -2779,9 +2775,6 @@ snapshots:
   '@astrojs/compiler-binding-linux-arm64-musl@0.5.3':
     optional: true
 
-  '@astrojs/compiler-binding-linux-x64-gnu@0.5.3':
-    optional: true
-
   '@astrojs/compiler-binding-linux-x64-musl@0.5.3':
     optional: true
 
@@ -2805,7 +2798,6 @@ snapshots:
       '@astrojs/compiler-binding-darwin-x64': 0.5.3
       '@astrojs/compiler-binding-linux-arm64-gnu': 0.5.3
       '@astrojs/compiler-binding-linux-arm64-musl': 0.5.3
-      '@astrojs/compiler-binding-linux-x64-gnu': 0.5.3
       '@astrojs/compiler-binding-linux-x64-musl': 0.5.3
       '@astrojs/compiler-binding-wasm32-wasi': 0.5.3
       '@astrojs/compiler-binding-win32-arm64-msvc': 0.5.3
