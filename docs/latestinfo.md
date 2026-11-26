@@ -47,7 +47,6 @@ class Cornflakesxz {
 | 🌉 **[DigiBridge](https://digibridge-web.pages.dev)** | Research-backed web app for assessing students' digital literacy and promoting digital inclusion. I lead the group and built the system end to end. | Vue · Hono · Drizzle · Supabase · Turborepo |
 | 🌴 **[Bisayas](https://bisayas.com)** | <!-- TODO: one-line description --> Full-stack web project, deployed on Cloudflare. | React · Hono · Supabase · Turborepo · pnpm |
 | 🏍️ **[MotoTrack](https://github.com/ChristianAlicaba2002/mototrack-wiki)** | Android app for motorcycle owners in the Philippines: bikes and mileage, service log, a document vault with renewal reminders, spec sheets and DIY guides, and an AI mechanic. I built the Wiki and AI Mechanic. [v1.0.0 release](https://github.com/ChristianAlicaba2002/mototrack-wiki/releases) | Expo · React Native · TypeScript · Firebase · Groq |
-| ⚡ **[Pokédex](https://github.com/ChristianAlicaba2002/pokedex)** | Team mobile app for browsing Pokémon, built for a CS class project. | Expo · React Native · TypeScript |
 
 ---
 
